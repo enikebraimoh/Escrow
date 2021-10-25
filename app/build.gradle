@@ -28,6 +28,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -67,6 +68,6 @@ dependencies {
     //3rd party libraries
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.0'
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
 
 }
