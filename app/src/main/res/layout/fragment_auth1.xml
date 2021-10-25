@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -11,6 +12,92 @@
         android:layout_height="match_parent"
         tools:context=".ui.auth.Auth1Fragment">
 
+        <TextView
+            android:id="@+id/enternumber"
+            style="@style/texts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:text="Enter your mobile  number"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_phonee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enternumber" />
+
+        <TextView
+            android:id="@+id/info"
+            style="@style/texts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/googlesans_regular"
+            android:text="You will receive a 4 Digit code, do not disclose \n it with 3rd Party."
+            android:textAlignment="center"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+        <LinearLayout
+            android:id="@+id/inputphonenumber"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info"
+            android:layout_width="match_parent"
+            android:background="@drawable/input_field_bg"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_nigeria"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text=" | +234 "
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/googlesans_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:textSize="20sp"
+                android:background="@drawable/blank_input_field"
+                android:fontFamily="@font/googlesans_regular"
+                android:maxLength="10"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/googlesans_medium"
+            app:layout_constraintTop_toBottomOf="@+id/inputphonenumber"
+            android:layout_width="match_parent"
+            style="@style/buttons"
+            android:text="Get OTP"
+            android:layout_height="wrap_content"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

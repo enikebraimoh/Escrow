@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/auth1Fragment">
 
+    <fragment
+        tools:layout="@layout/fragment_auth1"
+        android:id="@+id/auth1Fragment"
+        android:name="com.adashi.escrow.ui.auth.Auth1Fragment"
+        android:label="Auth1Fragment" >
+        <action
+            android:id="@+id/action_auth1Fragment_to_auth2Fragment"
+            app:destination="@id/auth2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/auth2Fragment"
+        android:name="com.adashi.escrow.ui.auth.Auth2Fragment"
+        android:label="Auth2Fragment" >
+        <action
+            android:id="@+id/action_auth2Fragment_to_auth3Fragment"
+            app:destination="@id/auth3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/auth3Fragment"
+        android:name="com.adashi.escrow.ui.auth.Auth3Fragment"
+        android:label="Auth3Fragment" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.adashi.escrow.ui.dashboard.DashboardFragment"
+        android:label="DashboardFragment" />
 </navigation>
