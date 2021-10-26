@@ -2,4 +2,13 @@
     <string name="app_name">Escrow</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="position" translatable="false">position</string>
+    <string name="transaction_title">Transaction Title <font color='#FF0000'> *</font></string>
+    <string name="transaction_description">Transaction Description<font color='#FF0000'> *</font></string>
+    <string name="transaction_price">Price<font color='#FF0000'> *</font></string>
+    <string name="transaction_title_helper_text">A short description of the item to be purchased or Sold</string>
+    <string name="dummy_text"> Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla
+    Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla </string>
+    <string name="buyer_name">Buyer\'s Name<font color='#FF0000'> *</font></string>
+    <string name="buyer_email">Buyer\'s Email<font color='#FF0000'> *</font></string>
+    <string name="buyer_phonenumber">Buyer\'s Phone Number<font color='#FF0000'> *</font></string>
 </resources>

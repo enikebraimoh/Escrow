@@ -3,31 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/auth1Fragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        tools:layout="@layout/fragment_auth1"
-        android:id="@+id/auth1Fragment"
-        android:name="com.adashi.escrow.ui.auth.Auth1Fragment"
-        android:label="Auth1Fragment" >
+        android:id="@+id/RegisterAuthFragment"
+        android:name="com.adashi.escrow.ui.auth.register.RegisterAuthFragment"
+        android:label="RegisterAuthFragment"
+        tools:layout="@layout/fragment_register_auth" >
         <action
-            android:id="@+id/action_auth1Fragment_to_auth2Fragment"
-            app:destination="@id/auth2Fragment" />
+            android:id="@+id/action_RegisterAuthFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/auth2Fragment"
-        android:name="com.adashi.escrow.ui.auth.Auth2Fragment"
-        android:label="Auth2Fragment" >
-        <action
-            android:id="@+id/action_auth2Fragment_to_auth3Fragment"
-            app:destination="@id/auth3Fragment" />
-    </fragment>
+        tools:layout="@layout/fragment_phone_auth2"
+        android:id="@+id/PhoneAuth2Fragment"
+        android:name="com.adashi.escrow.ui.auth.PhoneAuth2Fragment"
+        android:label="PhoneAuth1Fragment" />
     <fragment
-        android:id="@+id/auth3Fragment"
-        android:name="com.adashi.escrow.ui.auth.Auth3Fragment"
-        android:label="Auth3Fragment" />
+        tools:layout="@layout/fragment_phone_auth1"
+        android:id="@+id/PhoneAuth1Fragment"
+        android:name="com.adashi.escrow.ui.auth.register.RegisterAuthFragment"
+        android:label="fragment_register_auth" />
     <fragment
+        tools:layout="@layout/fragment_dashboard"
         android:id="@+id/dashboardFragment"
         android:name="com.adashi.escrow.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment" />
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_createTransactionFragment"
+            app:destination="@id/createTransactionFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_login"
+        android:id="@+id/loginFragment"
+        android:name="com.adashi.escrow.ui.auth.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_loginFragment_to_RegisterAuthFragment"
+            app:destination="@id/RegisterAuthFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_create_transaction"
+        android:id="@+id/createTransactionFragment"
+        android:name="com.adashi.escrow.ui.createtransaction.CreateTransactionFragment"
+        android:label="CreateTransactionFragment" />
 </navigation>
