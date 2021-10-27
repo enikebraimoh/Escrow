@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/layout/fragment_auth1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_auth2.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_auth3.xml" value="0.28072916666666664" />
-        <entry key="app/src/main/res/layout/fragment_create_transaction.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_create_transaction.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_phone_auth1.xml" value="0.2947916666666667" />

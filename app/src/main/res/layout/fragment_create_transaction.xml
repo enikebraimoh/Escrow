@@ -137,59 +137,6 @@
                         android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/transaction_image_field"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/googlesans_regular"
-                    android:hint="Image"
-                    app:helperText="@string/transaction_title_helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/transaction_price_field">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/transaction_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/googlesans_regular"
-                        android:inputType="textEmailAddress"
-                        android:padding="20dp"
-                        android:singleLine="false"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/payment_method_field"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/googlesans_regular"
-                    android:hint="Payment method"
-                    app:helperText="@string/transaction_title_helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyer_phone_field">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/payment_method"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/googlesans_regular"
-                        android:inputType="phone"
-                        android:padding="20dp"
-                        android:singleLine="false"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <!-- Buyers Details -->
 
                 <LinearLayout
@@ -578,8 +525,72 @@
                             android:textColor="@color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/who_is_paying_field"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/googlesans_regular"
+                        android:hint="@string/transaction_price"
+                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperTextEnabled="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/transaction_description_field">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/who_is_paying"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/googlesans_regular"
+                            android:inputType="number"
+                            android:padding="20dp"
+                            android:singleLine="false"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/payment_method_field"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/googlesans_regular"
+                        android:hint="Payment method"
+                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperTextEnabled="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/buyer_phone_field">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/payment_method"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/googlesans_regular"
+                            android:inputType="phone"
+                            android:padding="20dp"
+                            android:singleLine="false"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+                <Button
+                    android:id="@+id/login_button"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/googlesans_medium"
+                    app:layout_constraintTop_toBottomOf="@+id/password_field"
+                    android:layout_width="match_parent"
+                    style="@style/buttons"
+                    android:textAllCaps="false"
+                    android:text="Create Transaction"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
