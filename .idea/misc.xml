@@ -6,6 +6,8 @@
         <entry key="app/src/main/res/drawable-v24/cornercircle.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable-v24/rounded_gray_background.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/blank_input_field.xml" value="0.3109375" />
+        <entry key="app/src/main/res/drawable/ic_add_icon.xml" value="0.22685185185185186" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/input_field_bg.xml" value="0.3109375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26296296296296295" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.2947916666666667" />
@@ -18,6 +20,7 @@
         <entry key="app/src/main/res/layout/fragment_phone_auth1.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_phone_auth2.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_register_auth.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/sucess_bottom_sheet_dialogue.xml" value="0.25" />
       </map>
     </option>
   </component>

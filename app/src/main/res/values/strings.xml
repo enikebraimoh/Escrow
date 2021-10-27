@@ -50,5 +50,6 @@
         <item> Ussd </item>
         <item> Internet </item>
     </string-array>
+    <string name="share_transaction">Transaction Details %s </string>
 
 </resources>

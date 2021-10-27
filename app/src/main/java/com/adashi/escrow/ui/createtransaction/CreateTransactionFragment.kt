@@ -1,13 +1,18 @@
 package com.adashi.escrow.ui.createtransaction
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
+import com.adashi.escrow.ShowSucessDialogFragment
 import com.adashi.escrow.databinding.FragmentCreateTransactionBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.signup.SignUpResponse
@@ -40,6 +45,21 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
                 is DataState.Success<NewTransactionBodyResponse> -> {
                     displayProgressBar(false)
                     showSnackBar(response.data.data.url)
+
+                    val intent  = ShareCompat.IntentBuilder.from(requireActivity())
+                        .setType("text/plain")
+                        .setText(getString(R.string.share_transaction,response.data.data.url))
+                        .intent
+
+                    var fr = ShowSucessDialogFragment(response.data){
+                        when(it){
+                            0 ->{
+                                startActivity(intent)
+                                findNavController().popBackStack()
+                           }
+                        }
+                    }
+                    fr.show(requireActivity().supportFragmentManager,"added fragm")
 
                     viewModel.navigateButtonClicked()
                 }
@@ -80,6 +100,10 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
                 binding.spinKit.visibility = View.INVISIBLE
                 binding.loginButton.visibility = View.VISIBLE
             }
+        }
+
+        fun startIntent(int : Intent){
+            startActivity((int))
         }
 
     }

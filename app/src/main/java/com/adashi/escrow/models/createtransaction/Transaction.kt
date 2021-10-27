@@ -18,5 +18,6 @@ data class Transaction(
     val transactionId: String,
     val updatedAt: String,
     val user: String,
+    val status: String,
     val virtual_account: VirtualAccount
 )
