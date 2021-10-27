@@ -14,3 +14,8 @@ fun verifyField(field: TextInputLayout, error: String?) {
         field.isErrorEnabled = false
     }
 }
+
+@BindingAdapter("selectProductType")
+fun selectProductType(productTypeField: AutoCompleteTextView, productTypes: ArrayAdapter<String>) {
+    productTypeField.setAdapter(productTypes)
+}

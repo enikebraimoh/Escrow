@@ -11,4 +11,44 @@
     <string name="buyer_name">Buyer\'s Name<font color='#FF0000'> *</font></string>
     <string name="buyer_email">Buyer\'s Email<font color='#FF0000'> *</font></string>
     <string name="buyer_phonenumber">Buyer\'s Phone Number<font color='#FF0000'> *</font></string>
+
+    <string name="sellers_name">Seller\'s Name<font color='#FF0000'> *</font></string>
+    <string name="sellers_email">Seller\'s Email<font color='#FF0000'> *</font></string>
+    <string name="sellers_phonenumber">Seller\'s Phone Number<font color='#FF0000'> *</font></string>
+
+    <string name="product_name">Product Name<font color='#FF0000'> *</font></string>
+    <string name="product_type">Product Type<font color='#FF0000'> *</font></string>
+    <string name="product_description">Product Description<font color='#FF0000'> *</font></string>
+
+    <string name="product_quantity">Product Quantity<font color='#FF0000'> *</font></string>
+    <string name="product_price_per_unit">Product price Per Unit<font color='#FF0000'> *</font></string>
+    <string name="product_Price">Product Price<font color='#FF0000'> *</font></string>
+
+    <string name="who_is_paying">Who is Paying<font color='#FF0000'> *</font></string>
+    <string name="payment_method">Payment Method<font color='#FF0000'> *</font></string>
+
+    <string-array name="product_type">
+        <item> Physical Good </item>
+        <item> Digital </item>
+        <item> Services </item>
+    </string-array>
+
+    <string-array name="price_per_unit">
+        <item> NGN </item>
+        <item> USD </item>
+        <item> CASH </item>
+    </string-array>
+
+    <string-array name="who_is_paying">
+        <item> Buyer </item>
+        <item> Seller </item>
+        <item> Buyer 50% / seller 50% </item>
+    </string-array>
+
+    <string-array name="payment_method">
+        <item> Bank Transfer </item>
+        <item> Ussd </item>
+        <item> Internet </item>
+    </string-array>
+
 </resources>
