@@ -12,6 +12,7 @@ import com.adashi.escrow.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
 import ng.adashi.domain_models.login.LoginResponse
+import ng.adashi.domain_models.login.LoginToken
 import ng.adashi.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.AuthRepository
@@ -21,7 +22,6 @@ import ng.adashi.utils.DataState
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     override fun start() {
-
         Log.d("Testt","Login fragment")
 
         Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
@@ -52,7 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
             viewModel.login.observe(this, { response ->
                 when (response) {
-                    is DataState.Success<LoginResponse> -> {
+                    is DataState.Success<LoginToken> -> {
                         displayProgressBar(false)
                         showSnackBar("success")
                         viewModel.navigate()

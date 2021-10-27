@@ -1,6 +1,6 @@
-package com.adashi.escrow.models.createtransaction
+package com.adashi.escrow.models
 
-data class NewTransactionRequestBody(
+data class sampleTrans(
     val buyer: Buyer,
     val description: String,
     val fee_paid_by: String,

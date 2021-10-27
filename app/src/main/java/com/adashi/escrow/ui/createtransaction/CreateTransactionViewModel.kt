@@ -7,6 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adashi.escrow.R
+import com.adashi.escrow.models.createtransaction.Buyer
+import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
+import com.adashi.escrow.models.createtransaction.Seller
+import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
 import kotlinx.coroutines.flow.launchIn
@@ -14,9 +19,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.AuthRepository
+import ng.adashi.repository.HomeRepository
 import ng.adashi.utils.DataState
 
-class CreateTransactionViewModel(val app: Application, val authRepository: AuthRepository) :
+class CreateTransactionViewModel(val app: Application, val homeRepository: HomeRepository) :
     ViewModel() {
 
     // for seller
@@ -35,7 +41,9 @@ class CreateTransactionViewModel(val app: Application, val authRepository: AuthR
     var product_name: String? = null
     var product_description: String? = null
     var product_quantity: String? = null
+
     var product_price: String? = null
+
     var whopays: String? = null
     var payment_method: String? = null
 
@@ -46,8 +54,8 @@ class CreateTransactionViewModel(val app: Application, val authRepository: AuthR
     val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
 
 
-    private val _signup = MutableLiveData<DataState<SignUpResponse>>()
-    val signup: LiveData<DataState<SignUpResponse>> get() = _signup
+    private val _transaction = MutableLiveData<DataState<NewTransactionBodyResponse>>()
+    val transaction: LiveData<DataState<NewTransactionBodyResponse>> get() = _transaction
 
     // live data for error response
     private val _passwordError = MutableLiveData<String>()
@@ -66,23 +74,25 @@ class CreateTransactionViewModel(val app: Application, val authRepository: AuthR
     val WhoPays = app.resources.getStringArray(R.array.who_is_paying)
     val PaymentMethod = app.resources.getStringArray(R.array.payment_method)
 
-    val productTypeArrayAdapter =
-        ArrayAdapter(app.applicationContext, R.layout.dropdown_item, productType)
+    val productTypeArrayAdapter = ArrayAdapter(app.applicationContext, R.layout.dropdown_item, productType)
     val WhoPaysArrayAdapter = ArrayAdapter(app.applicationContext, R.layout.dropdown_item, WhoPays)
-    val PaymentMethodArrayAdapter =
-        ArrayAdapter(app.applicationContext, R.layout.dropdown_item, PaymentMethod)
+    val PaymentMethodArrayAdapter = ArrayAdapter(app.applicationContext, R.layout.dropdown_item, PaymentMethod)
 
 
-    fun register() {
-
-        //logUsersIn(SignUpDetails(firstName!!,lastName!!, email!!,password!!))
+    fun CreateNewTransaction() {
+        val buyer = com.adashi.escrow.models.Buyer(buyer_email!!,buyer_name!!,buyer_phone?.toLong()!!)
+        val seller = com.adashi.escrow.models.Seller(seller_email!!,seller_name!!,seller_phone?.toLong()!!)
+        val transaction = sampleTrans(buyer,product_description!!,whopays!!,payment_method!!,product_price!!.toDouble(),
+            product_type!!,product_quantity?.toInt()!!,seller,transaction_title!!,555)
+        CreateTransaction(transaction)
     }
 
+
     //call the login function from the repository
-    fun logUsersIn(details: SignUpDetails) {
+    fun CreateTransaction(details: sampleTrans) {
         viewModelScope.launch {
-            authRepository.SignUpUser(details).onEach { state ->
-                _signup.value = state
+            homeRepository.CreateTransaction(details).onEach { state ->
+                _transaction.value = state
             }.launchIn(viewModelScope)
         }
     }

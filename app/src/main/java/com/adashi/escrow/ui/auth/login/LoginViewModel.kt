@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.domain_models.login.LoginResponse
+import ng.adashi.domain_models.login.LoginToken
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.AuthRepository
 import ng.adashi.utils.App
@@ -25,8 +26,8 @@ class LoginViewModel(val app: Application, val authRepository: AuthRepository) :
     private val _navigateToDashboard = MutableLiveData<Boolean>()
     val navigateToDashboard: LiveData<Boolean> get() = _navigateToDashboard
 
-    private val _login = MutableLiveData<DataState<LoginResponse>>()
-    val login: LiveData<DataState<LoginResponse>> get() = _login
+    private val _login = MutableLiveData<DataState<LoginToken>>()
+    val login: LiveData<DataState<LoginToken>> get() = _login
 
     private val _passwordError = MutableLiveData<String>()
     val passwordError: LiveData<String> get() = _passwordError
@@ -48,8 +49,8 @@ class LoginViewModel(val app: Application, val authRepository: AuthRepository) :
             authRepository.LogUserNewIn(login).onEach { state ->
                 _login.value = state
                 when(state){
-                    is DataState.Success<LoginResponse> -> {
-                        session.saveAuthToken(state.data.data.accessToken)
+                    is DataState.Success<LoginToken> -> {
+                        session.saveAuthToken(state.data.accessToken)
                     }
                 }
 

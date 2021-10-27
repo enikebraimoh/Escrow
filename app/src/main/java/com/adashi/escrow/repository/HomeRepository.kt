@@ -1,5 +1,8 @@
 package ng.adashi.repository
 
+import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
+import com.adashi.escrow.models.sampleTrans
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ng.adashi.domain_models.login.LoginDetails
@@ -17,6 +20,23 @@ class HomeRepository(private val networkDataSource: NetworkDataSource) {
         emit(DataState.Loading)
         try {
             val response = networkDataSource.GetWallet(wallet_id)
+            emit(DataState.Success(response))
+        } catch (e: Exception) {
+            when (e){
+                is IOException -> emit(DataState.Error(e))
+                is HttpException -> {
+                    val status = e.code()
+                    val res = convertErrorBody(e)
+                    emit(DataState.GenericError(status, res))
+                }
+            }
+        }
+    }
+
+    suspend fun CreateTransaction (details: sampleTrans) : Flow<DataState<NewTransactionBodyResponse>> = flow {
+        emit(DataState.Loading)
+        try {
+            val response = networkDataSource.CreateTransaction(details)
             emit(DataState.Success(response))
         } catch (e: Exception) {
             when (e){

@@ -56,5 +56,9 @@
         tools:layout="@layout/fragment_create_transaction"
         android:id="@+id/createTransactionFragment"
         android:name="com.adashi.escrow.ui.createtransaction.CreateTransactionFragment"
-        android:label="CreateTransactionFragment" />
+        android:label="CreateTransactionFragment" >
+        <action
+            android:id="@+id/action_createTransactionFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
