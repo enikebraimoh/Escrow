@@ -106,6 +106,7 @@
                         android:id="@+id/transaction_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.transaction_title}"
                         android:fontFamily="@font/googlesans_regular"
                         android:inputType="textEmailAddress"
                         android:padding="20dp"
@@ -154,6 +155,7 @@
                             android:id="@+id/seller_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewModel.seller_name}"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="textPersonName"
                             android:padding="20dp"
@@ -181,6 +183,7 @@
                             android:id="@+id/seller_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewModel.seller_email}"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="textEmailAddress"
                             android:padding="20dp"
@@ -208,6 +211,7 @@
                             android:id="@+id/seller_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewModel.seller_phone}"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="phone"
                             android:padding="20dp"
@@ -256,11 +260,13 @@
                                 android:id="@+id/buyer_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:text="@={viewModel.buyer_name}"
                                 android:fontFamily="@font/googlesans_regular"
                                 android:inputType="textEmailAddress"
                                 android:padding="20dp"
                                 android:singleLine="false"
                                 android:textColor="@color/white" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -283,6 +289,7 @@
                                 android:id="@+id/buyer_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:text="@={viewModel.buyer_email}"
                                 android:fontFamily="@font/googlesans_regular"
                                 android:inputType="textEmailAddress"
                                 android:padding="20dp"
@@ -310,6 +317,7 @@
                                 android:id="@+id/buyer_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:text="@={viewModel.buyer_phone}"
                                 android:fontFamily="@font/googlesans_regular"
                                 android:inputType="phone"
                                 android:padding="20dp"
@@ -358,6 +366,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/Product_name"
                             android:layout_width="match_parent"
+                            android:text="@={viewModel.product_name}"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="text"
@@ -385,6 +394,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/Product_type"
                             android:inputType="none"
+                            android:text="@={viewModel.product_type}"
                             android:layout_width="match_parent"
                             selectProductType="@{viewModel.productTypeArrayAdapter}"
                             android:layout_height="wrap_content"
@@ -413,6 +423,7 @@
                             android:id="@+id/Product_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewModel.product_description}"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="textMultiLine"
                             android:padding="20dp"
@@ -440,38 +451,12 @@
                             android:id="@+id/Product_quantity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewModel.product_quantity}"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="number"
                             android:padding="20dp"
                             android:singleLine="false"
                             android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/price_perunit_price_field"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/googlesans_regular"
-                        android:hint="@string/product_price_per_unit"
-                        app:helperText="@string/transaction_title_helper_text"
-                        app:helperTextEnabled="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/buyer_email_field">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/price_perunit_price"
-                            android:layout_width="match_parent"
-                            android:inputType="none"
-                            selectProductType="@{viewModel.whoPaysArrayAdapter}"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/googlesans_regular"
-                            android:padding="20dp"
-                            android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -496,6 +481,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="number"
+                            android:text="@={viewModel.product_price}"
                             android:padding="20dp"
                             android:singleLine="true"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -519,6 +505,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/who_is_paying"
                             android:layout_width="match_parent"
+                            android:text="@={viewModel.whopays}"
                             selectProductType="@{viewModel.whoPaysArrayAdapter}"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/googlesans_regular"
@@ -547,6 +534,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/payment_method"
                             android:layout_width="match_parent"
+                            android:text="@={viewModel.payment_method}"
                             android:layout_height="wrap_content"
                             selectProductType="@{viewModel.paymentMethodArrayAdapter}"
                             android:fontFamily="@font/googlesans_regular"
