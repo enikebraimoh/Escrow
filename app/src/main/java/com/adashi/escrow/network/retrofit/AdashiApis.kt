@@ -2,18 +2,15 @@ package ng.adashi.network.retrofit
 
 
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
+import com.adashi.escrow.models.wallet.WalletBalance
 import ng.adashi.domain_models.login.LoginDetails
-import ng.adashi.domain_models.login.LoginResponse
 import ng.adashi.domain_models.login.LoginToken
-import ng.adashi.ui.home.models.AgentWalletResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 
 interface AdashiApis {
 
@@ -27,10 +24,8 @@ interface AdashiApis {
         @Body signUpDetails: SignUpDetails
     ) : SignUpResponse
 
-    @GET("api/v1/agent/wallet/{wallet_Id}")
-    suspend fun GetAgentWallet(
-        @Path("wallet_Id") wallet_Id : String
-    ) : AgentWalletResponse
+    @GET("api/v1/user/balance")
+    suspend fun getWalletBalancce() : WalletBalance
 
     @POST("api/v1/transactions/new")
     suspend fun CreateTransaction(

@@ -18,6 +18,7 @@ import ng.adashi.network.SessionManager
 import ng.adashi.repository.AuthRepository
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
+import okhttp3.internal.wait
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
@@ -55,6 +56,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     is DataState.Success<LoginToken> -> {
                         displayProgressBar(false)
                         showSnackBar("success")
+                        App.token = response.data.accessToken
                         viewModel.navigate()
                     }
                     is DataState.Error -> {

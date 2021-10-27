@@ -1,14 +1,11 @@
 package ng.adashi.repository
 
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
 import com.adashi.escrow.models.sampleTrans
+import com.adashi.escrow.models.wallet.WalletBalance
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ng.adashi.domain_models.login.LoginDetails
-import ng.adashi.domain_models.login.LoginResponse
 import ng.adashi.network.NetworkDataSource
-import ng.adashi.ui.home.models.AgentWalletResponse
 import ng.adashi.utils.DataState
 import ng.adashi.utils.convertErrorBody
 import retrofit2.HttpException
@@ -16,10 +13,10 @@ import java.io.IOException
 
 class HomeRepository(private val networkDataSource: NetworkDataSource) {
 
-    suspend fun getWalletAgentDetails (wallet_id: String) : Flow<DataState<AgentWalletResponse>> = flow {
+    suspend fun getWalletAgentDetails () : Flow<DataState<WalletBalance>> = flow {
         emit(DataState.Loading)
         try {
-            val response = networkDataSource.GetWallet(wallet_id)
+            val response = networkDataSource.GetWalletBalance()
             emit(DataState.Success(response))
         } catch (e: Exception) {
             when (e){

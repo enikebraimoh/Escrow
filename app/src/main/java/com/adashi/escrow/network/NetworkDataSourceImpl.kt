@@ -1,15 +1,13 @@
 package ng.adashi.network
 
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
+import com.adashi.escrow.models.wallet.WalletBalance
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.network.retrofit.*
-import ng.adashi.domain_models.login.LoginResponse
 import ng.adashi.domain_models.login.LoginToken
-import ng.adashi.ui.home.models.AgentWalletResponse
 
 class NetworkDataSourceImpl : NetworkDataSource {
 
@@ -23,8 +21,8 @@ class NetworkDataSourceImpl : NetworkDataSource {
         return response
     }
 
-    override suspend fun GetWallet(wallet_id: String): AgentWalletResponse {
-        val response = RetrofitInstance.api.GetAgentWallet(wallet_id)
+    override suspend fun GetWalletBalance(): WalletBalance {
+        val response = RetrofitInstance.api.getWalletBalancce()
         return response
     }
 

@@ -20,6 +20,7 @@ import com.adashi.escrow.ui.auth.register.RegisterFactory
 import com.adashi.escrow.ui.auth.register.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
+import ng.adashi.domain_models.login.LoginToken
 import ng.adashi.network.NetworkDataSourceImpl
 import ng.adashi.repository.AuthRepository
 import ng.adashi.repository.HomeRepository
@@ -82,6 +83,10 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
                 }
             }
         })
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
     }
 
