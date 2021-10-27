@@ -44,6 +44,7 @@
         <item> Seller </item>
         <item> Buyer 50% / seller 50% </item>
     </string-array>
+    <string name="agent_name">Hello Enike 👋🏽</string>
 
     <string-array name="payment_method">
         <item> Bank Transfer </item>

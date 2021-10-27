@@ -7,7 +7,6 @@ data class Transaction(
     val createdAt: String,
     val description: String,
     val fee_paid_by: String,
-    val image: String,
     val payment_method: String,
     val price: Double,
     val product_category: String,

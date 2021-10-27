@@ -4,22 +4,239 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="balance"
+            type="com.adashi.escrow.models.wallet.Balances" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="?android:colorBackground"
         android:layout_height="match_parent"
+        android:background="?android:colorBackground"
         tools:context=".ui.dashboard.DashboardFragment">
 
 
+        <TextView
+            android:id="@+id/username"
+            style="@style/texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:text="@string/agent_name"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_notification_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/username"
+            app:layout_constraintEnd_toStartOf="@+id/profile_icon"
+            app:layout_constraintTop_toTopOf="@id/username" />
+
+        <ImageView
+            android:id="@+id/profile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_person_pin_24"
+            app:layout_constraintBottom_toBottomOf="@+id/icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/icon" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_icon"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            android:layout_height="0dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <HorizontalScrollView
+                    android:id="@+id/quick_actions_scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/username">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/savings"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:cardBackgroundColor="@color/primaryColor"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="0dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="20dp"
+                                    android:src="@drawable/ic_savings_icon"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/googlesans_regular"
+                                    android:text="Main balance"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.133"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                                <TextView
+                                    android:id="@+id/main_wallet_balance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="30dp"
+                                    android:fontFamily="@font/googlesans_bold"
+                                    android:text="5,000.00"
+                                    currency_converter="@{balance.mainBalance}"
+                                    android:textSize="30dp"
+                                    android:textColor="#FFCE00"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="@+id/title"
+                                    app:layout_constraintTop_toBottomOf="@+id/title"
+                                    app:layout_constraintVertical_bias="1.0" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/savings2"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:cardBackgroundColor="#CF7C00"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="0dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/icon2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="20dp"
+                                    android:src="@drawable/ic_savings_icon"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/title2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/googlesans_regular"
+                                    android:text="Pending balance"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.133"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/icon2" />
+
+                                <TextView
+                                    android:id="@+id/pending_wallet_balance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="30dp"
+                                    android:fontFamily="@font/googlesans_bold"
+                                    android:text="5,000.00"
+                                    currency_converter="@{balance.pendingBalance}"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                    android:textColor="@color/white"
+                                    android:textSize="30dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="@+id/title2"
+                                    app:layout_constraintTop_toBottomOf="@+id/title2"
+                                    app:layout_constraintVertical_bias="0.0" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:id="@+id/recent_transactions"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/googlesans_medium"
+                    android:text="Recent Transactions"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quick_actions_scrollview" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recent_transactions"
+                    tools:listitem="@layout/transaction_item_layout" />
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?colorPrimary"
             android:clickable="true"
-            android:backgroundTint="?colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.887"
@@ -27,5 +244,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.946"
             app:srcCompat="@drawable/ic_baseline_add_24" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+
+
+
