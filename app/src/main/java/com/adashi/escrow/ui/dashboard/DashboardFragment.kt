@@ -27,6 +27,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
     override fun start() {
 
+
         val application = requireNotNull(this.activity).application
         val network = NetworkDataSourceImpl()
         val viewModelProviderFactory = DashboardFactory(application, HomeRepository(network))
@@ -68,7 +69,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         })
 
         Log.d("Testt", "Dashboard fragment")
-        Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
 
         binding.createTransaction.setOnClickListener {
             findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToCreateTransactionFragment())

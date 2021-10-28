@@ -10,9 +10,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ng.adashi.repository.HomeRepository
+import ng.adashi.utils.App
 import ng.adashi.utils.DataState
 
 class DashboardViewModel(val app: Application, val homeRepository: HomeRepository) : ViewModel() {
+
 
     private val _wallet_ballance = MutableLiveData<DataState<WalletBalance>>()
     val wallet_ballance: LiveData<DataState<WalletBalance>> get() = _wallet_ballance

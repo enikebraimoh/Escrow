@@ -25,7 +25,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun start() {
         Log.d("Testt","Login fragment")
 
-        Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
+       // Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
 
         val application = requireNotNull(this.activity).application
         val network = NetworkDataSourceImpl()
@@ -55,7 +55,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 when (response) {
                     is DataState.Success<LoginToken> -> {
                         displayProgressBar(false)
-                        showSnackBar("success")
+                        showSnackBar("Welcome")
                         viewModel.navigate()
                     }
                     is DataState.Error -> {

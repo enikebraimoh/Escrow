@@ -17,7 +17,7 @@ import ng.adashi.utils.DataState
 class RegisterViewModel(val app: Application, val authRepository: AuthRepository) : ViewModel()  {
 
     var email: String? = null
-    var name: String? = null
+    var phoneNumber: String? = null
     var password: String? = null
     var firstName: String? = null
     var lastName: String? = null
@@ -41,8 +41,8 @@ class RegisterViewModel(val app: Application, val authRepository: AuthRepository
     private val _lastNameError = MutableLiveData<String>()
     val lastNameError: LiveData<String> get() = _lastNameError
 
-    private val _name = MutableLiveData<String>()
-    val myname: LiveData<String> get() = _name
+    private val _phone = MutableLiveData<String>()
+    val phone: LiveData<String> get() = _phone
 
     private val _emailError = MutableLiveData<String>()
     val emailError: LiveData<String> get() = _emailError
@@ -53,7 +53,7 @@ class RegisterViewModel(val app: Application, val authRepository: AuthRepository
                 if (validateLastName()) {
                     if (validateName()) {
                         if (verifyPassword()) {
-                            logUsersIn(SignUpDetails(name!!,firstName!!,lastName!!, email!!,password!!))
+                            logUsersIn(SignUpDetails(phoneNumber!!,firstName!!,lastName!!, email!!,password!!))
                         }
                     }
                 }
@@ -144,11 +144,11 @@ class RegisterViewModel(val app: Application, val authRepository: AuthRepository
     }
 
     private fun validateName(): Boolean {
-        return if (name == null || name == "") {
-            _name.value = "select your Gender"
+        return if (phoneNumber == null || phoneNumber == "") {
+            _phone.value = "select your Gender"
             false
         } else {
-            _name.value = null
+            _phone.value = null
             true
         }
     }
