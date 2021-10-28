@@ -56,7 +56,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     is DataState.Success<LoginToken> -> {
                         displayProgressBar(false)
                         showSnackBar("success")
-                        App.token = response.data.accessToken
                         viewModel.navigate()
                     }
                     is DataState.Error -> {

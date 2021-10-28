@@ -51,6 +51,7 @@ class LoginViewModel(val app: Application, val authRepository: AuthRepository) :
                 when(state){
                     is DataState.Success<LoginToken> -> {
                         session.saveAuthToken(state.data.accessToken)
+                        App.token = state.data.accessToken
                     }
                 }
 

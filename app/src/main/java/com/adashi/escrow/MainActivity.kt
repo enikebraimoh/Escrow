@@ -31,10 +31,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /*override fun onResume() {
-        super.onResume()
-        if (!App.token.isNullOrEmpty()){
-            navController.navigate(R.id.dashboardFragment)
-        }
-    }*/
 }
