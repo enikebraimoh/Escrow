@@ -1,11 +1,9 @@
 package com.adashi.escrow
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import com.adashi.escrow.databinding.SucessBottomSheetDialogueBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
@@ -26,15 +24,17 @@ class ShowSucessDialogFragment(val data : NewTransactionBodyResponse, val click 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.price.text = data.data.transaction.price.toString()
-        binding.status.text = data.data.transaction.status.toString()
-        binding.title.text = data.data.transaction.title
-        binding.url.text = data.data.url
+        binding.transPrice.text = data.data.transaction.price.toString()
+        binding.transaStatus.text = data.data.transaction.status
+        binding.transTitle .text = data.data.transaction.title
+        //binding.url.text = data.data.url
 
-        binding.url.setOnClickListener {
+        binding.urlButton.setOnClickListener {
             click(0)
         }
 
     }
 
 }
+
+

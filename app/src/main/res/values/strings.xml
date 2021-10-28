@@ -6,8 +6,7 @@
     <string name="transaction_description">Transaction Description<font color='#FF0000'> *</font></string>
     <string name="transaction_price">Price<font color='#FF0000'> *</font></string>
     <string name="transaction_title_helper_text">A short description of the item to be purchased or Sold</string>
-    <string name="dummy_text"> Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla
-    Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla </string>
+    <string name="dummy_text"> Instructions would be here </string>
     <string name="buyer_name">Buyer\'s Name<font color='#FF0000'> *</font></string>
     <string name="buyer_email">Buyer\'s Email<font color='#FF0000'> *</font></string>
     <string name="buyer_phonenumber">Buyer\'s Phone Number<font color='#FF0000'> *</font></string>
@@ -18,6 +17,8 @@
 
     <string name="product_name">Product Name<font color='#FF0000'> *</font></string>
     <string name="product_type">Product Type<font color='#FF0000'> *</font></string>
+    <string name="shipment_status">Shipment Status<font color='#FF0000'> *</font></string>
+
     <string name="product_description">Product Description<font color='#FF0000'> *</font></string>
 
     <string name="product_quantity">Product Quantity<font color='#FF0000'> *</font></string>
@@ -44,13 +45,18 @@
         <item> Seller </item>
         <item> Buyer 50% / seller 50% </item>
     </string-array>
-    <string name="agent_name">Hello Enike 👋🏽</string>
+    <string name="agent_name">Hello %s 👋🏽</string>
 
     <string-array name="payment_method">
         <item> Bank Transfer </item>
         <item> Ussd </item>
         <item> Internet </item>
     </string-array>
-    <string name="share_transaction">Transaction Details %s </string>
+    <string name="share_transaction">This is a Transaction from %s, follow the link to complete this Transaction  %s </string>
+
+    <string-array name="shipment_method">
+        <item> Order is being Shiped </item>
+        <item> Order has Delivered </item>
+    </string-array>
 
 </resources>

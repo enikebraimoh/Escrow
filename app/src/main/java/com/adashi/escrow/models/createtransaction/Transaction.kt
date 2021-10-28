@@ -18,5 +18,6 @@ data class Transaction(
     val updatedAt: String,
     val user: String,
     val status: String,
+    val is_paid: Boolean,
     val virtual_account: VirtualAccount
 )
