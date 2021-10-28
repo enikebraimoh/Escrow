@@ -267,13 +267,10 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         return if (transaction_title == null || transaction_title!! == "") {
             _transactionTitleNameError.value = "this field cannot be left blank"
             false
-        } else if (transaction_title!!.contains("[0-9]".toRegex())) {
-            _transactionTitleNameError.value = "name cannot contain numbers"
+        }  else if (transaction_title!!.length > 20) {
+            _productDescriptionError.value = "Description should be at least 10 characters long"
             false
-        } else if ((transaction_title!!.contains("[^A-Za-z0-9 ]".toRegex()))) {
-            _transactionTitleNameError.value = "name cannot contain special characters"
-            false
-        } else {
+        }else {
             _transactionTitleNameError.value = null
             true
         }
@@ -293,13 +290,7 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         return if (product_name == null || product_name!! == "") {
             _productTypeNameError.value = "this field cannot be left blank"
             false
-        } else if (product_name!!.contains("[0-9]".toRegex())) {
-            _productTypeNameError.value = "name cannot contain numbers"
-            false
-        } else if ((product_name!!.contains("[^A-Za-z0-9 ]".toRegex()))) {
-            _productTypeNameError.value = "name cannot contain special characters"
-            false
-        } else {
+        }else {
             _productTypeNameError.value = null
             true
         }
@@ -309,8 +300,8 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         return if (product_description == null || product_description!! == "") {
             _productDescriptionError.value = "this field cannot be left blank"
             false
-        }else if (product_description!!.length < 120) {
-            _productDescriptionError.value = "Description should be at least 120 characters long"
+        } else if (product_description!!.length < 40) {
+            _productDescriptionError.value = "Description should be at least 40 characters long"
             false
         } else {
             _productDescriptionError.value = null

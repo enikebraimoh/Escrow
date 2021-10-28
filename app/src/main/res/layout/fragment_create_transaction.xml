@@ -107,6 +107,7 @@
                         android:id="@+id/transaction_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLength="20"
                         android:fontFamily="@font/googlesans_regular"
                         android:inputType="textEmailAddress"
                         android:padding="20dp"
@@ -367,12 +368,12 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/Product_name"
                             android:layout_width="match_parent"
-                            android:text="@={viewModel.product_name}"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/googlesans_regular"
                             android:inputType="text"
                             android:padding="20dp"
-                            android:singleLine="false"/>
+                            android:singleLine="false"
+                            android:text="@={viewModel.product_name}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -427,6 +428,7 @@
                             android:layout_height="wrap_content"
                             android:text="@={viewModel.product_description}"
                             android:fontFamily="@font/googlesans_regular"
+                            android:maxLength="80"
                             android:inputType="textMultiLine"
                             android:padding="20dp"
                             android:singleLine="false" />
@@ -482,7 +484,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/googlesans_regular"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:text="@={viewModel.product_price}"
                             android:padding="20dp"
                             android:singleLine="true"/>

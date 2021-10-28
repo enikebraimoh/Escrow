@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:text="@={data.password}"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:padding="20dp"
                 android:fontFamily="@font/googlesans_regular"
                 android:singleLine="true" />

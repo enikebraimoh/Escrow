@@ -24,8 +24,9 @@
         <entry key="app/src/main/res/layout/fragment_phone_auth1.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_phone_auth2.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_register_auth.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/sucess_bottom_sheet_dialogue.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/sucess_bottom_sheet_dialogue.xml" value="0.335" />
         <entry key="app/src/main/res/layout/transaction_bg.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/layout/transaction_details_bottom_sheet_dialogue.xml" value="0.25" />
         <entry key="app/src/main/res/layout/transaction_item_layout.xml" value="0.2947916666666667" />
       </map>
     </option>
