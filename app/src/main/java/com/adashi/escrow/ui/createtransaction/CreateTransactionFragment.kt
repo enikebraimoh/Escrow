@@ -45,11 +45,11 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
             when (response) {
                 is DataState.Success<NewTransactionBodyResponse> -> {
                     displayProgressBar(false)
-                    showSnackBar(response.data.data.url)
+                   // showSnackBar(response.data.data.url)
 
                     val intent  = ShareCompat.IntentBuilder.from(requireActivity())
                         .setType("text/plain")
-                        .setText(getString(R.string.share_transaction,response.data.data.url))
+                        .setText(getString(R.string.share_transaction,response.data.data.transaction.seller.name,response.data.data.url))
                         .intent
 
                     var fr = ShowSucessDialogFragment(response.data){
@@ -72,7 +72,9 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
                     displayProgressBar(false)
                     if (response.code!! == 403){
                         App.token = null
-                       findNavController().navigate(CreateTransactionFragmentDirections.actionCreateTransactionFragmentToLoginFragment())
+
+                        showSnackBar("token expired, please login again")
+                       findNavController().popBackStack()
                     }
                     else{
                         showSnackBar(response.code.toString())
