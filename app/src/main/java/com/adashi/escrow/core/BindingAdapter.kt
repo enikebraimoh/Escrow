@@ -26,11 +26,11 @@ fun Amount(tv: TextView, data: Any) {
 }
 
 @BindingAdapter("currency_converter")
-fun currencyConverter(tv: TextView, data: Int) {
+fun currencyConverter(tv: TextView, data: Any) {
     val newformat: NumberFormat = NumberFormat.getCurrencyInstance()
     newformat.setMaximumFractionDigits(0)
     newformat.setCurrency(Currency.getInstance("NGN"))
-    val bal = data.toInt()
+    val bal = data
     tv.text = newformat.format(bal)
 
 }

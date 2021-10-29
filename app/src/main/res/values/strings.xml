@@ -5,8 +5,31 @@
     <string name="transaction_title">Transaction Title <font color='#FF0000'> *</font></string>
     <string name="transaction_description">Transaction Description<font color='#FF0000'> *</font></string>
     <string name="transaction_price">Price<font color='#FF0000'> *</font></string>
-    <string name="transaction_title_helper_text">A short description of the item to be purchased or Sold</string>
-    <string name="dummy_text"> Instructions would be here </string>
+    <string name="transaction_title_helper_text">A short description of the product to be purchased or sold. For example. "Buying Mouse"</string>
+
+    <string name="seller_name_text">Enter your full name</string>
+    <string name="seller_email_text">Enter your email</string>
+    <string name="seller_phone_text">Please note that this number cannot be edited after successful transaction created</string>
+
+    <string name="buyer_name_text">Enter your client Full Name</string>
+    <string name="buyer_email_text">Enter your client Email</string>
+    <string name="buyer_phone_text">Enter your client Phone Number</string>
+
+    <string name="product_name_text">Write the item your selling/Buying</string>
+    <string name="product_type_text">Select a category that descirbe the product</string>
+    <string name="product_description_text">Write a short detail of the product</string>
+    <string name="product_quantity_text">Please enter the Quantity of the product needed.</string>
+    <string name="product_price_text">Please select the currency and enter the price of the product.</string>
+
+    <string name="who_pays_text">This identifies who is responsible for paying the escrow fees. if the buyer is selected the fees are added to the transaction total, if the seller is selected the fees are deducted from the profit.</string>
+    <string name="payment_method_text">This identifies if shipping will be required in this transaction?</string>
+
+
+
+
+
+
+    <string name="dummy_text">This is the binding contract within the seller and buyer, use a suitable name that represent your deal </string>
     <string name="buyer_name">Buyer\'s Name<font color='#FF0000'> *</font></string>
     <string name="buyer_email">Buyer\'s Email<font color='#FF0000'> *</font></string>
     <string name="buyer_phonenumber">Buyer\'s Phone Number<font color='#FF0000'> *</font></string>
