@@ -25,8 +25,9 @@ class ShowSucessDialogFragment(val data : NewTransactionBodyResponse, val click 
         super.onViewCreated(view, savedInstanceState)
 
         binding.transPrice.text = data.data.transaction.price.toString()
-        binding.transaStatus.text = data.data.transaction.status
+        binding.transaStatus.text = data.data.transaction.shipment_status
         binding.transTitle .text = data.data.transaction.title
+
         //binding.url.text = data.data.url
 
         binding.urlButton.setOnClickListener {

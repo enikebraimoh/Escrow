@@ -6,7 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.adashi.escrow.databinding.TransactionItemLayoutBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.Transaction
+import com.adashi.escrow.models.shipmentpatch.Transaction
 import ng.adashi.core.BaseAdapter
 
 class TransactionsAdapter(val click : (vendor: Transaction)->Unit) : BaseAdapter<Transaction>(DiffCallBack()) {

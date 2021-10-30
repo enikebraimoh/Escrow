@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentTransactionsBinding
-import com.adashi.escrow.models.createtransaction.Transaction
+import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.ui.dashboard.DashboardFactory
