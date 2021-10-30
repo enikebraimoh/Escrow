@@ -3,6 +3,7 @@ package ng.adashi.network
 import android.content.Context
 import android.content.SharedPreferences
 import com.adashi.escrow.R
+import ng.adashi.utils.App
 
 class SessionManager(context : Context) {
 
@@ -20,6 +21,7 @@ class SessionManager(context : Context) {
         val editor = prefs.edit()
         editor.putString(USER_TOKEN, token)
         editor.apply()
+        App.token = token
     }
 
     fun clearAuthToken() {
@@ -30,7 +32,9 @@ class SessionManager(context : Context) {
     /**
      * Function to fetch auth token
      */
+
     fun fetchAuthToken(): String? {
+        App.token = prefs.getString(USER_TOKEN, null)
         return prefs.getString(USER_TOKEN, null)
     }
 

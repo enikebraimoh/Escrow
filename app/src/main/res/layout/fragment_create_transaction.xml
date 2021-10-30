@@ -81,7 +81,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/googlesans_regular"
-                            android:text="@string/dummy_text" />
+                            android:text="   This is the binding contract within the seller and buyer, use a suitable name that represent your deal" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -115,7 +115,7 @@
                         android:text="@={viewModel.transaction_title}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Buyers Details -->
+                <!-- Sellers Details -->
 
                 <LinearLayout
                     android:id="@+id/sellers_info"
@@ -147,7 +147,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/sellers_name"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/seller_name_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -175,7 +175,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/sellers_email"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/seller_name_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +203,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/sellers_phonenumber"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/seller_phone_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -252,7 +252,7 @@
                             android:layout_marginEnd="16dp"
                             android:fontFamily="@font/googlesans_regular"
                             android:hint="@string/buyer_name"
-                            app:helperText="@string/transaction_title_helper_text"
+                            app:helperText="@string/buyer_name_text"
                             app:helperTextEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -281,7 +281,7 @@
                             android:layout_marginEnd="16dp"
                             android:fontFamily="@font/googlesans_regular"
                             android:hint="@string/buyer_email"
-                            app:helperText="@string/transaction_title_helper_text"
+                            app:helperText="@string/buyer_email_text"
                             app:helperTextEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -309,7 +309,7 @@
                             android:layout_marginEnd="16dp"
                             android:fontFamily="@font/googlesans_regular"
                             android:hint="@string/buyer_phonenumber"
-                            app:helperText="@string/transaction_title_helper_text"
+                            app:helperText="@string/buyer_phone_text"
                             app:helperTextEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -359,7 +359,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/product_name"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/product_name_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -387,7 +387,7 @@
                         android:hint="@string/product_type"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/product_type_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -416,7 +416,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/product_description"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/product_description_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -445,7 +445,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/product_quantity"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/product_quantity_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -473,7 +473,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/product_Price"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/product_price_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -501,7 +501,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/who_is_paying"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/who_pays_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -531,7 +531,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/googlesans_regular"
                         android:hint="@string/payment_method"
-                        app:helperText="@string/transaction_title_helper_text"
+                        app:helperText="@string/payment_method_text"
                         app:helperTextEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

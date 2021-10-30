@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="?android:colorBackground"
         android:layout_height="match_parent"
         tools:context=".ui.auth.PhoneAuth2Fragment">
 
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_back_button"
+            android:src="@drawable/back_button_new"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView

@@ -25,10 +25,6 @@
     <string name="payment_method_text">This identifies if shipping will be required in this transaction?</string>
 
 
-
-
-
-
     <string name="dummy_text">This is the binding contract within the seller and buyer, use a suitable name that represent your deal </string>
     <string name="buyer_name">Buyer\'s Name<font color='#FF0000'> *</font></string>
     <string name="buyer_email">Buyer\'s Email<font color='#FF0000'> *</font></string>
