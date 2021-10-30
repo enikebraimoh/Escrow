@@ -1,4 +1,4 @@
-package com.adashi.escrow.models.createtransaction
+import com.adashi.escrow.models.shipmentpatch.Transaction
 
 data class Data(
     val transaction: Transaction,

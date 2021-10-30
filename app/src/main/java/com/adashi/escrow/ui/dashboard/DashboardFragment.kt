@@ -8,6 +8,7 @@ import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentDashboardBinding
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.*
+import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.wallet.Balances
