@@ -128,7 +128,6 @@
                 <AutoCompleteTextView
                     android:id="@+id/shipment_status"
                     android:inputType="none"
-                    android:hint="@string/shipment_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/googlesans_regular"

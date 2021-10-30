@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.adashi.escrow.models.createtransaction.Transaction" />
+            type="com.adashi.escrow.models.shipmentpatch.Transaction" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
