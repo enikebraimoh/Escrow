@@ -64,4 +64,19 @@
         android:id="@+id/createTransactionFragment"
         android:name="com.adashi.escrow.ui.createtransaction.CreateTransactionFragment"
         android:label="CreateTransactionFragment" />
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.adashi.escrow.ui.transactions.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.adashi.escrow.ui.product.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.adashi.escrow.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

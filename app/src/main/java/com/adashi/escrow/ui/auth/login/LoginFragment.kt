@@ -56,7 +56,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     is DataState.Success<LoginToken> -> {
                         displayProgressBar(false)
                         showSnackBar("Welcome")
-                        viewModel.navigate()
                     }
                     is DataState.Error -> {
                         displayProgressBar(false)
@@ -64,6 +63,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     }
                     is DataState.GenericError -> {
                         displayProgressBar(false)
+                        if (response.code == 401){
+                            showSnackBar("Invalid email or password")
+                        }
                         showSnackBar(response.error?.message.toString())
                     }
                     DataState.Loading -> {

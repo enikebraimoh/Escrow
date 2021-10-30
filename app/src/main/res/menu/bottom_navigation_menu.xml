@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboardFragment"
+        android:title="Dashboard"
+        android:enabled="true"
+        android:icon="@drawable/ic_dashboard_icon" />
+    <item
+        android:id="@+id/transactionsFragment"
+        android:title="Transactions"
+        android:enabled="true"
+        android:icon="@drawable/ic_transactions" />
+    <item
+        android:id="@+id/productsFragment"
+        android:title="Products"
+        android:enabled="true"
+        android:icon="@drawable/ic_product"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="Settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_icon"/>
+</menu>

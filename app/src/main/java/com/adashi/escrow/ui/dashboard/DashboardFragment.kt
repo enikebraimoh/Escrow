@@ -1,6 +1,7 @@
 package com.adashi.escrow.ui.dashboard
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
@@ -15,6 +16,7 @@ import com.adashi.escrow.models.wallet.WalletBalance
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
 import ng.adashi.network.NetworkDataSourceImpl
+import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
@@ -32,15 +34,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
             DashboardViewModel::class.java
         )
 
-        viewModel.getWalletBalancce()
-        viewModel.getAllTransactions()
-        viewModel.getCurrentUser()
-
         viewModel.wallet_ballance.observe(this, { response ->
             when (response) {
                 is DataState.Success<WalletBalance> -> {
                     // showSnackBar("Refreshed")
                     binding.refreshLayout.isRefreshing = false
+                    stopShimmer()
                     binding.balance = Balances(
                         response.data.data.total_balance,
                         response.data.data.pending_transaction,
@@ -116,7 +115,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                 }
             }
         })
-
         viewModel.patch.observe(this, { response ->
             when (response) {
                 is DataState.Success<ShipmentPatchResponse> -> {
@@ -143,7 +141,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         })
 
         Log.d("Testt", "Dashboard fragment")
-        //Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
 
         binding.createTransaction.setOnClickListener {
             findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToCreateTransactionFragment())
@@ -154,6 +151,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
             viewModel.getAllTransactions()
             viewModel.getCurrentUser()
         }
+
+        viewModel.getWalletBalancce()
+        viewModel.getAllTransactions()
+        viewModel.getCurrentUser()
 
     }
 
@@ -174,8 +175,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
     }
 
     private fun updateTransaction(transaction_id: String, body : PatchShipingStatus) {
-
-        //showSnackBar(transaction_id+"  "+ body)
         viewModel.patchTransaction(transaction_id,body)
 
     }
@@ -185,8 +184,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         Snackbar.make(requireActivity(), binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun formatText(number: Int) {
-
+    private fun stopShimmer(){
+        binding.shimmerViewContainer.stopShimmer()
+        binding.shimmerViewContainer.visibility = View.GONE
     }
 
 }

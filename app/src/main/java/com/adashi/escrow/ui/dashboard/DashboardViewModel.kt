@@ -14,6 +14,7 @@ import com.adashi.escrow.models.wallet.WalletBalance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
 import ng.adashi.utils.DataState
 
