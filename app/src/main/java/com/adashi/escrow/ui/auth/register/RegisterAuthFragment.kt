@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentRegisterAuthBinding
 import com.adashi.escrow.models.signup.SignUpResponse
@@ -30,7 +31,7 @@ class RegisterAuthFragment : BaseFragment<FragmentRegisterAuthBinding>(R.layout.
         binding.lifecycleOwner = this
 
         binding.backButton.setOnClickListener {
-            view?.findNavController()?.popBackStack()
+            findNavController().navigate(RegisterAuthFragmentDirections.actionRegisterAuthFragmentToLoginFragment())
         }
 
         viewModel.navigateToLogin.observe(this,{

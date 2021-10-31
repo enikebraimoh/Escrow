@@ -1,7 +1,10 @@
 package com.adashi.escrow.ui.dashboard
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
@@ -31,6 +34,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         val network = NetworkDataSourceImpl()
         val viewModelProviderFactory = DashboardFactory(application, HomeRepository(network))
 
+        var prefs: SharedPreferences = requireContext().getSharedPreferences(
+            requireContext().getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+
          viewModel = ViewModelProvider(requireActivity(), viewModelProviderFactory).get(
             DashboardViewModel::class.java
         )
@@ -40,7 +48,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                 is DataState.Success<WalletBalance> -> {
                     // showSnackBar("Refreshed")
                     binding.refreshLayout.isRefreshing = false
-                    stopShimmer()
+
                     binding.balance = Balances(
                         response.data.data.total_balance,
                         response.data.data.pending_transaction,
@@ -57,6 +65,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                     if (response.code!! == 403) {
                         App.token = null
                         showSnackBar("token expired, please login again")
+                        val editor = prefs.edit()
+                        editor.putBoolean(SessionManager.LOGINSTATE, false)
+                        editor.apply()
                         findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToLoginFragment())
                     } else {
                         showSnackBar(response.code.toString())
@@ -71,6 +82,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
             when (response) {
                 is DataState.Success<TransactionsResponse> -> {
                     initAdapter(response.data.data.transactions)
+                    stopShimmer()
                     binding.refreshLayout.isRefreshing = false
                 }
                 is DataState.Error -> {
@@ -157,6 +169,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         viewModel.getAllTransactions()
         viewModel.getCurrentUser()
 
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                /**
+                 *
+                 *  Callback for handling the [OnBackPressedDispatcher.onBackPressed] event.
+                 *
+                 */
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            }
+        )
+
     }
 
     private fun initAdapter(data: MutableList<Transaction>) {
@@ -189,5 +215,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         binding.shimmerViewContainer.stopShimmer()
         binding.shimmerViewContainer.visibility = View.GONE
     }
+
+
 
 }

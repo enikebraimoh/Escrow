@@ -1,8 +1,11 @@
 package com.adashi.escrow.ui.auth.login
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -23,56 +26,81 @@ import okhttp3.internal.wait
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     override fun start() {
-        Log.d("Testt","Login fragment")
-
-       // Toast.makeText(requireContext(), App.token, Toast.LENGTH_SHORT).show()
+        Log.d("Testt", "Login fragment")
+        val session = SessionManager(requireContext().applicationContext)
 
         val application = requireNotNull(this.activity).application
         val network = NetworkDataSourceImpl()
         val viewModelProviderFactory = LoginFactory(application, AuthRepository(network))
+        var prefs: SharedPreferences = requireContext().getSharedPreferences(
+            requireContext().getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+
+        val viewModel = ViewModelProvider(
+            requireActivity(),
+            viewModelProviderFactory
+        ).get(LoginViewModel::class.java)
+        binding.data = viewModel
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                /**
+                 *
+                 *  Callback for handling the [OnBackPressedDispatcher.onBackPressed] event.
+                 *
+                 */
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            }
+        )
+        val state = prefs.getBoolean(SessionManager.LOGINSTATE, false)
+        if (state) {
+            viewModel.navigate()
+        }
 
         binding.register.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterAuthFragment())
         }
 
-        val viewModel = ViewModelProvider(requireActivity(), viewModelProviderFactory).get(LoginViewModel::class.java)
-        binding.data = viewModel
-
-        if (!App.token.isNullOrEmpty()){
-            viewModel.navigate()
-        }
 
         binding.lifecycleOwner = this
 
-        viewModel.navigateToDashboard.observe(this,{
-            if (it){
+        viewModel.navigateToDashboard.observe(this, {
+            if (it) {
+                val editor = prefs.edit()
+                editor.putBoolean(SessionManager.LOGINSTATE, true)
+                editor.apply()
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment())
                 viewModel.navigationDone()
             }
         })
 
-            viewModel.login.observe(this, { response ->
-                when (response) {
-                    is DataState.Success<LoginToken> -> {
-                        displayProgressBar(false)
-                        showSnackBar("Welcome")
-                    }
-                    is DataState.Error -> {
-                        displayProgressBar(false)
-                        showSnackBar("Slow or no Internet Connection")
-                    }
-                    is DataState.GenericError -> {
-                        displayProgressBar(false)
-                        if (response.code == 401){
-                            showSnackBar("Invalid email or password")
-                        }
+        viewModel.login.observe(this, { response ->
+            when (response) {
+                is DataState.Success<LoginToken> -> {
+                    displayProgressBar(false)
+                    // showSnackBar("Welcome")
+                }
+                is DataState.Error -> {
+                    displayProgressBar(false)
+                    showSnackBar("Slow or no Internet Connection")
+                }
+                is DataState.GenericError -> {
+                    displayProgressBar(false)
+                    if (response.code == 401) {
+                        showSnackBar("Invalid email or password")
+                    } else {
                         showSnackBar(response.error?.message.toString())
                     }
-                    DataState.Loading -> {
-                        displayProgressBar(true)
-                    }
                 }
-            })
+                DataState.Loading -> {
+                    displayProgressBar(true)
+                }
+            }
+        })
 
 
     }

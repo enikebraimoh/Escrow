@@ -48,11 +48,11 @@ class LoginViewModel(val app: Application, val authRepository: AuthRepository) :
         viewModelScope.launch {
             authRepository.LogUserNewIn(login).onEach { state ->
                 _login.value = state
-                navigate()
                 when(state){
                     is DataState.Success<LoginToken> -> {
                         session.saveAuthToken(state.data.accessToken)
                         App.token = state.data.accessToken
+                        navigate()
                     }
                 }
             }.launchIn(viewModelScope)
