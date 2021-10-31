@@ -6,6 +6,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.adashi.escrow.R
+import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.google.android.material.textfield.TextInputLayout
 import java.text.NumberFormat
 import java.util.*
@@ -36,10 +37,12 @@ fun currencyConverter(tv: TextView, data: Any) {
 }
 
 @BindingAdapter("convert_tag")
-fun convertTag(tv: TextView, data: Boolean) {
-    if (data) {
+fun convertTag(tv: TextView, data: Transaction) {
+    if (data.settled) {
        tv.setBackgroundColor(Color.GREEN)
-    } else {
+    } else if (!data.is_paid || data.is_paid && !data.settled && !data.dispute) {
+        tv.setBackgroundColor(Color.YELLOW)
+    }else if(data.dispute){
         tv.setBackgroundColor(Color.RED)
     }
 }

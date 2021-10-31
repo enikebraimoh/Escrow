@@ -285,7 +285,7 @@
                    <LinearLayout
                        android:clickable="true"
                        android:foreground="?android:attr/selectableItemBackground"
-                       android:id="@+id/account2"
+                       android:id="@+id/logout"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_marginStart="20dp"

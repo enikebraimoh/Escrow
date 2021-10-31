@@ -11,6 +11,7 @@ class SessionManager(context : Context) {
 
     companion object {
         const val USER_TOKEN = "user_token"
+        const val LOGINSTATE = "login_state"
     }
 
     /**
@@ -20,6 +21,7 @@ class SessionManager(context : Context) {
     fun saveAuthToken(token: String) {
         val editor = prefs.edit()
         editor.putString(USER_TOKEN, token)
+        editor.putBoolean(LOGINSTATE, true)
         editor.apply()
         App.token = token
     }

@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adashi.escrow.R
+import com.adashi.escrow.databinding.FragmentProductsBinding
+import ng.adashi.core.BaseFragment
 
-class ProductsFragment : Fragment() {
+class ProductsFragment : BaseFragment<FragmentProductsBinding>(R.layout.fragment_products) {
+
+
 
 }
