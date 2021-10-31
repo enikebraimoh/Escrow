@@ -78,5 +78,18 @@
         android:id="@+id/settingsFragment"
         android:name="com.adashi.escrow.ui.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_withdrawalBanksFragment"
+            app:destination="@id/withdrawalBanksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_withdrawal_banks"
+        android:id="@+id/withdrawalBanksFragment"
+        android:name="com.adashi.escrow.ui.settings.bankaccounts.WithdrawalBanksFragment"
+        android:label="WithdrawalBanksFragment" />
 </navigation>
