@@ -91,8 +91,8 @@ class TransactionsFragment :
         Snackbar.make(requireActivity(), binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun updateTransaction(transaction_id: String, body : PatchShipingStatus) {
-        viewModel.patchTransaction(transaction_id,body)
+    private fun updateTransaction(transaction_id: String, body: PatchShipingStatus) {
+        viewModel.patchTransaction(transaction_id, body)
 
     }
 

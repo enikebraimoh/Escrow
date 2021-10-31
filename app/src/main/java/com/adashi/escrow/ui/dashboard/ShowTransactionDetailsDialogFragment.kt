@@ -16,7 +16,10 @@ import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import ng.adashi.utils.RoundedBottomSheet
 
-class ShowTransactionDetailsDialogFragment(val data: Transaction, val click: (id: Int, patch: String) -> Unit) :
+class ShowTransactionDetailsDialogFragment(
+    val data: Transaction,
+    val click: (id: Int, patch: String) -> Unit
+) :
     RoundedBottomSheet() {
     lateinit var binding: TransactionDetailsBottomSheetDialogueBinding
 
@@ -59,20 +62,29 @@ class ShowTransactionDetailsDialogFragment(val data: Transaction, val click: (id
 
 
         if (data.is_paid) {
-            if (data.settled){
+            if (data.settled) {
                 binding.ShipmentStatusField.isEnabled = false
                 binding.ShipmentStatusField.hint = data.shipment_status
                 binding.transaStatus.text = "Settled"
                 binding.shipmentStatus.isEnabled = false
                 binding.urlButton.isEnabled = false
                 binding.transTag.setBackgroundColor(Color.GREEN)
-            }else{
-                binding.ShipmentStatusField.isEnabled = true
-                binding.shipmentStatus.isEnabled = true
-                binding.urlButton.isEnabled = true
-                binding.transaStatus.text = "Buyer Payment Success"
-                binding.transaStatus.text = data.shipment_status
-                binding.transTag.setBackgroundColor(Color.GREEN)
+            } else {
+                if (data.dispute) {
+                    binding.transaStatus.text = "Dispute"
+                    binding.ShipmentStatusField.isEnabled = false
+                    binding.transaStatus.text = "Order in Dispute"
+                    binding.shipmentStatus.isEnabled = false
+                    binding.urlButton.isEnabled = false
+                    binding.transTag.setBackgroundColor(Color.RED)
+                } else {
+                    binding.ShipmentStatusField.isEnabled = true
+                    binding.shipmentStatus.isEnabled = true
+                    binding.urlButton.isEnabled = true
+                    binding.transaStatus.text = "Buyer Payment Success"
+                    binding.transaStatus.text = data.shipment_status
+                    binding.transTag.setBackgroundColor(Color.GREEN)
+                }
             }
 
         } else {
@@ -81,13 +93,13 @@ class ShowTransactionDetailsDialogFragment(val data: Transaction, val click: (id
             binding.transaStatus.text = "Awating buyer's payment"
             binding.shipmentStatus.isEnabled = false
             binding.urlButton.isEnabled = false
-            binding.transTag.setBackgroundColor(Color.RED)
+            binding.transTag.setBackgroundColor(Color.YELLOW)
         }
 
         binding.urlButton.setOnClickListener {
             val value = binding.shipmentStatus.text.toString()
-            if (validateShiping()){
-                click(0,binding.shipmentStatus.text.toString())
+            if (validateShiping()) {
+                click(0, binding.shipmentStatus.text.toString())
                 dismiss()
             }
         }

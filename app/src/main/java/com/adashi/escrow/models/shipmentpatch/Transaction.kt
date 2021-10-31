@@ -20,5 +20,6 @@ data class Transaction(
     val transactionId: String,
     val updatedAt: String,
     val user: String,
+    val dispute: Boolean,
     val virtual_account: VirtualAccount
 )
