@@ -28,6 +28,7 @@
 
            <ScrollView
                android:layout_marginTop="@dimen/margin_20_dp"
+               android:scrollbars="none"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
@@ -137,6 +138,7 @@
                        app:layout_constraintTop_toBottomOf="@+id/tit2">
 
                        <LinearLayout
+                           android:id="@+id/withdrawalbanks"
                            android:clickable="true"
                            android:foreground="?android:attr/selectableItemBackground"
                            android:layout_width="match_parent"
