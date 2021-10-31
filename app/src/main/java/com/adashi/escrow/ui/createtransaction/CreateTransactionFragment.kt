@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
 import com.adashi.escrow.ShowSucessDialogFragment
@@ -41,6 +42,13 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        viewModel.navigateToLogin.observe(this,{
+            if (it) {
+
+
+            }
+        })
+
         viewModel.transaction.observe(this, { response ->
             when (response) {
                 is DataState.Success<NewTransactionBodyResponse> -> {
@@ -55,14 +63,14 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
                     var fr = ShowSucessDialogFragment(response.data){
                         when(it){
                             0 ->{
+                                view?.findNavController()?.popBackStack()
                                 startActivity(intent)
-                                findNavController().popBackStack()
                            }
                         }
                     }
                     fr.show(requireActivity().supportFragmentManager,"added fragm")
 
-                    viewModel.navigateButtonClicked()
+                    viewModel.navigateToLoginDone()
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
@@ -87,7 +95,7 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
         })
 
         binding.backButton.setOnClickListener {
-            findNavController().popBackStack()
+            view?.findNavController()?.popBackStack()
         }
 
     }
@@ -113,6 +121,26 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
             startActivity((int))
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.transactionTitle.setText("")
+
+        binding.sellerName.setText("")
+        binding.sellerEmail.setText("")
+        binding.sellerPhone.setText("")
+        binding.buyerName.setText("")
+        binding.buyerEmail.setText("")
+        binding.buyerPhone.setText("")
+
+        binding.ProductName.setText("")
+        binding.ProductType.setText("")
+        binding.ProductDescription.setText("")
+        binding.ProductQuantity.setText("")
+        binding.transactionPrice.setText("")
+        binding.whoIsPaying.setText("")
+        binding.paymentMethod.setText("")
     }
 
 
