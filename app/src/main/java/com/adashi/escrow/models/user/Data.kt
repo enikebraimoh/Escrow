@@ -11,5 +11,6 @@ data class Data(
     val phoneNumber: Long,
     val updatedAt: String,
     val userId: String,
-    val walletId: String
+    val walletId: String,
+    val bvn: String?
 )
