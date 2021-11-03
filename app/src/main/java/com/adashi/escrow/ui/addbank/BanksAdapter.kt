@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import com.adashi.escrow.models.listofbanks.ListOfBanks
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 
 import android.widget.TextView
 import com.adashi.escrow.R
+import com.squareup.picasso.Picasso
 
 class BanksAdapter(context: Context, var array: MutableList<ListOfBanksItem>) :
     ArrayAdapter<ListOfBanksItem>(
@@ -25,9 +27,17 @@ class BanksAdapter(context: Context, var array: MutableList<ListOfBanksItem>) :
         if (listItem == null) listItem =
             LayoutInflater.from(context).inflate(R.layout.banks_item, parent, false)
 
-        if (item != null){
+        if (item != null) {
             var bankName: TextView = listItem?.findViewById(R.id.my_bank_name)!!
             bankName.setText(item.name)
+
+            var imageurl: ImageView = listItem.findViewById(R.id.bank_logo)!!
+
+            Picasso.get()
+                .load(item.logo)
+                .resize(50, 50)
+                .centerCrop()
+                .into(imageurl)
         }
 
         return listItem!!
@@ -40,10 +50,10 @@ class BanksAdapter(context: Context, var array: MutableList<ListOfBanksItem>) :
         if (listItem == null) listItem =
             LayoutInflater.from(context).inflate(R.layout.banks_item, parent, false)
 
-     if (item != null){
-         var bankName: TextView = listItem?.findViewById(R.id.my_bank_name)!!
-         bankName.setText(item.name)
-     }
+        if (item != null) {
+            var bankName: TextView = listItem?.findViewById(R.id.my_bank_name)!!
+            bankName.setText(item.name)
+        }
 
         return listItem!!
 

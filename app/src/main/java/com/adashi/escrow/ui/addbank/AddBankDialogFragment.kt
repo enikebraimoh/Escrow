@@ -16,8 +16,7 @@ import com.adashi.escrow.models.listofbanks.ListOfBanks
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import ng.adashi.utils.RoundedBottomSheet
 import com.adashi.escrow.MainActivity
-
-
+import com.squareup.picasso.Picasso
 
 
 class AddBankDialogFragment(val click: (id: Int) -> Unit) : RoundedBottomSheet() {
@@ -40,9 +39,9 @@ class AddBankDialogFragment(val click: (id: Int) -> Unit) : RoundedBottomSheet()
         super.onViewCreated(view, savedInstanceState)
 
         val banks = mutableListOf<ListOfBanksItem>(
-            ListOfBanksItem("", "", "GtBank", "", ""),
-            ListOfBanksItem("", "", "zenith", "", ""),
-            ListOfBanksItem("", "", "First Bank", "", "")
+            ListOfBanksItem("", "https://nigerianbanks.xyz/logo/access-bank-diamond.png", "GtBank", "", ""),
+            ListOfBanksItem("", "https://nigerianbanks.xyz/logo/alat-by-wema.png", "zenith", "", ""),
+            ListOfBanksItem("", "https://nigerianbanks.xyz/logo/default-image.png", "First Bank", "", "")
         )
 
         val BanksArrayAdapter =
@@ -59,6 +58,7 @@ class AddBankDialogFragment(val click: (id: Int) -> Unit) : RoundedBottomSheet()
             ) {
                 val clickedItem: ListOfBanksItem = parent.getItemAtPosition(position) as ListOfBanksItem
                 val clickedCountryName: String = clickedItem.name
+
                 Toast.makeText(
                     requireContext(),
                     "$clickedCountryName selected",
