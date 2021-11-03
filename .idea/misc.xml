@@ -17,6 +17,8 @@
         <entry key="app/src/main/res/drawable/transaction_bg.xml" value="0.3109375" />
         <entry key="app/src/main/res/drawable/transaction_type.xml" value="0.3109375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26296296296296295" />
+        <entry key="app/src/main/res/layout/add_bank_bottom_sheet_dialogue.xml" value="0.309375" />
+        <entry key="app/src/main/res/layout/banks_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_auth1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_auth2.xml" value="0.335" />
