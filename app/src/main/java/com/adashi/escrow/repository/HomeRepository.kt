@@ -3,6 +3,7 @@ package ng.adashi.repository
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.Transaction
+import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.user.UserResponse
@@ -73,6 +74,23 @@ class HomeRepository(private val networkDataSource: NetworkDataSource) {
         emit(DataState.Loading)
         try {
             val response = networkDataSource.getCurrentUser()
+            emit(DataState.Success(response))
+        } catch (e: Exception) {
+            when (e){
+                is IOException -> emit(DataState.Error(e))
+                is HttpException -> {
+                    val status = e.code()
+                    val res = convertErrorBody(e)
+                    emit(DataState.GenericError(status, res))
+                }
+            }
+        }
+    }
+
+    suspend fun getNigerianBanks() : Flow<DataState<MutableList<ListOfBanksItem>>> = flow {
+        emit(DataState.Loading)
+        try {
+            val response = networkDataSource.getNigerianBanks()
             emit(DataState.Success(response))
         } catch (e: Exception) {
             when (e){

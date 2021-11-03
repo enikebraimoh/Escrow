@@ -3,6 +3,7 @@ package ng.adashi.network
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.Transaction
+import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.signup.SignUpDetails
@@ -22,6 +23,6 @@ interface NetworkDataSource {
     suspend fun getAllTransactions() : TransactionsResponse
     suspend fun getCurrentUser() : UserResponse
     suspend fun patchShippingStatus(trans_id : String, tras: PatchShipingStatus) : ShipmentPatchResponse
-
+    suspend fun getNigerianBanks() : MutableList<ListOfBanksItem>
 
 }
