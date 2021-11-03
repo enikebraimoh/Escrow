@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/add_bank"
             style="@style/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
