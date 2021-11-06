@@ -68,9 +68,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                         val editor = prefs.edit()
                         editor.putBoolean(SessionManager.LOGINSTATE, false)
                         editor.apply()
+                        val session = SessionManager(requireContext().applicationContext)
+                        session.clearAuthToken()
                         findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToLoginFragment())
                     } else {
-                        showSnackBar(response.code.toString())
+                        //showSnackBar(response.code.toString())
                     }
                 }
                 DataState.Loading -> {
@@ -107,6 +109,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
             when (response) {
                 is DataState.Success<UserResponse> -> {
                     binding.user = response.data.data
+
+                    val editor = prefs.edit()
+                    editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
+                    editor.apply()
+
                     binding.username.text = resources.getString(R.string.agent_name,response.data.data.firstName)
                     binding.refreshLayout.isRefreshing = false
                 }
@@ -139,7 +146,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                     binding.refreshLayout.isRefreshing = false
                 }
                 is DataState.GenericError -> {
-                    showSnackBar(response.error?.message.toString() + response.code.toString())
+                    showSnackBar(response.error?.message.toString())
                     binding.refreshLayout.isRefreshing = false
                     if (response.code!! == 403) {
 

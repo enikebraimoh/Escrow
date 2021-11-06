@@ -4,6 +4,7 @@ package ng.adashi.network.retrofit
 import com.adashi.escrow.models.accountname.AccountNameResponse
 import com.adashi.escrow.models.addbank.AddBankDetails
 import com.adashi.escrow.models.addbank.AddBankResponse
+import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.Transaction
@@ -75,5 +76,9 @@ interface AdashiApis {
     suspend fun addBank(
         @Body bank : AddBankDetails
     ) : AddBankResponse
+
+    @GET("api/v1/user/banks")
+    suspend fun getBanks(
+    ) : GetAllBanksResponse
 
 }

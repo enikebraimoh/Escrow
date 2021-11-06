@@ -12,5 +12,6 @@ data class Data(
     val updatedAt: String,
     val userId: String,
     val walletId: String,
-    val bvn: String?
+    val bvn: String?,
+    val account: List<Any>?
 )
