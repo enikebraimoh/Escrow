@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="?android:colorBackground"
+        android:layout_height="match_parent"
+        tools:context=".ui.auth.PhoneAuth2Fragment">
+
+        <TextView
+            android:id="@+id/enternumber"
+            style="@style/texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/googlesans_medium"
+            android:text="Verify BVN"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textAlignment="center"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info"
+            style="@style/texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/googlesans_regular"
+            android:text="Code is sent to *******86"
+            android:textAlignment="center"
+            android:layout_marginTop="50dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enternumber" />
+
+        <com.mukesh.OtpView
+            android:id="@+id/otp_view"
+            android:layout_marginTop="30dp"
+            app:OtpItemSpacing="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="?android:attr/textColorPrimary"
+            app:OtpItemCount="6"
+            app:OtpViewType="rectangle"
+            app:OtpItemRadius="4dp"
+            app:OtpLineColor="@color/primaryColor"
+            app:OtpLineWidth="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info" />
+
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spin_kit"
+            android:visibility="invisible"
+            style="@style/SpinKitView.CubeGrid"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            app:SpinKit_Color="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/Confirmotp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/Confirmotp"
+            app:layout_constraintTop_toBottomOf="@+id/Confirmotp"
+            app:layout_constraintTop_toTopOf="@+id/Confirmotp" />
+
+        <Button
+            android:id="@+id/Confirmotp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/googlesans_medium"
+            app:layout_constraintTop_toBottomOf="@+id/otp_view"
+            android:layout_width="match_parent"
+            style="@style/buttons"
+            android:textAllCaps="false"
+            android:text="Confirm OTP"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
