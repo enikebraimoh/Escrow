@@ -1,5 +1,9 @@
 package ng.adashi.network
 
+import com.adashi.escrow.models.accountname.AccountNameResponse
+import com.adashi.escrow.models.addbank.AddBankDetails
+import com.adashi.escrow.models.addbank.AddBankResponse
+import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.Transaction
@@ -9,6 +13,8 @@ import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
 import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.verifybvn.BVN
+import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
 import ng.adashi.domain_models.login.LoginDetails
@@ -49,6 +55,31 @@ class NetworkDataSourceImpl : NetworkDataSource {
 
     override suspend fun getNigerianBanks(): MutableList<ListOfBanksItem> {
         val response = RetrofitInstance2.api.getNigerianBanks()
+        return response
+    }
+
+    override suspend fun VerifyBvn(bvn: String): BvnResponse {
+        val response = RetrofitInstance.api.VerifyBvn(bvn)
+        return response
+    }
+
+    override suspend fun addBvn(bvn: BVN): UserResponse {
+        val response = RetrofitInstance.api.addBvn(bvn)
+        return response
+    }
+
+    override suspend fun checkAccountName(number: String): AccountNameResponse {
+        val response = RetrofitInstance.api.checkAccountName(number)
+        return response
+    }
+
+    override suspend fun addBank(bank: AddBankDetails): AddBankResponse {
+        val response = RetrofitInstance.api.addBank(bank)
+        return response
+    }
+
+    override suspend fun getBanks(): GetAllBanksResponse {
+        val response = RetrofitInstance.api.getBanks()
         return response
     }
 
