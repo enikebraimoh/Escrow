@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/drawable/transaction_type.xml" value="0.3109375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26296296296296295" />
         <entry key="app/src/main/res/layout/add_bank_bottom_sheet_dialogue.xml" value="0.309375" />
+        <entry key="app/src/main/res/layout/bank_account_item_layout.xml" value="0.309375" />
         <entry key="app/src/main/res/layout/banks_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_auth1.xml" value="0.25" />
@@ -32,11 +33,13 @@
         <entry key="app/src/main/res/layout/fragment_register_auth.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.28072916666666664" />
         <entry key="app/src/main/res/layout/fragment_transactions.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_verify_bnv_otp.xml" value="0.309375" />
         <entry key="app/src/main/res/layout/fragment_withdrawal_banks.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/sucess_bottom_sheet_dialogue.xml" value="0.335" />
         <entry key="app/src/main/res/layout/transaction_bg.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/transaction_details_bottom_sheet_dialogue.xml" value="0.335" />
         <entry key="app/src/main/res/layout/transaction_item_layout.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/layout/verify_bvn_bottom_sheet_dialogue.xml" value="0.3046153846153846" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1359375" />
       </map>

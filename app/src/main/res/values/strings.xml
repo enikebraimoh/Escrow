@@ -46,6 +46,7 @@
 
     <string name="who_is_paying">Who is Paying<font color='#FF0000'> *</font></string>
     <string name="payment_method">Payment Method<font color='#FF0000'> *</font></string>
+    <string name="an_otp">A code was sent to your phone number \n  ******** %s</string>
 
     <string-array name="product_type">
         <item> Physical Good </item>

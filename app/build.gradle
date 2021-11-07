@@ -13,7 +13,7 @@ android {
         minSdk 23
         targetSdk 30
         versionCode 1
-        versionName "1.8"
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -68,7 +68,7 @@ dependencies {
     //3rd party libraries
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation 'com.squareup.picasso:picasso:2.71828'
 

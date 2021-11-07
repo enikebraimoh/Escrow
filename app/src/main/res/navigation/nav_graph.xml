@@ -95,5 +95,26 @@
         tools:layout="@layout/fragment_withdrawal_banks"
         android:id="@+id/withdrawalBanksFragment"
         android:name="com.adashi.escrow.ui.settings.bankaccounts.WithdrawalBanksFragment"
-        android:label="WithdrawalBanksFragment" />
+        android:label="WithdrawalBanksFragment" >
+        <action
+            android:id="@+id/action_withdrawalBanksFragment_to_verifyBnvOtpFragment"
+            app:destination="@id/verifyBnvOtpFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/verify_bvn_bottom_sheet_dialogue"
+        android:id="@+id/verifyBvnDialogFragment"
+        android:name="com.adashi.escrow.ui.addbank.verifybvn.VerifyBvnDialogFragment"
+        android:label="VerifyBvnDialogFragment" />
+    <fragment
+        tools:layout="@layout/fragment_verify_bnv_otp"
+        android:id="@+id/verifyBnvOtpFragment"
+        android:name="com.adashi.escrow.ui.addbank.verifybvn.otp.VerifyBnvOtpFragment"
+        android:label="VerifyBnvOtpFragment" >
+        <argument
+            android:name="bvn"
+            app:argType="string" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+    </fragment>
 </navigation>
