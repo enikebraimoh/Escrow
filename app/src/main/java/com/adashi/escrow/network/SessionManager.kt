@@ -3,6 +3,8 @@ package ng.adashi.network
 import android.content.Context
 import android.content.SharedPreferences
 import com.adashi.escrow.R
+import com.adashi.escrow.models.user.Data
+import com.adashi.escrow.models.user.UserResponse
 import ng.adashi.utils.App
 
 class SessionManager(context : Context) {
@@ -11,6 +13,7 @@ class SessionManager(context : Context) {
 
     companion object {
         const val USER_TOKEN = "user_token"
+        const val USER_BVN = "user_bvn"
         const val LOGINSTATE = "login_state"
     }
 
@@ -26,6 +29,14 @@ class SessionManager(context : Context) {
         App.token = token
     }
 
+    fun saveCurrentUser(user: Data) {
+        val editor = prefs.edit()
+        editor.putString(USER_BVN, user.bvn)
+        editor.apply()
+    }
+
+
+
     fun clearAuthToken() {
         val editor = prefs.edit().clear()
         editor.apply()
@@ -34,6 +45,11 @@ class SessionManager(context : Context) {
     /**
      * Function to fetch auth token
      */
+
+    fun fetchCurrentUserBVN(): String? {
+        return prefs.getString(USER_BVN, "")
+    }
+
 
     fun fetchAuthToken(): String? {
         App.token = prefs.getString(USER_TOKEN, null)
