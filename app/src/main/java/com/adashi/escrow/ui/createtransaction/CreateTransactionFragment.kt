@@ -17,6 +17,7 @@ import com.adashi.escrow.ShowSucessDialogFragment
 import com.adashi.escrow.databinding.FragmentCreateTransactionBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.signup.SignUpResponse
+import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.ui.auth.register.RegisterFactory
 import com.adashi.escrow.ui.auth.register.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -41,6 +42,8 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        viewModel.getCurrentUser()
 
         viewModel.navigateToLogin.observe(this,{
             if (it) {
@@ -83,6 +86,39 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
 
                         showSnackBar("token expired, please login again")
                        findNavController().popBackStack()
+                    }
+                    else{
+                        showSnackBar(response.code.toString())
+                    }
+                }
+                DataState.Loading -> {
+                    displayProgressBar(true)
+                }
+            }
+        })
+
+        viewModel.user.observe(this, { response ->
+            when (response) {
+                is DataState.Success<UserResponse> -> {
+                    displayProgressBar(false)
+
+                    binding.sellerName.setText("${response.data.data.firstName}  ${response.data.data.lastName}" )
+                    binding.sellerEmail.setText(response.data.data.email)
+                    binding.sellerPhone.setText(response.data.data.phoneNumber.toString())
+
+
+                }
+                is DataState.Error -> {
+                    displayProgressBar(false)
+                    showSnackBar("Slow or no Internet Connection")
+                }
+                is DataState.GenericError -> {
+                    displayProgressBar(false)
+                    if (response.code!! == 403){
+                        App.token = null
+
+                        showSnackBar("token expired, please login again")
+                        findNavController().popBackStack()
                     }
                     else{
                         showSnackBar(response.code.toString())

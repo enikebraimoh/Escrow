@@ -87,23 +87,6 @@ class HomeRepository(private val networkDataSource: NetworkDataSource) {
         }
     }
 
-    suspend fun getNigerianBanks() : Flow<DataState<MutableList<ListOfBanksItem>>> = flow {
-        emit(DataState.Loading)
-        try {
-            val response = networkDataSource.getNigerianBanks()
-            emit(DataState.Success(response))
-        } catch (e: Exception) {
-            when (e){
-                is IOException -> emit(DataState.Error(e))
-                is HttpException -> {
-                    val status = e.code()
-                    val res = convertErrorBody(e)
-                    emit(DataState.GenericError(status, res))
-                }
-            }
-        }
-    }
-
     suspend fun PatchTransaction (trans_id : String, tras: PatchShipingStatus) : Flow<DataState<ShipmentPatchResponse>> = flow {
         emit(DataState.Loading)
         try {

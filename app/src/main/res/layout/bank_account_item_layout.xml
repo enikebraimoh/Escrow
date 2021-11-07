@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.adashi.escrow.models.addbank.Account" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/transaction_bg"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:padding="@dimen/margin_10_dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/date_and_time"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/googlesans_regular"
+            android:layout_height="wrap_content"
+            android:text="@{data.accountName}"
+            android:layout_marginTop="10dp"
+            tools:text="Bank Name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/withdrawal"
+            app:layout_constraintTop_toBottomOf="@+id/withdrawal" />
+
+        <TextView
+            android:id="@+id/withdrawal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/googlesans_medium"
+            tools:text="0822442244"
+            android:text="@{data.accountNumber}"
+            app:layout_constraintBottom_toTopOf="@+id/date_and_time"
+            app:layout_constraintEnd_toStartOf="@+id/ammount"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/successful"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.bankName}"
+            android:fontFamily="@font/googlesans_medium"
+            tools:text="Gt BANK"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ammount" />
+
+    </LinearLayout>
+</layout>

@@ -14,6 +14,7 @@ import com.adashi.escrow.models.createtransaction.Seller
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
+import com.adashi.escrow.models.user.UserResponse
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -52,6 +53,10 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
 
     private val _transaction = MutableLiveData<DataState<NewTransactionBodyResponse>>()
     val transaction: LiveData<DataState<NewTransactionBodyResponse>> get() = _transaction
+
+    private val _user = MutableLiveData<DataState<UserResponse>>()
+    val user: LiveData<DataState<UserResponse>> get() = _user
+
 
     // live data for error response
 
@@ -163,6 +168,14 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         viewModelScope.launch {
             homeRepository.CreateTransaction(details).onEach { state ->
                 _transaction.value = state
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun  getCurrentUser(){
+        viewModelScope.launch {
+            homeRepository.getCurrentUser().onEach { state ->
+                _user.value = state
             }.launchIn(viewModelScope)
         }
     }
