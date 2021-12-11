@@ -2,20 +2,11 @@ package com.adashi.escrow.ui.settings.bankaccounts
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
-import com.adashi.escrow.ShowSucessDialogFragment
 import com.adashi.escrow.databinding.FragmentWithdrawalBanksBinding
-import com.adashi.escrow.databinding.VerifyBvnBottomSheetDialogueBinding
 import com.adashi.escrow.models.addbank.Account
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
@@ -35,21 +26,24 @@ import ng.adashi.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
+import mono.connect.widget.ConnectWidget
+import mono.connect.widget.ConnectedAccount
+import mono.connect.widget.EventListener
 
-class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.layout.fragment_withdrawal_banks){
 
+class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.layout.fragment_withdrawal_banks),
+    EventListener {
 
+    private lateinit var connectWidget: ConnectWidget
 
     private fun initAdapter(data: List<Account>) {
         val adapter = GetAllBanksAdapter { d ->
-
 
         }
 
         binding.recyclerView.adapter = adapter
         adapter.submitList(data)
     }
-
 
     override fun start() {
         super.start()
@@ -100,42 +94,37 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
             Context.MODE_PRIVATE
         )
 
-
-            binding.addBank.setOnClickListener {
-
-                val bvn = prefs.getString(SessionManager.USER_BVN, "")
-                //Toast.makeText(requireContext(), bvn, Toast.LENGTH_SHORT).show()
-
-                if (bvn?.length!! < 2){
-                    var fr = VerifyBvnDialogFragment{ click ,textbnv , phone ->
-                        when(click){
-                            0 ->{
-                                //showSnackBar("$textbnv  $phone")
-                                findNavController().navigate(WithdrawalBanksFragmentDirections.actionWithdrawalBanksFragmentToVerifyBnvOtpFragment(textbnv,phone))
-                            }
-                        }
-                    }
-                    fr.show(requireActivity().supportFragmentManager,"added fragm")
-
-                }else{
-
-                var fr = AddBankDialogFragment{
-                    when(it){
-                        1 ->{
-                            showSnackBar("Bank account Added")
-                        }
-                    }
-                }
-                fr.show(requireActivity().supportFragmentManager,"added fragm")
-
-            }
-        }
+        // MonoConfiguration
+        setup()
 
 
     }
 
-    private fun showSnackBar(message: String) {
+    private fun showSnackBar( message: String) {
         Snackbar.make(requireActivity(), binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun setup() {
+        val key = getString(R.string.connect_public_key)
+
+        connectWidget = ConnectWidget(requireContext(), key)
+        connectWidget.setListener(this)
+
+        binding.addBank.setOnClickListener {
+            connectWidget.show()
+        }
+    }
+
+    override fun onClose() {
+        Toast.makeText(requireContext(), "widget closed", Toast.LENGTH_LONG).show()
+        //showSnackBar("widget closed")
+    }
+
+    override fun onSuccess(account: ConnectedAccount?) {
+        Toast.makeText(requireContext(), "Account successfully connected", Toast.LENGTH_LONG).show()
+        //showSnackBar("Account successfully connected")
+        //showSnackBar("Account successfully connected -- code: ${account?.code}")
+        Toast.makeText(requireContext(), "Account auth code: ${account?.code}", Toast.LENGTH_LONG).show()
     }
 
 }

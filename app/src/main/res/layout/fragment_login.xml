@@ -15,16 +15,13 @@
         android:background="?android:colorBackground"
         tools:context=".ui.auth.login.LoginFragment">
 
-        <TextView
-            android:textSize="40sp"
-            android:fontFamily="@font/googlesans_medium"
-            android:textColor="@color/primaryColor"
+        <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Escrow"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/escrowlogo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/googlesans_regular"
             android:text="Login to your account \nhere"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"

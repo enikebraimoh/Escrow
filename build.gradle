@@ -12,11 +12,10 @@ buildscript {
         version_lifecycle_extensions = "2.2.0"
         version_lifecycle = "2.2.0"
     }
-
-    repositories {
-        google()
-        mavenCentral()
-    }
+        repositories {
+            google()
+            mavenCentral()
+        }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
