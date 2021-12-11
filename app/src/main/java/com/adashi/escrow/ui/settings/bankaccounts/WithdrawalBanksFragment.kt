@@ -2,6 +2,7 @@ package com.adashi.escrow.ui.settings.bankaccounts
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,8 @@ import com.adashi.escrow.ui.addbank.BanksAdapter
 import com.adashi.escrow.ui.addbank.verifybvn.VerifyBvnDialogFragment
 import com.adashi.escrow.ui.dashboard.ShowTransactionDetailsDialogFragment
 import com.adashi.escrow.ui.dashboard.TransactionsAdapter
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountResponse
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
 import ng.adashi.network.NetworkDataSourceImpl
@@ -33,6 +36,8 @@ import mono.connect.widget.EventListener
 
 class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.layout.fragment_withdrawal_banks),
     EventListener {
+
+    lateinit var viewModel : WithdrawalBanksViewModel
 
     private lateinit var connectWidget: ConnectWidget
 
@@ -52,13 +57,42 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
         val network = NetworkDataSourceImpl()
         val viewModelProviderFactory = WithdrawalBankFactory(application, SettingsRepository(network))
 
-        val viewModel = ViewModelProvider(requireActivity(), viewModelProviderFactory).get(
+        viewModel = ViewModelProvider(requireActivity(), viewModelProviderFactory).get(
             WithdrawalBanksViewModel::class.java)
 
         viewModel.getAllBanks()
 
-        viewModel.allBanks.observe(this,{ response ->
+        viewModel.monoAcccountResponse.observe(this,{ response ->
+            when (response) {
+                is DataState.Success<MonoAccountResponse> -> {
+                    binding.progressBar2.visibility = View.INVISIBLE
+                    val data = response.data.data
+                    showSnackBar(data.toString())
+                }
+                is DataState.Error -> {
+                    showSnackBar("Slow or no Internet Connection")
+                    binding.progressBar2.visibility = View.INVISIBLE
+                }
+                is DataState.GenericError -> {
+                    if (response.code!! == 403){
+                        App.token = null
+                        binding.progressBar2.visibility = View.INVISIBLE
+                        showSnackBar("token expired, please login again")
+                        findNavController().popBackStack()
+                    }
+                    else{
+                        showSnackBar(response.error?.message!!)
+                        binding.progressBar2.visibility = View.INVISIBLE
+                    }
+                }
+                DataState.Loading -> {
+                    binding.progressBar2.visibility = View.VISIBLE
+                }
+            }
 
+        })
+
+        viewModel.allBanks.observe(this,{ response ->
             when (response) {
                 is DataState.Success<GetAllBanksResponse> -> {
 
@@ -89,6 +123,7 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
 
         })
 
+
         var prefs: SharedPreferences = requireContext().getSharedPreferences(
             requireContext().getString(R.string.app_name),
             Context.MODE_PRIVATE
@@ -105,8 +140,8 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
     }
 
     private fun setup() {
-        val key = getString(R.string.connect_public_key)
 
+        val key = getString(R.string.connect_public_key)
         connectWidget = ConnectWidget(requireContext(), key)
         connectWidget.setListener(this)
 
@@ -121,8 +156,10 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
     }
 
     override fun onSuccess(account: ConnectedAccount?) {
-        Toast.makeText(requireContext(), "Account successfully connected", Toast.LENGTH_LONG).show()
+        //Toast.makeText(requireContext(), "Account successfully connected", Toast.LENGTH_LONG).show()
         //showSnackBar("Account successfully connected")
+        val monoCode = MonoAccountCode(account?.code.toString()!!)
+        viewModel.monoVerifyBank(MonoAccountCode(account?.code.toString()))
         //showSnackBar("Account successfully connected -- code: ${account?.code}")
         Toast.makeText(requireContext(), "Account auth code: ${account?.code}", Toast.LENGTH_LONG).show()
     }

@@ -17,6 +17,8 @@ import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountResponse
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.domain_models.login.LoginToken
 import retrofit2.http.Body
@@ -36,5 +38,5 @@ interface NetworkDataSource {
     suspend fun checkAccountName(number: String) : AccountNameResponse
     suspend fun addBank(bank: AddBankDetails) : AddBankResponse
     suspend fun getBanks() : GetAllBanksResponse
-
+    suspend fun monoVerifyBank(code: MonoAccountCode) : MonoAccountResponse
 }

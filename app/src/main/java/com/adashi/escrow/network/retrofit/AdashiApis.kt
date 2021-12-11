@@ -18,6 +18,8 @@ import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountResponse
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.domain_models.login.LoginToken
 import retrofit2.http.*
@@ -80,5 +82,10 @@ interface AdashiApis {
     @GET("api/v1/user/banks")
     suspend fun getBanks(
     ) : GetAllBanksResponse
+
+    @POST("api/v1/user/account")
+    suspend fun monoVerifyBank(
+        @Body code : MonoAccountCode
+    ) : MonoAccountResponse
 
 }

@@ -17,6 +17,8 @@ import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountResponse
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.network.retrofit.*
 import ng.adashi.domain_models.login.LoginToken
@@ -80,6 +82,11 @@ class NetworkDataSourceImpl : NetworkDataSource {
 
     override suspend fun getBanks(): GetAllBanksResponse {
         val response = RetrofitInstance.api.getBanks()
+        return response
+    }
+
+    override suspend fun monoVerifyBank(code: MonoAccountCode): MonoAccountResponse {
+        val response = RetrofitInstance.api.monoVerifyBank(code)
         return response
     }
 

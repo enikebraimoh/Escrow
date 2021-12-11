@@ -1,12 +1,15 @@
 package com.adashi.escrow.ui.settings.bankaccounts
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.repository.SettingsRepository
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountResponse
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -17,15 +20,26 @@ class WithdrawalBanksViewModel(val app: Application, val SettingsRepository: Set
     private val _allBanks = MutableLiveData<DataState<GetAllBanksResponse>>()
     val allBanks: LiveData<DataState<GetAllBanksResponse>> get() = _allBanks
 
+    private val _monoAcccountResponse = MutableLiveData<DataState<MonoAccountResponse>>()
+    val monoAcccountResponse: LiveData<DataState<MonoAccountResponse>> get() = _monoAcccountResponse
 
     private val _navigateToLogin = MutableLiveData<Boolean>()
     val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
+
 
     //call the function from the repository
     fun  getAllBanks(){
         viewModelScope.launch {
             SettingsRepository.getBanks().onEach { state ->
                 _allBanks.value = state
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun  monoVerifyBank(code: MonoAccountCode){
+        viewModelScope.launch {
+            SettingsRepository.monoVerifyBank(code).onEach { state ->
+                _monoAcccountResponse.value = state
             }.launchIn(viewModelScope)
         }
     }
