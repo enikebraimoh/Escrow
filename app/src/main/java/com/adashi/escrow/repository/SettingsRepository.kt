@@ -8,6 +8,8 @@ import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
+import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ng.adashi.domain_models.login.LoginToken
@@ -109,6 +111,23 @@ class SettingsRepository(private val networkDataSource: NetworkDataSource) {
         emit(DataState.Loading)
         try {
             val response = networkDataSource.addBank(bank)
+            emit(DataState.Success(response))
+        } catch (e: Exception) {
+            when (e){
+                is IOException -> emit(DataState.Error(e))
+                is HttpException -> {
+                    val status = e.code()
+                    val res = convertErrorBody(e)
+                    emit(DataState.GenericError(status, res))
+                }
+            }
+        }
+    }
+
+    suspend fun monoVerifyBank (code: MonoAccountCode) : Flow<DataState<MonoAccountResponse>> = flow {
+        emit(DataState.Loading)
+        try {
+            val response = networkDataSource.monoVerifyBank(code)
             emit(DataState.Success(response))
         } catch (e: Exception) {
             when (e){

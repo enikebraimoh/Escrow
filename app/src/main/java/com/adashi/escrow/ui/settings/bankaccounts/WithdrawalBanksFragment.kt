@@ -33,7 +33,6 @@ import mono.connect.widget.ConnectWidget
 import mono.connect.widget.ConnectedAccount
 import mono.connect.widget.EventListener
 
-
 class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.layout.fragment_withdrawal_banks),
     EventListener {
 
@@ -66,27 +65,32 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
             when (response) {
                 is DataState.Success<MonoAccountResponse> -> {
                     binding.progressBar2.visibility = View.INVISIBLE
+                    binding.progressTexxt.visibility = View.INVISIBLE
                     val data = response.data.data
                     showSnackBar(data.toString())
                 }
                 is DataState.Error -> {
                     showSnackBar("Slow or no Internet Connection")
                     binding.progressBar2.visibility = View.INVISIBLE
+                    binding.progressTexxt.visibility = View.INVISIBLE
                 }
                 is DataState.GenericError -> {
                     if (response.code!! == 403){
                         App.token = null
                         binding.progressBar2.visibility = View.INVISIBLE
+                        binding.progressTexxt.visibility = View.INVISIBLE
                         showSnackBar("token expired, please login again")
                         findNavController().popBackStack()
                     }
                     else{
                         showSnackBar(response.error?.message!!)
                         binding.progressBar2.visibility = View.INVISIBLE
+                        binding.progressTexxt.visibility = View.INVISIBLE
                     }
                 }
                 DataState.Loading -> {
                     binding.progressBar2.visibility = View.VISIBLE
+                    binding.progressTexxt.visibility = View.VISIBLE
                 }
             }
 
@@ -152,16 +156,11 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
 
     override fun onClose() {
         Toast.makeText(requireContext(), "widget closed", Toast.LENGTH_LONG).show()
-        //showSnackBar("widget closed")
     }
 
     override fun onSuccess(account: ConnectedAccount?) {
-        //Toast.makeText(requireContext(), "Account successfully connected", Toast.LENGTH_LONG).show()
-        //showSnackBar("Account successfully connected")
-        val monoCode = MonoAccountCode(account?.code.toString()!!)
+        Toast.makeText(requireContext(), "Account successfully connected", Toast.LENGTH_LONG).show()
         viewModel.monoVerifyBank(MonoAccountCode(account?.code.toString()))
-        //showSnackBar("Account successfully connected -- code: ${account?.code}")
-        Toast.makeText(requireContext(), "Account auth code: ${account?.code}", Toast.LENGTH_LONG).show()
     }
 
 }
