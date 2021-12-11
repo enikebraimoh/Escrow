@@ -58,7 +58,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi:$version_moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 
-    // datastore like shared preferences
+    // datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
 
     // Retrofit with Moshi Converter
