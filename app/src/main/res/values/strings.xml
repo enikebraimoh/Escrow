@@ -73,7 +73,7 @@
         <item> Internet </item>
     </string-array>
     <string name="share_transaction">This is a Transaction from %s, follow the link to complete this Transaction  %s </string>
-    <string name="connect_public_key">test_pk_HCHzGIPFDjru1cb3ZQUR</string>
+    <string name="connect_public_key">live_pk_6UMfUKtfnGVXOfMbj0vN</string>
 
     <string-array name="shipment_method">
         <item> Order is being Shiped </item>

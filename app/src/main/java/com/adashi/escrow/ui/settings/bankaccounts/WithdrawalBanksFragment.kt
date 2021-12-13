@@ -2,6 +2,7 @@ package com.adashi.escrow.ui.settings.bankaccounts
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.adashi.escrow.ui.addbank.AddBankFactory
 import com.adashi.escrow.ui.addbank.AddBankViewModel
 import com.adashi.escrow.ui.addbank.BanksAdapter
 import com.adashi.escrow.ui.addbank.verifybvn.VerifyBvnDialogFragment
+import com.adashi.escrow.ui.auth.login.LoginFragmentDirections
 import com.adashi.escrow.ui.dashboard.ShowTransactionDetailsDialogFragment
 import com.adashi.escrow.ui.dashboard.TransactionsAdapter
 import com.adashi.escrow.ui.settings.bankaccounts.mono.MonoAccountCode
@@ -33,14 +35,16 @@ import mono.connect.widget.ConnectWidget
 import mono.connect.widget.ConnectedAccount
 import mono.connect.widget.EventListener
 
-class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.layout.fragment_withdrawal_banks),
+class WithdrawalBanksFragment :
+    BaseFragment<FragmentWithdrawalBanksBinding>(R.layout.fragment_withdrawal_banks),
     EventListener {
 
-    lateinit var viewModel : WithdrawalBanksViewModel
+    var data = false
+    lateinit var viewModel: WithdrawalBanksViewModel
 
     private lateinit var connectWidget: ConnectWidget
 
-    private fun initAdapter(data: List<Account>) {
+    private fun initAdapter(data: MutableList<Account>) {
         val adapter = GetAllBanksAdapter { d ->
 
         }
@@ -54,39 +58,72 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
 
         val application = requireNotNull(this.activity).application
         val network = NetworkDataSourceImpl()
-        val viewModelProviderFactory = WithdrawalBankFactory(application, SettingsRepository(network))
+        val viewModelProviderFactory =
+            WithdrawalBankFactory(application, SettingsRepository(network))
 
         viewModel = ViewModelProvider(requireActivity(), viewModelProviderFactory).get(
-            WithdrawalBanksViewModel::class.java)
+            WithdrawalBanksViewModel::class.java
+        )
+
+        viewModel.navigateToLogin.observe(this,{
+            if (!it){
+                data = false
+            }
+        })
 
         viewModel.getAllBanks()
 
-        viewModel.monoAcccountResponse.observe(this,{ response ->
+        viewModel.monoAcccountResponse.observe(this, { response ->
             when (response) {
                 is DataState.Success<MonoAccountResponse> -> {
-                    binding.progressBar2.visibility = View.INVISIBLE
-                    binding.progressTexxt.visibility = View.INVISIBLE
-                    val data = response.data.data
-                    showSnackBar(data.toString())
+                  if (data){
+                      Log.d("MONOTESTING", "success was called")
+                      binding.progressBar2.visibility = View.INVISIBLE
+                      binding.progressTexxt.visibility = View.INVISIBLE
+                      viewModel.navigateToLoginDone()
+                      viewModel.getAllBanks()
+
+                    /*  val data = response.data.data
+                      val aza = Account(
+                          data.__v,
+                          data._id,
+                          data.accountName,
+                          data.accountNumber,
+                          data.bankName,
+                          data.createdAt,
+                          data.updatedAt
+                      )
+                      var newData = mutableListOf<Account>()
+                      newData.add(aza)
+                       initAdapter(newData)
+                      Log.d("MONOTESTING", response.data.data.toString())
+                      showSnackBar(data.toString())*/
+
+                  }
                 }
                 is DataState.Error -> {
+                    Log.d("MONOTESTING", "error was called")
                     showSnackBar("Slow or no Internet Connection")
                     binding.progressBar2.visibility = View.INVISIBLE
                     binding.progressTexxt.visibility = View.INVISIBLE
                 }
                 is DataState.GenericError -> {
-                    if (response.code!! == 403){
-                        App.token = null
-                        binding.progressBar2.visibility = View.INVISIBLE
-                        binding.progressTexxt.visibility = View.INVISIBLE
-                        showSnackBar("token expired, please login again")
-                        findNavController().popBackStack()
-                    }
-                    else{
-                        showSnackBar(response.error?.message!!)
-                        binding.progressBar2.visibility = View.INVISIBLE
-                        binding.progressTexxt.visibility = View.INVISIBLE
-                    }
+                   if (data){
+                       if (response.code!! == 403) {
+                           App.token = null
+                           binding.progressBar2.visibility = View.INVISIBLE
+                           binding.progressTexxt.visibility = View.INVISIBLE
+                           showSnackBar("token expired, please login again")
+                           findNavController().popBackStack()
+                       } else {
+                           Log.d("MONOTESTING", "Generic Error was called")
+                           Log.d("MONOTESTING", response.error?.message!!)
+                           viewModel.navigateToLoginDone()
+                           showSnackBar(response.error?.message)
+                           binding.progressBar2.visibility = View.INVISIBLE
+                           binding.progressTexxt.visibility = View.INVISIBLE
+                       }
+                   }
                 }
                 DataState.Loading -> {
                     binding.progressBar2.visibility = View.VISIBLE
@@ -96,32 +133,32 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
 
         })
 
-        viewModel.allBanks.observe(this,{ response ->
+        viewModel.allBanks.observe(this, { response ->
             when (response) {
                 is DataState.Success<GetAllBanksResponse> -> {
-
+                    binding.recyclerViewProgressBar.visibility = View.INVISIBLE
                     val data = response.data.data.accounts
                     initAdapter(data)
 
+
                 }
                 is DataState.Error -> {
-
+                    //binding.recyclerViewProgressBar.visibility = View.INVISIBLE
                     showSnackBar("Slow or no Internet Connection")
                 }
                 is DataState.GenericError -> {
 
-                    if (response.code!! == 403){
+                    if (response.code!! == 403) {
                         App.token = null
-
+                        binding.recyclerViewProgressBar.visibility = View.INVISIBLE
                         showSnackBar("token expired, please login again")
                         findNavController().popBackStack()
-                    }
-                    else{
-
+                    } else {
+                        binding.recyclerViewProgressBar.visibility = View.INVISIBLE
                     }
                 }
                 DataState.Loading -> {
-
+                    binding.recyclerViewProgressBar.visibility = View.VISIBLE
                 }
             }
 
@@ -139,7 +176,7 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
 
     }
 
-    private fun showSnackBar( message: String) {
+    private fun showSnackBar(message: String) {
         Snackbar.make(requireActivity(), binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
@@ -160,7 +197,10 @@ class WithdrawalBanksFragment : BaseFragment<FragmentWithdrawalBanksBinding>(R.l
 
     override fun onSuccess(account: ConnectedAccount?) {
         Toast.makeText(requireContext(), "Account successfully connected", Toast.LENGTH_LONG).show()
+        Log.d("MONOTESTING", account?.code.toString())
         viewModel.monoVerifyBank(MonoAccountCode(account?.code.toString()))
+        data = true
+        viewModel.navigateButtonClicked()
     }
 
 }
