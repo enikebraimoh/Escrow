@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:colorBackground"
+        tools:context=".ui.auth.VerifyEmailFragment">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:fontFamily="@font/googlesans_bold"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:text="Email Verification sent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:gravity="center"
+            android:fontFamily="@font/googlesans_medium"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:text="Kindly check your email for \nverification "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_marginTop="@dimen/margin_20_dp"
+            style="@style/buttons"
+            android:text="Open Email"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+</layout>
