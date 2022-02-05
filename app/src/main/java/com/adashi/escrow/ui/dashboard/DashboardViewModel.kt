@@ -32,7 +32,6 @@ class DashboardViewModel(val app: Application, val homeRepository: HomeRepositor
     private val _patch = MutableLiveData<DataState<ShipmentPatchResponse>>()
     val patch: LiveData<DataState<ShipmentPatchResponse>> get() = _patch
 
-
     private val _navigateToLogin = MutableLiveData<Boolean>()
     val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
 

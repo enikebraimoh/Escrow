@@ -1,12 +1,18 @@
 package com.adashi.escrow.ui.dashboard
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.text.Html
 import android.util.Log
 import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentDashboardBinding
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
@@ -17,6 +23,7 @@ import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.wallet.Balances
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.dashboard.wallet.BalanceViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
 import ng.adashi.network.NetworkDataSourceImpl
@@ -24,15 +31,22 @@ import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
+import okhttp3.internal.notifyAll
+import java.text.NumberFormat
+import java.util.*
 
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragment_dashboard) {
 
     lateinit var viewModel : DashboardViewModel
+    private var firstTime = true
 
     override fun start() {
         val application = requireNotNull(this.activity).application
         val network = NetworkDataSourceImpl()
         val viewModelProviderFactory = DashboardFactory(application, HomeRepository(network))
+
+        val money = mutableListOf("--","--","--")
+        val title = mutableListOf("Main Balance", "Pending Balance","Dispute Balance")
 
         var prefs: SharedPreferences = requireContext().getSharedPreferences(
             requireContext().getString(R.string.app_name),
@@ -43,17 +57,51 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
             DashboardViewModel::class.java
         )
 
+        addFirstDot(binding)
+
+        //Listening to page callbacks
+        binding.viewpager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if (firstTime)
+                        firstTime = false
+                    else
+                        addDot(position)
+                }
+            }
+        )
+
+        binding.viewpager.adapter = BalanceViewPagerAdapter(money, title)
+        binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
         viewModel.wallet_ballance.observe(this, { response ->
             when (response) {
                 is DataState.Success<WalletBalance> -> {
                     // showSnackBar("Refreshed")
                     binding.refreshLayout.isRefreshing = false
 
-                    binding.balance = Balances(
-                        response.data.data.total_balance,
-                        response.data.data.pending_transaction,
-                        response.data.data.dispute_order
+                    val newformat: NumberFormat = NumberFormat.getCurrencyInstance()
+                    newformat.maximumFractionDigits = 0
+                    newformat.currency = Currency.getInstance("NGN")
+
+                    val mainBal = response.data.data.total_balance.toString()
+                    val pending = response.data.data.pending_transaction.toString()
+                    val dispute = response.data.data.dispute_order.toString()
+
+                    money.addAll(
+                        0,
+                        listOf(
+                            newformat.format(mainBal.toLong()),
+                            newformat.format(pending.toLong()),
+                            newformat.format(dispute.toLong())
+                        )
                     )
+
+
+                    (binding.viewpager.adapter as BalanceViewPagerAdapter).notifyDataSetChanged()
+
+
                 }
                 is DataState.Error -> {
                     showSnackBar("Slow or no Internet Connection")
@@ -221,6 +269,46 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
     private fun stopShimmer(){
         binding.shimmerViewContainer.stopShimmer()
         binding.shimmerViewContainer.visibility = View.GONE
+    }
+
+    // creates dot indicator for the first enterance of the onBoardingScreen
+    private fun addFirstDot(view: FragmentDashboardBinding) {
+
+        view.pos1.setText(Html.fromHtml("&#8226;"))
+        view.pos2.setText(Html.fromHtml("&#8226;"))
+        view.pos3.setText(Html.fromHtml("&#8226;"))
+
+        view.pos1.textSize = 40f
+        view.pos2.textSize = 40f
+        view.pos3.textSize = 40f
+
+
+        view.pos1.setTextColor(Color.parseColor("#C4C4C4"))
+        view.pos2.setTextColor(Color.parseColor("#C4C4C4"))
+        view.pos3.setTextColor(Color.parseColor("#C4C4C4"))
+        view.pos1.setTextColor(Color.parseColor("#FED525"))
+
+    }
+
+    //creates dot indicator
+    private fun addDot(position: Int) {
+        val textViews = arrayOfNulls<TextView>(3)
+        binding?.let { it.liner.removeAllViews() }
+        var i = 0
+        while (i < 3) {
+            textViews[i] = TextView(requireContext())
+            textViews[i]?.setText(Html.fromHtml("&#8226;"))
+            textViews[i]?.textSize = 40f
+            textViews[i]?.setTextColor(Color.parseColor("#C4C4C4"))
+
+            binding?.let { _view ->
+                _view.liner.addView(textViews[i])
+            }
+            i++
+        }
+
+        if (textViews.size > 0)
+            textViews[position]?.setTextColor(Color.parseColor("#FED525"))
     }
 
 
