@@ -42,7 +42,7 @@ class BalanceViewPagerAdapter(private var balance : MutableList<String>,private 
                 holder.balanceTitle.setTextColor(Color.WHITE)
             }
             else ->{
-                holder.background.setCardBackgroundColor(Color.BLUE)
+                holder.background.setCardBackgroundColor(Color.parseColor("#0F2965"))
                 holder.icon.setImageResource(R.drawable.ic_sucess_icon)
                 holder.balanceTitle.setTextColor(Color.parseColor("#FFCE00"))
             }
