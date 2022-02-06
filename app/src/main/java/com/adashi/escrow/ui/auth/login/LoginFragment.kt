@@ -94,6 +94,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         showSnackBar("Invalid email or password")
                     } else {
                         showSnackBar(response.error?.message.toString())
+                       // Toast.makeText(requireContext(), response.code.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
                 DataState.Loading -> {

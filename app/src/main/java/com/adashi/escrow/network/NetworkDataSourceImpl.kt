@@ -6,7 +6,6 @@ import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.Transaction
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
@@ -17,6 +16,8 @@ import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.auth.verifyemail.models.EmailVerifyDetails
+import com.adashi.escrow.ui.auth.verifyemail.models.VerifyEmailResponse
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.network.retrofit.*
 import ng.adashi.domain_models.login.LoginToken
@@ -30,6 +31,11 @@ class NetworkDataSourceImpl : NetworkDataSource {
 
     override suspend fun signUp(details : SignUpDetails): SignUpResponse {
         val response = RetrofitInstance.api.SignUp(details)
+        return response
+    }
+
+    override suspend fun verifyEmail(details : EmailVerifyDetails): VerifyEmailResponse {
+        val response = RetrofitInstance.api.verifyEmail(details)
         return response
     }
 

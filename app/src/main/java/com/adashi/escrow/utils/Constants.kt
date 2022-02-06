@@ -1,6 +1,6 @@
 package ng.adashi.utils
 
 object Constants {
-        val SPLASH_SCREEN_TIMEER : Long = 3000
-        val BASE_URL : String ="https://escrow-v1-be.herokuapp.com/"
+        const val SPLASH_SCREEN_TIMEER : Long = 3000
+        const val BASE_URL : String ="https://api.escroww.africa/API/v1/"
 }

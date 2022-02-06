@@ -53,7 +53,12 @@ class RegisterViewModel(val app: Application, val authRepository: AuthRepository
                 if (validateLastName()) {
                     if (validateName()) {
                         if (verifyPassword()) {
-                            logUsersIn(SignUpDetails(phoneNumber!!,firstName!!,lastName!!, email!!,password!!))
+                            logUsersIn(SignUpDetails(
+                                phoneNumber = phoneNumber!!,
+                                firstName = firstName!!,
+                                lastName = lastName!!,
+                                email = email!!,
+                                password = password!!))
                         }
                     }
                 }

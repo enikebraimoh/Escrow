@@ -6,7 +6,6 @@ import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.Transaction
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
@@ -17,10 +16,10 @@ import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.auth.verifyemail.models.EmailVerifyDetails
+import com.adashi.escrow.ui.auth.verifyemail.models.VerifyEmailResponse
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.domain_models.login.LoginToken
-import retrofit2.http.Body
-import retrofit2.http.POST
 
 interface NetworkDataSource {
     suspend fun login(loginDetails: LoginDetails) : LoginToken
@@ -36,5 +35,6 @@ interface NetworkDataSource {
     suspend fun checkAccountName(number: String) : AccountNameResponse
     suspend fun addBank(bank: AddBankDetails) : AddBankResponse
     suspend fun getBanks() : GetAllBanksResponse
+    suspend fun verifyEmail(details : EmailVerifyDetails): VerifyEmailResponse
 
 }

@@ -36,7 +36,8 @@ class RegisterAuthFragment : BaseFragment<FragmentRegisterAuthBinding>(R.layout.
 
         viewModel.navigateToLogin.observe(this,{
             if (it){
-                view?.findNavController()?.popBackStack()
+
+                findNavController().navigate(RegisterAuthFragmentDirections.actionRegisterAuthFragmentToVerifyEmailFragment())
                 viewModel.navigateToLoginDone()
             }
 
@@ -46,7 +47,7 @@ class RegisterAuthFragment : BaseFragment<FragmentRegisterAuthBinding>(R.layout.
             when (response) {
                 is DataState.Success<SignUpResponse> -> {
                     displayProgressBar(false)
-                    showSnackBar("Account Created")
+                    //showSnackBar("Account Created")
                     viewModel.navigateButtonClicked()
                 }
                 is DataState.Error -> {
@@ -55,7 +56,7 @@ class RegisterAuthFragment : BaseFragment<FragmentRegisterAuthBinding>(R.layout.
                 }
                 is DataState.GenericError -> {
                     displayProgressBar(false)
-                    showSnackBar(response.error?.message!!)
+                    showSnackBar(response.error?.message.toString())
                 }
                 DataState.Loading -> {
                     displayProgressBar(true)
