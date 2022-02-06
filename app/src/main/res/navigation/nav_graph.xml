@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_RegisterAuthFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_RegisterAuthFragment_to_verifyEmailFragment"
+            app:destination="@id/verifyEmailFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_phone_auth2"
@@ -117,4 +120,27 @@
             android:name="phoneNumber"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/verifyUserEmailFragment"
+        android:name="com.adashi.escrow.ui.auth.verifyemail.VerifyUserEmailFragment"
+        android:label="VerifyUserEmailFragment"
+        tools:layout="@layout/fragment_verify_user_email">
+        <argument
+            android:name="activation_code"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="http://com.escrow.com/{id}?token={activation_code}" />
+        <action
+            android:id="@+id/action_verifyUserEmailFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_verify_email"
+        android:id="@+id/verifyEmailFragment"
+        android:name="com.adashi.escrow.ui.auth.VerifyEmailFragment"
+        android:label="VerifyEmailFragment" />
 </navigation>
