@@ -10,9 +10,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.adashi.escrow.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import ng.adashi.network.SessionManager
 import ng.adashi.utils.App
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
