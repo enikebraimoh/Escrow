@@ -4,15 +4,15 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class SignUpDetails(
-    @SerializedName("phoneNumber")
-    @Expose
-    val phoneNumber: String,
-    @SerializedName("firstName")
+    @SerializedName("first_name")
     @Expose
     val firstName: String,
-    @SerializedName("lastName")
+    @SerializedName("last_name")
     @Expose
     val lastName: String,
+    @SerializedName("phone_number")
+    @Expose
+    val phoneNumber: String,
     @SerializedName("email")
     @Expose
     val email: String,
