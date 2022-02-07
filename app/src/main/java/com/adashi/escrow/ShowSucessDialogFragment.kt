@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.adashi.escrow.databinding.SucessBottomSheetDialogueBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
 import ng.adashi.utils.RoundedBottomSheet
 
-class ShowSucessDialogFragment(val data : NewTransactionBodyResponse, val click : (id:Int) -> Unit) : RoundedBottomSheet() {
+class ShowSucessDialogFragment(val data : NewOrderResponse, val click : (id:Int) -> Unit) : RoundedBottomSheet() {
     lateinit var binding : SucessBottomSheetDialogueBinding
 
     override fun onCreateView(
@@ -24,14 +25,9 @@ class ShowSucessDialogFragment(val data : NewTransactionBodyResponse, val click 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.transPrice.text = data.data.transaction.price.toString()
-        binding.transaStatus.text = data.data.transaction.shipment_status
-        binding.transTitle .text = data.data.transaction.title
-
-        //binding.url.text = data.data.url
-
         binding.urlButton.setOnClickListener {
             click(0)
+            dismiss()
         }
 
     }

@@ -32,6 +32,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/agent_name" />
 
+        <ImageView
+            android:id="@+id/withdraw_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/ic_wallet"
+            app:layout_constraintBottom_toBottomOf="@+id/username"
+            app:layout_constraintEnd_toStartOf="@+id/profile_icon"
+            app:layout_constraintTop_toTopOf="@id/username" />
+
 
         <ImageView
             android:id="@+id/profile_icon"

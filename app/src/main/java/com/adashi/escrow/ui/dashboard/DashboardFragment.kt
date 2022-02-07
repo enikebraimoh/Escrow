@@ -32,6 +32,7 @@ import ng.adashi.core.BaseFragment
 import ng.adashi.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
+import ng.adashi.ui.withdraw.WithdrawBottomSheet
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
 import okhttp3.internal.notifyAll
@@ -171,7 +172,14 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                     showSnackBar(response.error?.message.toString())
                     binding.refreshLayout.isRefreshing = false
                     if (response.code!! == 403) {
-                        Toast.makeText(requireContext(), "access token expired", Toast.LENGTH_SHORT).show()
+                        App.token = null
+                        showSnackBar("token expired, please login again")
+                        val editor = prefs.edit()
+                        editor.putBoolean(SessionManager.LOGINSTATE, false)
+                        editor.apply()
+                        val session = SessionManager(requireContext().applicationContext)
+                        session.clearAuthToken()
+                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToLoginFragment())
                     } else {
                          showSnackBar(response.code.toString())
                     }
@@ -181,10 +189,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                 }
             }
         })
+
         viewModel.patch.observe(this, { response ->
             when (response) {
                 is DataState.Success<ShipmentPatchResponse> -> {
-                    showSnackBar("Transaction Update")
+                    showSnackBar("Transaction Updated")
                     binding.refreshLayout.isRefreshing = false
                 }
                 is DataState.Error -> {
@@ -193,11 +202,19 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                 }
                 is DataState.GenericError -> {
                     showSnackBar(response.error?.message.toString())
+                    //Toast.makeText(requireContext(), response.code.toString(), Toast.LENGTH_SHORT).show()
                     binding.refreshLayout.isRefreshing = false
                     if (response.code!! == 403) {
-
+                        App.token = null
+                        showSnackBar("token expired, please login again")
+                        val editor = prefs.edit()
+                        editor.putBoolean(SessionManager.LOGINSTATE, false)
+                        editor.apply()
+                        val session = SessionManager(requireContext().applicationContext)
+                        session.clearAuthToken()
+                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToLoginFragment())
                     } else {
-                        // showSnackBar(response.code.toString())
+                         //showSnackBar(response.code.toString())
                     }
                 }
                 DataState.Loading -> {
@@ -210,6 +227,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
         binding.createTransaction.setOnClickListener {
             findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToCreateTransactionFragment())
+        }
+
+        binding.withdrawIcon.setOnClickListener {
+            val WithdrawBS = WithdrawBottomSheet()
+
+            WithdrawBS.show(requireActivity().supportFragmentManager, "something")
         }
 
         binding.refreshLayout.setOnRefreshListener {
