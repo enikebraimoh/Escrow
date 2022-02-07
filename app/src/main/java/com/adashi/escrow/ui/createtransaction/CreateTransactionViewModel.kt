@@ -172,13 +172,6 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         }
     }
 
-    fun  getCurrentUser(){
-        viewModelScope.launch {
-            homeRepository.getCurrentUser().onEach { state ->
-                _user.value = state
-            }.launchIn(viewModelScope)
-        }
-    }
 
 
     fun navigateButtonClicked() {

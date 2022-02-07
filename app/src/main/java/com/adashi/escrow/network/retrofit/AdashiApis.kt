@@ -7,12 +7,14 @@ import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
 import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.userdata.UserData
 import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
@@ -43,6 +45,9 @@ interface AdashiApis {
     @GET("transactions/me")
     suspend fun getAllTransactions() : TransactionsResponse
 
+    @GET("orders/all")
+    suspend fun getAllOrders() : AllOrdersResponse
+
     @POST("transactions/new")
     suspend fun CreateTransaction(
         @Body trans : sampleTrans
@@ -51,8 +56,8 @@ interface AdashiApis {
     @GET("user/balance")
     suspend fun getWalletBalancce() : WalletBalance
 
-    @GET("auth/me")
-    suspend fun getCurrentUser() : UserResponse
+    @GET("users/me")
+    suspend fun getCurrentUserData() : UserData
 
     @GET("/")
     suspend fun getNigerianBanks() : MutableList<ListOfBanksItem>
