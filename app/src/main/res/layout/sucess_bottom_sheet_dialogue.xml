@@ -33,20 +33,20 @@
                 android:layout_marginEnd="20dp"
                 android:padding="20dp">
                 <TextView
-                    android:text="Transaction Title"
+                    android:text="Transaction Link Created"
                     android:textSize="15dp"
-                    android:fontFamily="@font/googlesans_regular"
+                    android:fontFamily="@font/googlesans_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <TextView
+             <!--   <TextView
                     android:id="@+id/trans_title"
                     tools:text="buy car"
                     android:textSize="25dp"
                     android:fontFamily="@font/googlesans_medium"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"/>-->
             </LinearLayout>
-            <LinearLayout
+            <!--<LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/transprice"
                 android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                     android:fontFamily="@font/googlesans_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <Button
                 android:id="@+id/url_button"

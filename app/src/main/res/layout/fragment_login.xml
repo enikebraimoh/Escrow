@@ -16,7 +16,7 @@
         tools:context=".ui.auth.login.LoginFragment">
 
         <TextView
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:fontFamily="@font/googlesans_medium"
             android:textColor="@color/primaryColor"
             android:id="@+id/logo"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Escrow"
+            android:text="Escrow Africa"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

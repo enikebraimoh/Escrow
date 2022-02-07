@@ -8,6 +8,8 @@ import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderDetails
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
@@ -48,10 +50,10 @@ interface AdashiApis {
     @GET("orders/all")
     suspend fun getAllOrders() : AllOrdersResponse
 
-    @POST("transactions/new")
-    suspend fun CreateTransaction(
-        @Body trans : sampleTrans
-    ) : NewTransactionBodyResponse
+    @POST("orders/new")
+    suspend fun createOrder(
+        @Body trans : NewOrderDetails
+    ) : NewOrderResponse
 
     @GET("user/balance")
     suspend fun getWalletBalancce() : WalletBalance
@@ -62,9 +64,9 @@ interface AdashiApis {
     @GET("/")
     suspend fun getNigerianBanks() : MutableList<ListOfBanksItem>
 
-    @PATCH("transactions/{transactionId}")
+    @PATCH("orders/edit/{order_id}")
     suspend fun patchTransaction(
-        @Path("transactionId") transactionId : String,
+        @Path("order_id") transactionId : String,
         @Body status : PatchShipingStatus
     ) : ShipmentPatchResponse
 

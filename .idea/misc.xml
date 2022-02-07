@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-night/ic_ngn.xml" value="0.30666666666666664" />
+        <entry key="app/src/main/res/drawable-night/rounded.xml" value="0.30666666666666664" />
         <entry key="app/src/main/res/drawable-v24/cornercircle.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable-v24/ic_dashboard_icon.xml" value="0.262037037037037" />
         <entry key="app/src/main/res/drawable-v24/ic_notification_icon.xml" value="0.22685185185185186" />
@@ -14,7 +16,9 @@
         <entry key="app/src/main/res/drawable/ic_add_icon.xml" value="0.22685185185185186" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_close_icon.xml" value="0.287962962962963" />
+        <entry key="app/src/main/res/drawable/ic_ngn.xml" value="0.30666666666666664" />
         <entry key="app/src/main/res/drawable/input_field_bg.xml" value="0.3109375" />
+        <entry key="app/src/main/res/drawable/rounded.xml" value="0.30666666666666664" />
         <entry key="app/src/main/res/drawable/transaction_bg.xml" value="0.3109375" />
         <entry key="app/src/main/res/drawable/transaction_type.xml" value="0.3109375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26296296296296295" />
@@ -27,7 +31,7 @@
         <entry key="app/src/main/res/layout/fragment_auth3.xml" value="0.28072916666666664" />
         <entry key="app/src/main/res/layout/fragment_create_transaction.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.31197097944377267" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_phone_auth1.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_phone_auth2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.28072916666666664" />
@@ -44,6 +48,7 @@
         <entry key="app/src/main/res/layout/transaction_item_layout.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/verify_bvn_bottom_sheet_dialogue.xml" value="0.3046153846153846" />
         <entry key="app/src/main/res/layout/wallet_balance_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/withdraw_dialogue_sheet.xml" value="0.2953125" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1359375" />
       </map>

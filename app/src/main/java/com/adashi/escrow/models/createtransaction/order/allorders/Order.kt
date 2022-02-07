@@ -11,7 +11,7 @@ data class Order(
     val pay_link: String,
     val payment_status: Int,
     val price: Int,
-    val settlement_status : Int,
+    val settlement_status : Int? = null,
     val product_category: String,
     val quantity: Int,
     val shipment_status: Int,

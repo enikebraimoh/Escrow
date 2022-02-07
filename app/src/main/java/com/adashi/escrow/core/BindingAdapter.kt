@@ -55,7 +55,7 @@ fun currencyConverter(tv: TextView, data: Any) {
 fun convertTag(tv: TextView, data: Order) {
     if (data.settlement_status ==0) {
        tv.setBackgroundColor(Color.GREEN)
-    } else if (data.settlement_status == 2) {
+    } else if (data.settlement_status == null) {
         tv.setBackgroundColor(Color.YELLOW)
     }else if(data.settlement_status == 1){
         tv.setBackgroundColor(Color.RED)

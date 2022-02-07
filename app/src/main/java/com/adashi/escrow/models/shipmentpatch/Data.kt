@@ -1,6 +1,7 @@
 package com.adashi.escrow.models.shipmentpatch
 
+import com.adashi.escrow.models.createtransaction.order.allorders.Order
+
 data class Data(
-    val transaction: Transaction,
-    val url: String
+    val transaction: Order
 )

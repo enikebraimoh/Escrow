@@ -72,7 +72,7 @@
         <item> Ussd </item>
         <item> Internet </item>
     </string-array>
-    <string name="share_transaction">This is a Transaction from %s, follow the link to complete this Transaction  %s </string>
+    <string name="share_transaction">This is a Transaction from Escrow Africa, follow the link to complete this Transaction  %s </string>
 
     <string-array name="shipment_method">
         <item> Order is being Shiped </item>
