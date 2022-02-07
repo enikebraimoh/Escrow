@@ -13,11 +13,12 @@ import com.adashi.escrow.R
 import com.adashi.escrow.databinding.SucessBottomSheetDialogueBinding
 import com.adashi.escrow.databinding.TransactionDetailsBottomSheetDialogueBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.allorders.Order
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import ng.adashi.utils.RoundedBottomSheet
 
 class ShowTransactionDetailsDialogFragment(
-    val data: Transaction,
+    val data: Order,
     val click: (id: Int, patch: String) -> Unit
 ) :
     RoundedBottomSheet() {
@@ -42,7 +43,9 @@ class ShowTransactionDetailsDialogFragment(
 
 
         binding.transPrice.text = data.price.toString()
-        binding.transaStatus.text = data.shipment_status
+
+        binding.transaStatus.text = if (data.payment_status == 0) "Paid" else "Not Paid"
+
         binding.transTitle.text = data.title
         //binding.shipmentStatus.hint = data.status
         //binding.url.text = data.data.url
@@ -58,19 +61,20 @@ class ShowTransactionDetailsDialogFragment(
 
         binding.shipmentStatus.setAdapter(ShipmentMethodArrayAdapter)
 
-        binding.transaStatus.text = data.shipment_status
+        binding.transaStatus.text = if (data.payment_status == 0) "Paid" else "Not Paid"
 
 
-        if (data.is_paid) {
-            if (data.settled) {
+        if (data.payment_status == 0) {
+            if (data.settlement_status == 0) {
                 binding.ShipmentStatusField.isEnabled = false
-                binding.ShipmentStatusField.hint = data.shipment_status
+                binding.ShipmentStatusField.hint = if (data.shipment_status == 3) "Delivered"
+                else if(data.settlement_status == 0) "Shipped" else "Not Shipped"
                 binding.transaStatus.text = "Settled"
                 binding.shipmentStatus.isEnabled = false
                 binding.urlButton.isEnabled = false
                 binding.transTag.setBackgroundColor(Color.GREEN)
             } else {
-                if (data.dispute) {
+                if (data.settlement_status == 1) {
                     binding.transaStatus.text = "Dispute"
                     binding.ShipmentStatusField.isEnabled = false
                     binding.transaStatus.text = "Order in Dispute"
@@ -82,7 +86,7 @@ class ShowTransactionDetailsDialogFragment(
                     binding.shipmentStatus.isEnabled = true
                     binding.urlButton.isEnabled = true
                     binding.transaStatus.text = "Buyer Payment Success"
-                    binding.transaStatus.text = data.shipment_status
+                    binding.transaStatus.text = if (data.payment_status == 0) "Paid" else "Not Paid"
                     binding.transTag.setBackgroundColor(Color.GREEN)
                 }
             }

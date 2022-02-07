@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/blank_input_field.xml" value="0.3109375" />
         <entry key="app/src/main/res/drawable/ic_add_icon.xml" value="0.22685185185185186" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/ic_close_icon.xml" value="0.287962962962963" />
         <entry key="app/src/main/res/drawable/input_field_bg.xml" value="0.3109375" />
         <entry key="app/src/main/res/drawable/transaction_bg.xml" value="0.3109375" />
         <entry key="app/src/main/res/drawable/transaction_type.xml" value="0.3109375" />

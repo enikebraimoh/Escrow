@@ -103,7 +103,7 @@
             android:id="@+id/action_withdrawalBanksFragment_to_verifyBnvOtpFragment"
             app:destination="@id/verifyBnvOtpFragment" />
     </fragment>
-    <fragment
+    <dialog
         tools:layout="@layout/verify_bvn_bottom_sheet_dialogue"
         android:id="@+id/verifyBvnDialogFragment"
         android:name="com.adashi.escrow.ui.addbank.verifybvn.VerifyBvnDialogFragment"

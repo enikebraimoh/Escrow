@@ -9,10 +9,6 @@
             name="balance"
             type="com.adashi.escrow.models.wallet.Balances" />
 
-        <variable
-            name="user"
-            type="com.adashi.escrow.models.user.Data" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +27,6 @@
             android:fontFamily="@font/googlesans_medium"
             android:text="swipe down to refresh"
             android:textAlignment="center"
-
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

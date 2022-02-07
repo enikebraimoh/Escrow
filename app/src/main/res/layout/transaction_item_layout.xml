@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.adashi.escrow.models.shipmentpatch.Transaction" />
+            type="com.adashi.escrow.models.createtransaction.order.allorders.Order" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:fontFamily="@font/googlesans_regular"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            amount="@{data.createdAt.toString()}"
+            format_date_time="@{data.createdAt}"
             tools:text="Today Aug. 21, 2021 (2:00PM)"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/withdrawal"

@@ -61,6 +61,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/primaryColor"
                     android:background="@drawable/rounded_gray_background"
                     android:padding="20dp">
 
@@ -76,12 +77,14 @@
                             android:src="@drawable/ic_close_icon" />
 
                         <TextView
+                            android:textColor="@color/white"
                             android:layout_width="match_parent"
+                            android:textSize="15sp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/googlesans_regular"
-                            android:text="   This is the binding contract within the seller and buyer, use a suitable name that represent your deal" />
+                            android:text="This is the binding contract within the seller and buyer, use a suitable name that represent your deal" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -117,7 +120,7 @@
 
                 <!-- Sellers Details -->
 
-                <LinearLayout
+              <!--  <LinearLayout
                     android:id="@+id/sellers_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -220,7 +223,7 @@
                             android:singleLine="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
+                </LinearLayout>-->
 
                 <!-- Buyers Details -->
 
@@ -348,33 +351,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/Product_name_field"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        verify_field="@{viewModel.productTypeNameError}"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/googlesans_regular"
-                        android:hint="@string/product_name"
-                        app:helperText="@string/product_name_text"
-                        app:helperTextEnabled="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/transaction_image_field">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/Product_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/googlesans_regular"
-                            android:inputType="text"
-                            android:padding="20dp"
-                            android:singleLine="false"
-                            android:text="@={viewModel.product_name}" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/Product_type_field"
