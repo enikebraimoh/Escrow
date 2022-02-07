@@ -1,25 +1,28 @@
 package com.adashi.escrow.ui.transactions
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentTransactionsBinding
+import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.Order
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.wallet.TransactionsResponse
-import com.adashi.escrow.ui.dashboard.DashboardFactory
-import com.adashi.escrow.ui.dashboard.DashboardViewModel
-import com.adashi.escrow.ui.dashboard.ShowTransactionDetailsDialogFragment
-import com.adashi.escrow.ui.dashboard.TransactionsAdapter
+import com.adashi.escrow.ui.dashboard.*
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
 import ng.adashi.network.NetworkDataSourceImpl
+import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
+import ng.adashi.utils.App
 import ng.adashi.utils.DataState
 
 class TransactionsFragment :
@@ -39,12 +42,17 @@ class TransactionsFragment :
             viewModelProviderFactory
         ).get(TransactionsViewModel::class.java)
 
-       /* viewModel.allTransactions.observe(this, { response ->
+        var prefs: SharedPreferences = requireContext().getSharedPreferences(
+            requireContext().getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+
+        viewModel.allOrders.observe(this, { response ->
             when (response) {
-                is DataState.Success<TransactionsResponse> -> {
+                is DataState.Success<AllOrdersResponse> -> {
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerViewContainer.visibility = View.GONE
-                    initAdapter(response.data.data.transactions)
+                    initAdapter(response.data.data.orders)
                 }
                 is DataState.Error -> {
                     binding.shimmerViewContainer.stopShimmer()
@@ -56,7 +64,14 @@ class TransactionsFragment :
                     binding.shimmerViewContainer.visibility = View.GONE
                     showSnackBar(response.error?.message.toString())
                     if (response.code!! == 403) {
-
+                        App.token = null
+                        showSnackBar("token expired, please login again")
+                        val editor = prefs.edit()
+                        editor.putBoolean(SessionManager.LOGINSTATE, false)
+                        editor.apply()
+                        val session = SessionManager(requireContext().applicationContext)
+                        session.clearAuthToken()
+                        findNavController().navigate(TransactionsFragmentDirections.actionTransactionsFragmentToLoginFragment())
                     } else {
                         // showSnackBar(response.code.toString())
                     }
@@ -65,19 +80,19 @@ class TransactionsFragment :
 
                 }
             }
-        })*/
+        })
 
-       // viewModel.getAllTransactions()
+        viewModel.getAllOrders()
 
     }
 
 
-    private fun initAdapter(data: MutableList<Order>) {
+    private fun initAdapter(data: List<Order>) {
         val adapter = TransactionsAdapter { d ->
-            var fr = ShowTransactionDetailsDialogFragment(d) { index, patchString ->
+            var fr = ShowTransactionDetailsDialogFragment(d) { index , patchString ->
                 when (index) {
                     0 -> {
-                        updateTransaction(d.order_id, PatchShipingStatus(patchString))
+                        updateTransaction(d.order_id , PatchShipingStatus(patchString))
                     }
                 }
             }

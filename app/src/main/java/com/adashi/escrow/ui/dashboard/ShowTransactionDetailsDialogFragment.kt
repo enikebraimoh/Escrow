@@ -19,7 +19,7 @@ import ng.adashi.utils.RoundedBottomSheet
 
 class ShowTransactionDetailsDialogFragment(
     val data: Order,
-    val click: (id: Int, patch: String) -> Unit
+    val click: (id: Int, patch: Int) -> Unit
 ) :
     RoundedBottomSheet() {
     lateinit var binding: TransactionDetailsBottomSheetDialogueBinding
@@ -73,7 +73,8 @@ class ShowTransactionDetailsDialogFragment(
                 binding.shipmentStatus.isEnabled = false
                 binding.urlButton.isEnabled = false
                 binding.transTag.setBackgroundColor(Color.GREEN)
-            } else {
+            }
+            else {
                 if (data.settlement_status == 1) {
                     binding.transaStatus.text = "Dispute"
                     binding.ShipmentStatusField.isEnabled = false
@@ -85,6 +86,8 @@ class ShowTransactionDetailsDialogFragment(
                     binding.ShipmentStatusField.isEnabled = true
                     binding.shipmentStatus.isEnabled = true
                     binding.urlButton.isEnabled = true
+                    binding.ShipmentStatusField.hint = if (data.shipment_status == 3) "Delivered"
+                    else if(data.settlement_status == 0) "Shipped" else "Not Shipped"
                     binding.transaStatus.text = "Buyer Payment Success"
                     binding.transaStatus.text = if (data.payment_status == 0) "Paid" else "Not Paid"
                     binding.transTag.setBackgroundColor(Color.GREEN)
@@ -103,7 +106,7 @@ class ShowTransactionDetailsDialogFragment(
         binding.urlButton.setOnClickListener {
             val value = binding.shipmentStatus.text.toString()
             if (validateShiping()) {
-                click(0, binding.shipmentStatus.text.toString())
+                click(0, if (value == "Order has Delivered") 2 else 0 )
                 dismiss()
             }
         }

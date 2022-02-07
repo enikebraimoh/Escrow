@@ -16,6 +16,7 @@ import com.adashi.escrow.R
 import com.adashi.escrow.ShowSucessDialogFragment
 import com.adashi.escrow.databinding.FragmentCreateTransactionBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
 import com.adashi.escrow.models.signup.SignUpResponse
 import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.ui.auth.register.RegisterFactory
@@ -51,15 +52,15 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
             }
         })
 
-        viewModel.transaction.observe(this, { response ->
+        viewModel.order.observe(this, { response ->
             when (response) {
-                is DataState.Success<NewTransactionBodyResponse> -> {
+                is DataState.Success<NewOrderResponse> -> {
                     displayProgressBar(false)
                    // showSnackBar(response.data.data.url)
 
                     val intent  = ShareCompat.IntentBuilder.from(requireActivity())
                         .setType("text/plain")
-                        .setText(getString(R.string.share_transaction,response.data.data.transaction.seller.name,response.data.data.url))
+                        .setText(getString(R.string.share_transaction,response.data.data.url))
                         .intent
 
                     var fr = ShowSucessDialogFragment(response.data){
@@ -87,7 +88,7 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
                        findNavController().popBackStack()
                     }
                     else{
-                        showSnackBar(response.code.toString())
+                        showSnackBar(response.error?.message.toString())
                     }
                 }
                 DataState.Loading -> {
@@ -129,14 +130,10 @@ class CreateTransactionFragment : BaseFragment<FragmentCreateTransactionBinding>
         super.onDestroy()
         binding.transactionTitle.setText("")
 
-        binding.sellerName.setText("")
-        binding.sellerEmail.setText("")
-        binding.sellerPhone.setText("")
         binding.buyerName.setText("")
         binding.buyerEmail.setText("")
         binding.buyerPhone.setText("")
 
-        binding.ProductName.setText("")
         binding.ProductType.setText("")
         binding.ProductDescription.setText("")
         binding.ProductQuantity.setText("")

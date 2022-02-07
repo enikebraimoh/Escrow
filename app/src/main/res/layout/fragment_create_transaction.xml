@@ -404,7 +404,7 @@
                             android:layout_height="wrap_content"
                             android:text="@={viewModel.product_description}"
                             android:fontFamily="@font/googlesans_regular"
-                            android:maxLength="80"
+                            android:maxLength="120"
                             android:inputType="textMultiLine"
                             android:padding="20dp"
                             android:singleLine="false" />
@@ -554,7 +554,7 @@
                         android:layout_width="match_parent"
                         style="@style/buttons"
                         android:textAllCaps="false"
-                        android:text="Create Transaction"
+                        android:text="Create Order"
                         android:layout_height="wrap_content"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

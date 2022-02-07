@@ -11,6 +11,8 @@ import com.adashi.escrow.models.createtransaction.Buyer
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
 import com.adashi.escrow.models.createtransaction.Seller
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderDetails
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
@@ -25,11 +27,6 @@ import ng.adashi.utils.DataState
 
 class CreateTransactionViewModel(val app: Application, val homeRepository: HomeRepository) :
     ViewModel() {
-
-    // for seller
-    var seller_name: String? = null
-    var seller_email: String? = null
-    var seller_phone: String? = null
 
     // for buyer
     var buyer_name: String? = null
@@ -51,8 +48,8 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
     val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
 
 
-    private val _transaction = MutableLiveData<DataState<NewTransactionBodyResponse>>()
-    val transaction: LiveData<DataState<NewTransactionBodyResponse>> get() = _transaction
+    private val _order = MutableLiveData<DataState<NewOrderResponse>>()
+    val order: LiveData<DataState<NewOrderResponse>> get() = _order
 
     private val _user = MutableLiveData<DataState<UserResponse>>()
     val user: LiveData<DataState<UserResponse>> get() = _user
@@ -60,39 +57,29 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
 
     // live data for error response
 
-    /*For Sellers*/
-    private val _sellerNameError = MutableLiveData<String>()
-    val sellerNameError: LiveData<String> get() = _sellerNameError
-    private val _sellerEmailError = MutableLiveData<String>()
-    val sellerEmailError: LiveData<String> get() = _sellerEmailError
-    private val _sellerPhoneError = MutableLiveData<String>()
-    val sellerPhoneError: LiveData<String> get() = _sellerPhoneError
-
     /*For Buyers*/
-    private val _buyerNameError = MutableLiveData<String>()
-    val buyerNameError: LiveData<String> get() = _buyerNameError
-    private val _buyerEmailError = MutableLiveData<String>()
-    val buyerEmailError: LiveData<String> get() = _buyerEmailError
-    private val _buyerPhoneError = MutableLiveData<String>()
-    val buyerPhoneError: LiveData<String> get() = _buyerPhoneError
+    private val _buyerNameError = MutableLiveData<String?>()
+    val buyerNameError: LiveData<String?> get() = _buyerNameError
+    private val _buyerEmailError = MutableLiveData<String?>()
+    val buyerEmailError: LiveData<String?> get() = _buyerEmailError
+    private val _buyerPhoneError = MutableLiveData<String?>()
+    val buyerPhoneError: LiveData<String?> get() = _buyerPhoneError
 
     /*For Product*/
-    private val _transactionTitleNameError = MutableLiveData<String>()
-    val transactionTitleNameError: LiveData<String> get() = _transactionTitleNameError
-    private val _productTypeError = MutableLiveData<String>()
-    val productTypeError: LiveData<String> get() = _productTypeError
-    private val _productTypeNameError = MutableLiveData<String>()
-    val productTypeNameError: LiveData<String> get() = _productTypeNameError
-    private val _productDescriptionError = MutableLiveData<String>()
-    val productDescriptionError: LiveData<String> get() = _productDescriptionError
-    private val _productQuantityError = MutableLiveData<String>()
-    val productQuantityError: LiveData<String> get() = _productQuantityError
-    private val _productPriceError = MutableLiveData<String>()
-    val productPriceError: LiveData<String> get() = _productPriceError
-    private val _whoPaysError = MutableLiveData<String>()
-    val whoPaysError: LiveData<String> get() = _whoPaysError
-    private val _paymentMethodError = MutableLiveData<String>()
-    val paymentMethodError: LiveData<String> get() = _paymentMethodError
+    private val _transactionTitleNameError = MutableLiveData<String?>()
+    val transactionTitleNameError: LiveData<String?> get() = _transactionTitleNameError
+    private val _productTypeError = MutableLiveData<String?>()
+    val productTypeError: LiveData<String?> get() = _productTypeError
+    private val _productDescriptionError = MutableLiveData<String?>()
+    val productDescriptionError: LiveData<String?> get() = _productDescriptionError
+    private val _productQuantityError = MutableLiveData<String?>()
+    val productQuantityError: LiveData<String?> get() = _productQuantityError
+    private val _productPriceError = MutableLiveData<String?>()
+    val productPriceError: LiveData<String?> get() = _productPriceError
+    private val _whoPaysError = MutableLiveData<String?>()
+    val whoPaysError: LiveData<String?> get() = _whoPaysError
+    private val _paymentMethodError = MutableLiveData<String?>()
+    val paymentMethodError: LiveData<String?> get() = _paymentMethodError
 
 
     val productType = app.resources.getStringArray(R.array.product_type)
@@ -108,40 +95,30 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
 
     fun CreateNewTransaction() {
         if (validateTransactionTitle()) {
-            if (validateSellerName()) {
-                if (validateSellerEmail()) {
-                    if (validateSellerPhone()) {
                         if (validateBuyerName()) {
                             if (validateBuyerEmail()) {
                                 if (validateBuyerPhone()) {
                                     if (validateProductType()) {
-                                        if (validateProductName()) {
                                             if (validateProductDescription()) {
                                                 if (validateProductQuantity()) {
                                                     if (validateProductPrice()) {
                                                         if (validateWhoPays()) {
                                                             if (validatePaymentMethod()) {
                                                                 val buyer =
-                                                                    com.adashi.escrow.models.Buyer(
+                                                                    com.adashi.escrow.models.createtransaction.order.neworder.Buyer(
                                                                         buyer_email!!,
                                                                         buyer_name!!,
-                                                                        buyer_phone?.toLong()!!
+                                                                        buyer_phone!!
                                                                     )
-                                                                val seller =
-                                                                    com.adashi.escrow.models.Seller(
-                                                                        seller_email!!,
-                                                                        seller_name!!,
-                                                                        seller_phone?.toLong()!!
-                                                                    )
-                                                                val transaction = sampleTrans(
+
+                                                                val transaction = NewOrderDetails (
                                                                     buyer,
                                                                     product_description!!,
-                                                                    whopays!!,
+                                                                    if (whopays!! == "Buyer") 0 else if (whopays!! == "Seller") 1 else 2,
                                                                     payment_method!!,
-                                                                    product_price!!.toDouble(),
+                                                                    product_price!!.toInt(),
                                                                     product_type!!,
                                                                     product_quantity?.toInt()!!,
-                                                                    seller,
                                                                     transaction_title!!,
                                                                     (product_price!!.toInt() * product_quantity!!.toInt())
                                                                 )
@@ -157,17 +134,14 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
                             }
                         }
                     }
-                }
-            }
-        }
-    }
+
 
 
     //call the login function from the repository
-    fun CreateTransaction(details: sampleTrans) {
+    fun CreateTransaction(details: NewOrderDetails) {
         viewModelScope.launch {
-            homeRepository.CreateTransaction(details).onEach { state ->
-                _transaction.value = state
+            homeRepository.createOrder(details).onEach { state ->
+                _order.value = state
             }.launchIn(viewModelScope)
         }
     }
@@ -182,49 +156,6 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         _navigateToLogin.value = false
     }
 
-
-    private fun validateSellerEmail(): Boolean {
-        return if (seller_email == null || seller_email == "") {
-            _sellerEmailError.value = "field must not be blank"
-            false
-        } else if (android.util.Patterns.EMAIL_ADDRESS.matcher(seller_email).matches()) {
-            _sellerEmailError.value = null
-            true
-        } else {
-            _sellerEmailError.value = "invalid email"
-            false
-        }
-    }
-
-    private fun validateSellerName(): Boolean {
-        return if (seller_name == null || seller_name!! == "") {
-            _sellerNameError.value = "this field cannot be left blank"
-            false
-        } else if (seller_name!!.contains("[0-9]".toRegex())) {
-            _sellerNameError.value = "name cannot contain numbers"
-            false
-        } else if ((seller_name!!.contains("[^A-Za-z0-9 ]".toRegex()))) {
-            _sellerNameError.value = "name cannot contain special characters"
-            false
-        } else {
-            _sellerNameError.value = null
-            true
-        }
-    }
-
-    private fun validateSellerPhone(): Boolean {
-        return if (seller_phone == "" || seller_phone == null) {
-            _sellerPhoneError.value = "this field cannot be left blank"
-            false
-        } else if (seller_phone!!.length < 11) {
-            _sellerPhoneError.value = "invalid phone number"
-            false
-        } else {
-            _sellerPhoneError.value = null
-            true
-        }
-
-    }
 
     private fun validateBuyerEmail(): Boolean {
         return if (buyer_email == null || buyer_email == "") {
@@ -292,22 +223,12 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
         }
     }
 
-    private fun validateProductName(): Boolean {
-        return if (product_name == null || product_name!! == "") {
-            _productTypeNameError.value = "this field cannot be left blank"
-            false
-        }else {
-            _productTypeNameError.value = null
-            true
-        }
-    }
-
     private fun validateProductDescription(): Boolean {
         return if (product_description == null || product_description!! == "") {
             _productDescriptionError.value = "this field cannot be left blank"
             false
-        } else if (product_description!!.length < 40) {
-            _productDescriptionError.value = "Description should be at least 40 characters long"
+        } else if (product_description!!.length < 120) {
+            _productDescriptionError.value = "Description should be at least 120 characters long"
             false
         } else {
             _productDescriptionError.value = null

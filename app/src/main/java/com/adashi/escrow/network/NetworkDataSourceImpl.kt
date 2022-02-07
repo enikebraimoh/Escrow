@@ -7,6 +7,8 @@ import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderDetails
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
@@ -96,8 +98,8 @@ class NetworkDataSourceImpl : NetworkDataSource {
         return response
     }
 
-    override suspend fun CreateTransaction(details: sampleTrans) : NewTransactionBodyResponse {
-        val response = RetrofitInstance.api.CreateTransaction(details)
+    override suspend fun createOrder(details: NewOrderDetails) : NewOrderResponse {
+        val response = RetrofitInstance.api.createOrder(details)
         return response
     }
 

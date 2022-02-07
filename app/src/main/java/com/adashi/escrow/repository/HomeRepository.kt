@@ -4,6 +4,8 @@ import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.Transaction
 import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderDetails
+import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
@@ -38,10 +40,10 @@ class HomeRepository(private val networkDataSource: NetworkDataSource) {
         }
     }
 
-    suspend fun CreateTransaction (details: sampleTrans) : Flow<DataState<NewTransactionBodyResponse>> = flow {
+    suspend fun createOrder(details: NewOrderDetails) : Flow<DataState<NewOrderResponse>> = flow {
         emit(DataState.Loading)
         try {
-            val response = networkDataSource.CreateTransaction(details)
+            val response = networkDataSource.createOrder(details)
             emit(DataState.Success(response))
         } catch (e: Exception) {
             when (e){

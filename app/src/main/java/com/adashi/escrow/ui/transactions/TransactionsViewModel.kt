@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.Transaction
+import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
@@ -20,8 +21,8 @@ import ng.adashi.utils.DataState
 
 class TransactionsViewModel(val app: Application, val homeRepository: HomeRepository) : ViewModel() {
 
-    private val _allTransactions = MutableLiveData<DataState<TransactionsResponse>>()
-    val allTransactions: LiveData<DataState<TransactionsResponse>> get() = _allTransactions
+    private val _allOrders = MutableLiveData<DataState<AllOrdersResponse>>()
+    val allOrders: LiveData<DataState<AllOrdersResponse>> get() = _allOrders
 
     private val _patch = MutableLiveData<DataState<ShipmentPatchResponse>>()
     val patch: LiveData<DataState<ShipmentPatchResponse>> get() = _patch
@@ -31,10 +32,11 @@ class TransactionsViewModel(val app: Application, val homeRepository: HomeReposi
     val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
 
     //call the function from the repository
-    fun  getAllTransactions(){
+
+    fun  getAllOrders(){
         viewModelScope.launch {
-            homeRepository.getAllTransactions().onEach { state ->
-                _allTransactions.value = state
+            homeRepository.getAllOrders().onEach { state ->
+                _allOrders.value = state
             }.launchIn(viewModelScope)
         }
     }
