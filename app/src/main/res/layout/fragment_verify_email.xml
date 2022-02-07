@@ -15,6 +15,18 @@
         android:background="?android:colorBackground"
         tools:context=".ui.auth.VerifyEmailFragment">
 
+        <ImageView
+            android:id="@+id/mailicon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/mymail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.225" />
+
         <TextView
             android:id="@+id/title"
             style="@style/TextAppearance.AppCompat.Subhead"
@@ -22,14 +34,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/googlesans_bold"
             android:gravity="center"
+            android:layout_marginTop="@dimen/margin_30_dp"
             android:text="Email Verification sent \nto your mail"
             android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.173" />
+            app:layout_constraintTop_toBottomOf="@+id/mailicon" />
 
         <TextView
             app:layout_constraintTop_toBottomOf="@+id/title"
