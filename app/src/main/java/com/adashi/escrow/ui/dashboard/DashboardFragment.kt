@@ -17,9 +17,12 @@ import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentDashboardBinding
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.*
+import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
+import com.adashi.escrow.models.createtransaction.order.allorders.Order
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.userdata.UserData
 import com.adashi.escrow.models.wallet.Balances
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
@@ -75,60 +78,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         binding.viewpager.adapter = BalanceViewPagerAdapter(money, title)
         binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        viewModel.wallet_ballance.observe(this, { response ->
-            when (response) {
-                is DataState.Success<WalletBalance> -> {
-                    // showSnackBar("Refreshed")
-                    binding.refreshLayout.isRefreshing = false
 
-                    val newformat: NumberFormat = NumberFormat.getCurrencyInstance()
-                    newformat.maximumFractionDigits = 0
-                    newformat.currency = Currency.getInstance("NGN")
-
-                    val mainBal = response.data.data.total_balance.toString()
-                    val pending = response.data.data.pending_transaction.toString()
-                    val dispute = response.data.data.dispute_order.toString()
-
-                    money.addAll(
-                        0,
-                        listOf(
-                            newformat.format(mainBal.toLong()),
-                            newformat.format(pending.toLong()),
-                            newformat.format(dispute.toLong())
-                        )
-                    )
-
-
-                    (binding.viewpager.adapter as BalanceViewPagerAdapter).notifyDataSetChanged()
-
-
-                }
-                is DataState.Error -> {
-                    showSnackBar("Slow or no Internet Connection")
-                    binding.refreshLayout.isRefreshing = false
-                }
-                is DataState.GenericError -> {
-                    showSnackBar(response.error?.message.toString())
-                    binding.refreshLayout.isRefreshing = false
-                    if (response.code!! == 403) {
-                        App.token = null
-                        showSnackBar("token expired, please login again")
-                        val editor = prefs.edit()
-                        editor.putBoolean(SessionManager.LOGINSTATE, false)
-                        editor.apply()
-                        val session = SessionManager(requireContext().applicationContext)
-                        session.clearAuthToken()
-                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToLoginFragment())
-                    } else {
-                        //showSnackBar(response.code.toString())
-                    }
-                }
-                DataState.Loading -> {
-
-                }
-            }
-        })
-        viewModel.allTransactions.observe(this, { response ->
+        /*viewModel.allTransactions.observe(this, { response ->
             when (response) {
                 is DataState.Success<TransactionsResponse> -> {
                     initAdapter(response.data.data.transactions)
@@ -152,17 +103,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
                 }
             }
-        })
-        viewModel.currentUser.observe(this, { response ->
+        })*/
+
+        viewModel.allOrders.observe(this, { response ->
             when (response) {
-                is DataState.Success<UserResponse> -> {
-                    binding.user = response.data.data
-
-                    val editor = prefs.edit()
-                    editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
-                    editor.apply()
-
-                    binding.username.text = resources.getString(R.string.agent_name,response.data.data.firstName)
+                is DataState.Success<AllOrdersResponse> -> {
+                    initAdapter(response.data.data.orders)
+                    stopShimmer()
                     binding.refreshLayout.isRefreshing = false
                 }
                 is DataState.Error -> {
@@ -176,6 +123,57 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
                     } else {
                         // showSnackBar(response.code.toString())
+                    }
+                }
+                DataState.Loading -> {
+
+                }
+            }
+        })
+
+        viewModel.currentUser.observe(this, { response ->
+            when (response) {
+                is DataState.Success<UserData> -> {
+
+                    binding.username.text = resources.getString(R.string.agent_name,response.data.data.first_name)
+                    /*val editor = prefs.edit()
+                    editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
+                    editor.apply()*/
+
+                    val newformat: NumberFormat = NumberFormat.getCurrencyInstance()
+                    newformat.maximumFractionDigits = 0
+                    newformat.currency = Currency.getInstance("NGN")
+
+                    val mainBal = response.data.data.wallet.main_balance.toString()
+                    val pending = response.data.data.wallet.pending_balance.toString()
+                    val dispute = response.data.data.wallet.dispute_balance.toString()
+
+                    money.addAll(
+                        0,
+                        listOf(
+                            newformat.format(mainBal.toLong()),
+                            newformat.format(pending.toLong()),
+                            newformat.format(dispute.toLong())
+                        )
+                    )
+
+
+                    (binding.viewpager.adapter as BalanceViewPagerAdapter).notifyDataSetChanged()
+
+
+                    binding.refreshLayout.isRefreshing = false
+                }
+                is DataState.Error -> {
+                    showSnackBar("Slow or no Internet Connection")
+                    binding.refreshLayout.isRefreshing = false
+                }
+                is DataState.GenericError -> {
+                    showSnackBar(response.error?.message.toString())
+                    binding.refreshLayout.isRefreshing = false
+                    if (response.code!! == 403) {
+                        Toast.makeText(requireContext(), "access token expired", Toast.LENGTH_SHORT).show()
+                    } else {
+                         showSnackBar(response.code.toString())
                     }
                 }
                 DataState.Loading -> {
@@ -215,14 +213,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         }
 
         binding.refreshLayout.setOnRefreshListener {
-            viewModel.getWalletBalancce()
-            viewModel.getAllTransactions()
-            viewModel.getCurrentUser()
+            viewModel.getAllOrders()
+            viewModel.getCurrentUserData()
         }
 
-        viewModel.getWalletBalancce()
-        viewModel.getAllTransactions()
-        viewModel.getCurrentUser()
+        viewModel.getAllOrders()
+        viewModel.getCurrentUserData()
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -240,12 +236,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
     }
 
-    private fun initAdapter(data: MutableList<Transaction>) {
+    private fun initAdapter(data: List<Order>) {
         val adapter = TransactionsAdapter { d ->
             var fr = ShowTransactionDetailsDialogFragment(d) { index , patchString ->
                 when (index) {
                     0 -> {
-                        updateTransaction(d.transactionId, PatchShipingStatus(patchString))
+                        updateTransaction(d.order_id , PatchShipingStatus(patchString))
                     }
                 }
             }

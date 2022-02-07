@@ -6,10 +6,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.adashi.escrow.databinding.TransactionItemLayoutBinding
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.allorders.Order
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import ng.adashi.core.BaseAdapter
 
-class TransactionsAdapter(val click : (vendor: Transaction)->Unit) : BaseAdapter<Transaction>(DiffCallBack()) {
+class TransactionsAdapter(val click : (vendor: Order)->Unit) : BaseAdapter<Order>(DiffCallBack()) {
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val view = TransactionItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return view
@@ -22,15 +23,15 @@ class TransactionsAdapter(val click : (vendor: Transaction)->Unit) : BaseAdapter
         binding.executePendingBindings()
     }
 
-    class DiffCallBack() : DiffUtil.ItemCallback<Transaction>() {
+    class DiffCallBack() : DiffUtil.ItemCallback<Order>() {
         override fun areContentsTheSame(
-            oldItem: Transaction,
-            newItem: Transaction
+            oldItem: Order,
+            newItem: Order
         ): Boolean = oldItem == newItem
 
         override fun areItemsTheSame(
-            oldItem: Transaction,
-            newItem: Transaction
+            oldItem: Order,
+            newItem: Order
         ): Boolean = oldItem._id == newItem._id
     }
 

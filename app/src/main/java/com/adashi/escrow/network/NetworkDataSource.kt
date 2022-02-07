@@ -6,12 +6,14 @@ import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
 import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.userdata.UserData
 import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
@@ -27,7 +29,8 @@ interface NetworkDataSource {
     suspend fun CreateTransaction(details : sampleTrans) : NewTransactionBodyResponse
     suspend fun GetWalletBalance() : WalletBalance
     suspend fun getAllTransactions() : TransactionsResponse
-    suspend fun getCurrentUser() : UserResponse
+    suspend fun getAllOrders() : AllOrdersResponse
+    suspend fun getCurrentUserData() : UserData
     suspend fun patchShippingStatus(trans_id : String, tras: PatchShipingStatus) : ShipmentPatchResponse
     suspend fun getNigerianBanks() : MutableList<ListOfBanksItem>
     suspend fun VerifyBvn(bvn: String) : BvnResponse

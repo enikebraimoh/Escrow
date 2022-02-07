@@ -6,12 +6,14 @@ import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
 import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.userdata.UserData
 import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.models.wallet.TransactionsResponse
@@ -49,8 +51,13 @@ class NetworkDataSourceImpl : NetworkDataSource {
         return response
     }
 
-    override suspend fun getCurrentUser(): UserResponse {
-        val response = RetrofitInstance.api.getCurrentUser()
+    override suspend fun getAllOrders(): AllOrdersResponse {
+        val response = RetrofitInstance.api.getAllOrders()
+        return response
+    }
+
+    override suspend fun getCurrentUserData(): UserData {
+        val response = RetrofitInstance.api.getCurrentUserData()
         return response
     }
 

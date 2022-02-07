@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentTransactionsBinding
+import com.adashi.escrow.models.createtransaction.order.allorders.Order
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.wallet.TransactionsResponse
@@ -38,7 +39,7 @@ class TransactionsFragment :
             viewModelProviderFactory
         ).get(TransactionsViewModel::class.java)
 
-        viewModel.allTransactions.observe(this, { response ->
+       /* viewModel.allTransactions.observe(this, { response ->
             when (response) {
                 is DataState.Success<TransactionsResponse> -> {
                     binding.shimmerViewContainer.stopShimmer()
@@ -64,19 +65,19 @@ class TransactionsFragment :
 
                 }
             }
-        })
+        })*/
 
-        viewModel.getAllTransactions()
+       // viewModel.getAllTransactions()
 
     }
 
 
-    private fun initAdapter(data: MutableList<Transaction>) {
+    private fun initAdapter(data: MutableList<Order>) {
         val adapter = TransactionsAdapter { d ->
             var fr = ShowTransactionDetailsDialogFragment(d) { index, patchString ->
                 when (index) {
                     0 -> {
-                        updateTransaction(d.transactionId, PatchShipingStatus(patchString))
+                        updateTransaction(d.order_id, PatchShipingStatus(patchString))
                     }
                 }
             }
