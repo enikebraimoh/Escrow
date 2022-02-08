@@ -5,8 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ng.adashi.network.NetworkDataSource
-import ng.adashi.network.NetworkDataSourceImpl
-import ng.adashi.network.retrofit.AdashiApis
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import javax.inject.Singleton
 
 @Module

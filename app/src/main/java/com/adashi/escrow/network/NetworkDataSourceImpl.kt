@@ -1,20 +1,19 @@
-package ng.adashi.network
+package com.adashi.escrow.network
 
-import com.adashi.escrow.models.accountname.AccountNameResponse
+import com.adashi.escrow.models.accountname.BankDetails
+import com.adashi.escrow.models.accountname.NewAccountNameResponse
 import com.adashi.escrow.models.addbank.AddBankDetails
 import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.addbank.GetAllBanksResponse
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
-import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderDetails
 import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
-import com.adashi.escrow.models.listofbanks.ListOfBanksItem
-import com.adashi.escrow.models.sampleTrans
+import com.adashi.escrow.models.listofbanks.AllNigerianBanksResponse
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse
-import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.user.NewBVNFeedBack
 import com.adashi.escrow.models.userdata.UserData
 import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
@@ -22,85 +21,80 @@ import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
 import com.adashi.escrow.ui.auth.verifyemail.models.EmailVerifyDetails
 import com.adashi.escrow.ui.auth.verifyemail.models.VerifyEmailResponse
+import com.adashi.escrow.ui.withdraw.models.WithdrawDetails
+import com.adashi.escrow.ui.withdraw.models.WithdrawResponse
 import ng.adashi.domain_models.login.LoginDetails
 import ng.adashi.network.retrofit.*
 import ng.adashi.domain_models.login.LoginToken
+import ng.adashi.network.NetworkDataSource
 
 class NetworkDataSourceImpl : NetworkDataSource {
 
     override suspend fun login(loginDetails: LoginDetails): LoginToken {
-           val response = RetrofitInstance.api.Login(loginDetails)
-           return response
+        return RetrofitInstance.api.Login(loginDetails)
     }
 
-    override suspend fun signUp(details : SignUpDetails): SignUpResponse {
-        val response = RetrofitInstance.api.SignUp(details)
-        return response
+    override suspend fun signUp(details: SignUpDetails): SignUpResponse {
+        return RetrofitInstance.api.SignUp(details)
     }
 
-    override suspend fun verifyEmail(details : EmailVerifyDetails): VerifyEmailResponse {
-        val response = RetrofitInstance.api.verifyEmail(details)
-        return response
+    override suspend fun verifyEmail(details: EmailVerifyDetails): VerifyEmailResponse {
+        return RetrofitInstance.api.verifyEmail(details)
+    }
+
+    override suspend fun withdraw(bank: WithdrawDetails): WithdrawResponse {
+        return RetrofitInstance.api.withdraw(bank)
     }
 
     override suspend fun GetWalletBalance(): WalletBalance {
-        val response = RetrofitInstance.api.getWalletBalancce()
-        return response
+        return RetrofitInstance.api.getWalletBalancce()
     }
 
     override suspend fun getAllTransactions(): TransactionsResponse {
-        val response = RetrofitInstance.api.getAllTransactions()
-        return response
+        return RetrofitInstance.api.getAllTransactions()
     }
 
     override suspend fun getAllOrders(): AllOrdersResponse {
-        val response = RetrofitInstance.api.getAllOrders()
-        return response
+        return RetrofitInstance.api.getAllOrders()
     }
 
     override suspend fun getCurrentUserData(): UserData {
-        val response = RetrofitInstance.api.getCurrentUserData()
-        return response
+        return RetrofitInstance.api.getCurrentUserData()
     }
 
-    override suspend fun patchShippingStatus(trans_id : String, tras: PatchShipingStatus): ShipmentPatchResponse {
-        val response = RetrofitInstance.api.patchTransaction(trans_id,tras)
-        return response
+    override suspend fun patchShippingStatus(
+        trans_id: String,
+        tras: PatchShipingStatus
+    ): ShipmentPatchResponse {
+        return RetrofitInstance.api.patchTransaction(trans_id, tras)
     }
 
-    override suspend fun getNigerianBanks(): MutableList<ListOfBanksItem> {
-        val response = RetrofitInstance2.api.getNigerianBanks()
-        return response
+    override suspend fun getNigerianBanks(): AllNigerianBanksResponse {
+        return RetrofitInstance.api.getNigerianBanks()
     }
 
     override suspend fun VerifyBvn(bvn: String): BvnResponse {
-        val response = RetrofitInstance.api.VerifyBvn(bvn)
-        return response
+        return RetrofitInstance.api.VerifyBvn(bvn)
     }
 
-    override suspend fun addBvn(bvn: BVN): UserResponse {
-        val response = RetrofitInstance.api.addBvn(bvn)
-        return response
+    override suspend fun addBvn(bvn: BVN): NewBVNFeedBack {
+        return RetrofitInstance.api.addBvn(bvn)
     }
 
-    override suspend fun checkAccountName(number: String): AccountNameResponse {
-        val response = RetrofitInstance.api.checkAccountName(number)
-        return response
+    override suspend fun checkAccountName(number: BankDetails): NewAccountNameResponse {
+        return RetrofitInstance.api.checkAccountName(number)
     }
 
     override suspend fun addBank(bank: AddBankDetails): AddBankResponse {
-        val response = RetrofitInstance.api.addBank(bank)
-        return response
+        return RetrofitInstance.api.addBank(bank)
     }
 
     override suspend fun getBanks(): GetAllBanksResponse {
-        val response = RetrofitInstance.api.getBanks()
-        return response
+        return RetrofitInstance.api.getBanks()
     }
 
-    override suspend fun createOrder(details: NewOrderDetails) : NewOrderResponse {
-        val response = RetrofitInstance.api.createOrder(details)
-        return response
+    override suspend fun createOrder(details: NewOrderDetails): NewOrderResponse {
+        return RetrofitInstance.api.createOrder(details)
     }
 
 }
