@@ -1,6 +1,5 @@
 package com.adashi.escrow.ui.dashboard
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -10,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -19,23 +19,17 @@ import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
 import com.adashi.escrow.models.createtransaction.*
 import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.Order
-import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.ShipmentPatchResponse
-import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.userdata.UserData
-import com.adashi.escrow.models.wallet.Balances
-import com.adashi.escrow.models.wallet.TransactionsResponse
-import com.adashi.escrow.models.wallet.WalletBalance
 import com.adashi.escrow.ui.dashboard.wallet.BalanceViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
-import ng.adashi.network.NetworkDataSourceImpl
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
 import ng.adashi.ui.withdraw.WithdrawBottomSheet
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
-import okhttp3.internal.notifyAll
 import java.text.NumberFormat
 import java.util.*
 
@@ -137,9 +131,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
                 is DataState.Success<UserData> -> {
 
                     binding.username.text = resources.getString(R.string.agent_name,response.data.data.first_name)
-                    /*val editor = prefs.edit()
+
+                    val editor = prefs.edit()
                     editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
-                    editor.apply()*/
+                    editor.apply()
 
                     val newformat: NumberFormat = NumberFormat.getCurrencyInstance()
                     newformat.maximumFractionDigits = 0
@@ -230,7 +225,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         }
 
         binding.withdrawIcon.setOnClickListener {
-            val WithdrawBS = WithdrawBottomSheet()
+            val WithdrawBS = WithdrawBottomSheet{ message ->
+                showSnackBar(message)
+            }
 
             WithdrawBS.show(requireActivity().supportFragmentManager, "something")
         }
@@ -261,13 +258,23 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
     private fun initAdapter(data: List<Order>) {
         val adapter = TransactionsAdapter { d ->
-            var fr = ShowTransactionDetailsDialogFragment(d) { index , patchString ->
+            var fr = ShowTransactionDetailsDialogFragment(d, resend = { url ->
+
+                val intent  = ShareCompat.IntentBuilder.from(requireActivity())
+                    .setType("text/plain")
+                    .setText(getString(R.string.share_transaction,url))
+                    .intent
+
+                startActivity(intent)
+
+
+            } , click =  { index , patchString ->
                 when (index) {
                     0 -> {
                         updateTransaction(d.order_id , PatchShipingStatus(patchString))
                     }
                 }
-            }
+            })
             fr.show(requireActivity().supportFragmentManager, "added fragm")
         }
 

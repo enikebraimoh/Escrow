@@ -51,10 +51,10 @@ class CreateTransactionViewModel(val app: Application, val homeRepository: HomeR
     private val _order = MutableLiveData<DataState<NewOrderResponse>>()
     val order: LiveData<DataState<NewOrderResponse>> get() = _order
 
-    private val _user = MutableLiveData<DataState<UserResponse>>()
+ /*   private val _user = MutableLiveData<DataState<UserResponse>>()
     val user: LiveData<DataState<UserResponse>> get() = _user
 
-
+*/
     // live data for error response
 
     /*For Buyers*/
