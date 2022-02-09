@@ -124,17 +124,21 @@ class WithdrawBottomSheet(val click : (message : String) -> Unit) : RoundedBotto
         })
 
         binding.proceed.setOnClickListener {
-            val passwordBS = PasswordBottomSheet{ pin ->
-                val withdrawd = WithdrawDetails(
-                    account_number = accountNumber ,
-                    amount = binding.amount.text.toString().toInt(),
-                    bank_code = bankCode ,
-                    password = pin)
+            if (validateField()){
 
-                viewModel.withdraw(withdrawd)
+                val passwordBS = PasswordBottomSheet{ pin ->
+                    val withdrawd = WithdrawDetails(
+                        account_number = accountNumber ,
+                        amount = binding.amount.text.toString().toInt(),
+                        bank_code = bankCode ,
+                        password = pin)
+
+                    viewModel.withdraw(withdrawd)
+                }
+
+                passwordBS.show(requireActivity().supportFragmentManager, "something")
             }
 
-            passwordBS.show(requireActivity().supportFragmentManager, "something")
 
         }
 
@@ -169,6 +173,25 @@ class WithdrawBottomSheet(val click : (message : String) -> Unit) : RoundedBotto
         binding.amountField.visibility = View.INVISIBLE
         binding.selectBank.visibility = View.INVISIBLE
         binding.proceed.visibility = View.INVISIBLE
+    }
+
+    private fun validateField(): Boolean {
+        return if (binding.amount.text.toString() == "" || binding.amount.text.toString() == null) {
+            binding.amountField.isErrorEnabled = true
+            binding.amountField.error = "this field cannot be left blank"
+            false
+        } else if (binding.amount.text.toString().toInt() < 500) {
+            binding.amountField.isErrorEnabled = true
+            binding.amountField.error = "amount must be greater than ₦500"
+            false
+        }else if (binding.amount.text.toString().toInt() > 500000) {
+            binding.amountField.isErrorEnabled = true
+            binding.amountField.error = "amount must be less than ₦500,000"
+            false
+        }  else {
+            binding.amountField.isErrorEnabled = false
+            true
+        }
     }
 
 }

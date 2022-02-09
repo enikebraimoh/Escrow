@@ -24,12 +24,8 @@ class PasswordBottomSheet(val click : (pin : String) -> Unit): RoundedBottomShee
 
         binding.continueBtn.setOnClickListener {
             var pin = binding.otpView.text.toString()
-            if (pin == "" || pin.isEmpty()){
-                pin = "000000"
-                click(pin)
-                dismiss()
-            }else{
-                click(pin)
+            if (validateField()){
+               click(pin)
                 dismiss()
             }
         }
@@ -38,7 +34,16 @@ class PasswordBottomSheet(val click : (pin : String) -> Unit): RoundedBottomShee
     }
 
 
-
+    private fun validateField(): Boolean {
+        return if (binding.otpView.text.toString() == "" || binding.otpView.text.toString() == null) {
+            binding.otpViewField.isErrorEnabled = true
+            binding.otpViewField.error = "please enter your password"
+            false
+        } else {
+            binding.otpViewField.isErrorEnabled = false
+            true
+        }
+    }
 
 
 
