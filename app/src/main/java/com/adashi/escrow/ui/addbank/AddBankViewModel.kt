@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adashi.escrow.models.accountname.AccountNameResponse
+import com.adashi.escrow.models.accountname.BankDetails
+import com.adashi.escrow.models.accountname.NewAccountNameResponse
 import com.adashi.escrow.models.addbank.AddBankDetails
 import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
+import com.adashi.escrow.models.listofbanks.AllNigerianBanksResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
 import com.adashi.escrow.repository.SettingsRepository
@@ -21,11 +24,11 @@ import ng.adashi.utils.DataState
 class AddBankViewModel(val app: Application, val settingsRepository: SettingsRepository) : ViewModel() {
 
 
-    private val _banks = MutableLiveData<DataState<MutableList<ListOfBanksItem>>>()
-    val banks: LiveData<DataState<MutableList<ListOfBanksItem>>> get() = _banks
+    private val _banks = MutableLiveData<DataState<AllNigerianBanksResponse>>()
+    val banks: LiveData<DataState<AllNigerianBanksResponse>> get() = _banks
 
-    private val _name = MutableLiveData<DataState<AccountNameResponse>>()
-    val name: LiveData<DataState<AccountNameResponse>> get() = _name
+    private val _name = MutableLiveData<DataState<NewAccountNameResponse>>()
+    val name: LiveData<DataState<NewAccountNameResponse>> get() = _name
 
     private val _res = MutableLiveData<DataState<AddBankResponse>>()
     val res: LiveData<DataState<AddBankResponse>> get() = _res
@@ -41,7 +44,7 @@ class AddBankViewModel(val app: Application, val settingsRepository: SettingsRep
         }
     }
 
-    fun getAccountName(number : String) {
+    fun getAccountName(number : BankDetails) {
         viewModelScope.launch {
             settingsRepository.checkAccountName(number).onEach { state ->
                 _name.value = state
