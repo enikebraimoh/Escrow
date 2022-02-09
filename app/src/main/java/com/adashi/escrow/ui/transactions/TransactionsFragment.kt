@@ -2,24 +2,19 @@ package com.adashi.escrow.ui.transactions
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentTransactionsBinding
 import com.adashi.escrow.models.createtransaction.order.allorders.AllOrdersResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.Order
-import com.adashi.escrow.models.shipmentpatch.Transaction
 import com.adashi.escrow.models.shipmentpatch.PatchShipingStatus
-import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.ui.dashboard.*
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
-import ng.adashi.network.NetworkDataSourceImpl
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.HomeRepository
 import ng.adashi.utils.App
@@ -89,13 +84,22 @@ class TransactionsFragment :
 
     private fun initAdapter(data: List<Order>) {
         val adapter = TransactionsAdapter { d ->
-            var fr = ShowTransactionDetailsDialogFragment(d) { index , patchString ->
+            var fr = ShowTransactionDetailsDialogFragment(d, resend = { url ->
+
+                val intent  = ShareCompat.IntentBuilder.from(requireActivity())
+                    .setType("text/plain")
+                    .setText(getString(R.string.share_transaction,url))
+                    .intent
+
+                startActivity(intent)
+
+            }, { index , patchString ->
                 when (index) {
                     0 -> {
                         updateTransaction(d.order_id , PatchShipingStatus(patchString))
                     }
                 }
-            }
+            })
             fr.show(requireActivity().supportFragmentManager, "added fragm")
         }
 

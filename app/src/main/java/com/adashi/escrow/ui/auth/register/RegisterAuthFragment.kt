@@ -1,17 +1,14 @@
 package com.adashi.escrow.ui.auth.register
 
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentRegisterAuthBinding
 import com.adashi.escrow.models.signup.SignUpResponse
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
-import ng.adashi.network.NetworkDataSourceImpl
-import ng.adashi.network.SessionManager
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.repository.AuthRepository
 import ng.adashi.utils.DataState
 

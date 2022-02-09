@@ -38,10 +38,11 @@
         <entry key="app/src/main/res/layout/fragment_register_auth.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.28072916666666664" />
         <entry key="app/src/main/res/layout/fragment_transactions.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_verify_bnv_otp.xml" value="0.309375" />
+        <entry key="app/src/main/res/layout/fragment_verify_bnv_otp.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_verify_email.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_verify_user_email.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_withdrawal_banks.xml" value="0.2759259259259259" />
+        <entry key="app/src/main/res/layout/password_bottom_sheet.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/sucess_bottom_sheet_dialogue.xml" value="0.335" />
         <entry key="app/src/main/res/layout/transaction_bg.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/transaction_details_bottom_sheet_dialogue.xml" value="0.335" />

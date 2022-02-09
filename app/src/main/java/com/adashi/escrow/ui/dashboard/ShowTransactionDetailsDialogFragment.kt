@@ -16,9 +16,12 @@ import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.createtransaction.order.allorders.Order
 import com.adashi.escrow.models.shipmentpatch.Transaction
 import ng.adashi.utils.RoundedBottomSheet
+import java.text.NumberFormat
+import java.util.*
 
 class ShowTransactionDetailsDialogFragment(
     val data: Order,
+    val resend : (url : String) -> Unit,
     val click: (id: Int, patch: Int) -> Unit
 ) :
     RoundedBottomSheet() {
@@ -42,7 +45,12 @@ class ShowTransactionDetailsDialogFragment(
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.transPrice.text = data.price.toString()
+        val newformat: NumberFormat = NumberFormat.getCurrencyInstance()
+        newformat.setMaximumFractionDigits(0)
+        newformat.setCurrency(Currency.getInstance("NGN"))
+        val bal = data.total
+
+        binding.transPrice.text = newformat.format(bal)
 
         binding.transaStatus.text = if (data.payment_status == 0) "Paid" else "Not Paid"
 
@@ -67,6 +75,8 @@ class ShowTransactionDetailsDialogFragment(
         if (data.payment_status == 0) {
             if (data.settlement_status == 0) {
                 binding.ShipmentStatusField.isEnabled = false
+                binding.resend.visibility = View.GONE
+                binding.urlButton.visibility = View.GONE
                 binding.ShipmentStatusField.hint = if (data.shipment_status == 3) "Delivered"
                 else if(data.settlement_status == 0) "Shipped" else "Not Shipped"
                 binding.transaStatus.text = "Settled"
@@ -79,6 +89,7 @@ class ShowTransactionDetailsDialogFragment(
                     binding.transaStatus.text = "Dispute"
                     binding.ShipmentStatusField.isEnabled = false
                     binding.transaStatus.text = "Order in Dispute"
+                    binding.urlButton.setBackgroundColor(Color.parseColor("#0F2965"))
                     binding.shipmentStatus.isEnabled = false
                     binding.urlButton.isEnabled = false
                     binding.transTag.setBackgroundColor(Color.RED)
@@ -86,6 +97,7 @@ class ShowTransactionDetailsDialogFragment(
                     binding.ShipmentStatusField.isEnabled = true
                     binding.shipmentStatus.isEnabled = true
                     binding.urlButton.isEnabled = true
+                    binding.urlButton.setBackgroundColor(Color.parseColor("#0F2965"))
                     binding.ShipmentStatusField.hint = if (data.shipment_status == 3) "Delivered"
                     else if(data.settlement_status == 0) "Shipped" else "Not Shipped"
                     binding.transaStatus.text = "Buyer Payment Success"
@@ -100,6 +112,7 @@ class ShowTransactionDetailsDialogFragment(
             binding.transaStatus.text = "Awating buyer's payment"
             binding.shipmentStatus.isEnabled = false
             binding.urlButton.isEnabled = false
+            binding.urlButton.setBackgroundColor(Color.parseColor("#E6E6E6"))
             binding.transTag.setBackgroundColor(Color.YELLOW)
         }
 
@@ -109,6 +122,12 @@ class ShowTransactionDetailsDialogFragment(
                 click(0, if (value == "Order has Delivered") 2 else 0 )
                 dismiss()
             }
+        }
+
+        binding.resend.setOnClickListener {
+           // val value = binding.shipmentStatus.text.toString()
+                resend(data.pay_link)
+                dismiss()
         }
     }
 

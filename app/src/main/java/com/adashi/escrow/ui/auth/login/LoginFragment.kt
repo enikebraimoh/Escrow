@@ -4,24 +4,18 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
-import ng.adashi.domain_models.login.LoginResponse
 import ng.adashi.domain_models.login.LoginToken
-import ng.adashi.network.NetworkDataSourceImpl
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.repository.AuthRepository
-import ng.adashi.utils.App
 import ng.adashi.utils.DataState
-import okhttp3.internal.wait
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
