@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
 import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import com.adashi.escrow.models.sampleTrans
+import com.adashi.escrow.models.user.NewBVNFeedBack
 import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
@@ -20,8 +21,8 @@ import ng.adashi.utils.DataState
 
 class VerifyOtpBvnViewModel(val app: Application, val settingsRepository: SettingsRepository) : ViewModel() {
 
-    private val _banks = MutableLiveData<DataState<UserResponse>>()
-    val banks: LiveData<DataState<UserResponse>> get() = _banks
+    private val _banks = MutableLiveData<DataState<NewBVNFeedBack>>()
+    val banks: LiveData<DataState<NewBVNFeedBack>> get() = _banks
 
     fun addBvn(bvn : BVN) {
         viewModelScope.launch {

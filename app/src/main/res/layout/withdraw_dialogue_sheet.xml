@@ -10,8 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:padding="10dp"
-        android:background="@drawable/cornercircle"
+        android:background="?android:colorBackground"
         android:layout_height="wrap_content">
+
 
         <FrameLayout
             android:id="@+id/bar"
@@ -23,8 +24,9 @@
             android:layout_width="30dp"
             android:layout_height="5dp" />
 
+
         <TextView
-            android:id="@+id/login"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -49,7 +51,7 @@
             app:startIconDrawable="@drawable/ic_ngn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login">
+            app:layout_constraintTop_toBottomOf="@+id/title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amount"
@@ -63,13 +65,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ammount_field"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:id="@+id/select_bank"
             android:layout_width="match_parent"
+            android:background="@drawable/rounded_gray_background"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:hint="Select bank account"
+            android:paddingBottom="@dimen/margin_20_dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/googlesans_regular"
             app:helperTextEnabled="true"
@@ -77,14 +80,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/amount_field">
 
-            <AutoCompleteTextView
-                android:id="@+id/shipment_status"
-                android:inputType="none"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/spinner"
+                android:text="bank"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/googlesans_regular"
-                android:padding="20dp"
-                android:singleLine="false" />
+                android:layout_width="match_parent"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +101,24 @@
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ammount_field" />
+            app:layout_constraintTop_toBottomOf="@+id/select_bank" />
+
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:indeterminateTint="@color/primaryColor"
+            android:indeterminateTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.445" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

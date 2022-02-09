@@ -6,41 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.adashi.escrow.R
-import com.adashi.escrow.databinding.AddBankBottomSheetDialogueBinding
-import com.adashi.escrow.databinding.SucessBottomSheetDialogueBinding
-import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.listofbanks.ListOfBanks
-import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 import ng.adashi.utils.RoundedBottomSheet
-import com.adashi.escrow.MainActivity
-import com.adashi.escrow.ShowSucessDialogFragment
 import com.adashi.escrow.databinding.VerifyBvnBottomSheetDialogueBinding
-import com.adashi.escrow.models.user.UserResponse
-import com.adashi.escrow.models.verifybvn.BVN
 import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.repository.SettingsRepository
-import com.adashi.escrow.ui.createtransaction.CreateTransactionFactory
-import com.adashi.escrow.ui.createtransaction.CreateTransactionViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
-import ng.adashi.network.NetworkDataSourceImpl
-import ng.adashi.network.SessionManager
-import ng.adashi.repository.HomeRepository
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
 
 
 class VerifyBvnDialogFragment(val click: (id: Int,bvn: String,phone: String) -> Unit) : RoundedBottomSheet() {
     lateinit var binding: VerifyBvnBottomSheetDialogueBinding
+    var data = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +59,7 @@ class VerifyBvnDialogFragment(val click: (id: Int,bvn: String,phone: String) -> 
         viewModel.navigateToLogin.observe(this,{
             if (it){
                 viewModel.navigateToLoginDone()
+                data = false
             }
 
         })
@@ -85,19 +69,23 @@ class VerifyBvnDialogFragment(val click: (id: Int,bvn: String,phone: String) -> 
             displayProgressBar(true)
            // val bvn = BVN(binding.bvn.text.toString())
             viewModel.navigateButtonClicked()
+            data = true
             viewModel.VerifyBvn(binding.bvn.text.toString())
         }
 
         viewModel.banks.observe(this, { response ->
             when (response) {
                 is DataState.Success<BvnResponse> -> {
-                    displayProgressBar(false)
+                    if (data){
+                        displayProgressBar(false)
 
-                   /* val editor = prefs.edit()
-                    editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
-                    editor.apply()*/
-                        click(0,binding.bvn.text.toString(),response.data.data.phoneNumber)
+                         /*val editor = prefs.edit()
+                         editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
+                         editor.apply()*/
+
+                        click(0,binding.bvn.text.toString(),response.data.data.phone_number)
                         dismiss()
+                    }
 
                 }
                 is DataState.Error -> {
@@ -113,6 +101,7 @@ class VerifyBvnDialogFragment(val click: (id: Int,bvn: String,phone: String) -> 
                         findNavController().popBackStack()
                     }
                     else{
+                        Toast.makeText(requireContext(),response.code.toString() , Toast.LENGTH_SHORT).show()
                         showSnackBar(response.code.toString())
                         dismiss()
                     }

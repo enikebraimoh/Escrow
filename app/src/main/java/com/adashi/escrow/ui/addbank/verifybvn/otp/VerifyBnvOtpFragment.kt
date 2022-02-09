@@ -2,29 +2,19 @@ package com.adashi.escrow.ui.addbank.verifybvn.otp
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.adashi.escrow.R
 import com.adashi.escrow.databinding.FragmentVerifyBnvOtpBinding
-import com.adashi.escrow.models.user.UserResponse
+import com.adashi.escrow.models.user.NewBVNFeedBack
 import com.adashi.escrow.models.verifybvn.BVN
-import com.adashi.escrow.models.verifybvn.BvnResponse
 import com.adashi.escrow.repository.SettingsRepository
-import com.adashi.escrow.ui.addbank.verifybvn.VerifyBnvFactory
-import com.adashi.escrow.ui.addbank.verifybvn.VerifyBvnViewModel
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
-import ng.adashi.network.NetworkDataSourceImpl
-import com.mukesh.OnOtpCompletionListener
-
-import com.mukesh.OtpView
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
@@ -60,12 +50,13 @@ class VerifyBnvOtpFragment : BaseFragment<FragmentVerifyBnvOtpBinding>(R.layout.
 
         viewModel.banks.observe(this, { response ->
             when (response) {
-                is DataState.Success<UserResponse> -> {
+                is DataState.Success<NewBVNFeedBack> -> {
                     displayProgressBar(false)
 
                      val editor = prefs.edit()
-                     editor.putString(SessionManager.USER_BVN,response.data.data.bvn)
+                     editor.putString(SessionManager.USER_BVN,response.data.data.user.bvn)
                      editor.apply()
+
                     Toast.makeText(requireContext(), "BVN Verified Successfully", Toast.LENGTH_SHORT).show()
                     showSnackBar("BVN Verified Successfully")
                     findNavController().popBackStack()
