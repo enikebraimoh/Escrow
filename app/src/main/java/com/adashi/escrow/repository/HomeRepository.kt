@@ -13,6 +13,8 @@ import com.adashi.escrow.models.user.UserResponse
 import com.adashi.escrow.models.userdata.UserData
 import com.adashi.escrow.models.wallet.TransactionsResponse
 import com.adashi.escrow.models.wallet.WalletBalance
+import com.adashi.escrow.ui.withdraw.models.WithdrawDetails
+import com.adashi.escrow.ui.withdraw.models.WithdrawResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ng.adashi.network.NetworkDataSource
