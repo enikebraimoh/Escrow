@@ -11,10 +11,11 @@ import com.adashi.escrow.models.listofbanks.ListOfBanksItem
 
 import android.widget.TextView
 import com.adashi.escrow.R
+import com.adashi.escrow.models.listofbanks.Bank
 import com.squareup.picasso.Picasso
 
-class BanksAdapter(context: Context, var array: MutableList<ListOfBanksItem>) :
-    ArrayAdapter<ListOfBanksItem>(
+class BanksAdapter(context: Context, var array: List<Bank>) :
+    ArrayAdapter<Bank>(
         context,
         R.layout.banks_item,
         array
@@ -31,13 +32,8 @@ class BanksAdapter(context: Context, var array: MutableList<ListOfBanksItem>) :
             var bankName: TextView = listItem?.findViewById(R.id.my_bank_name)!!
             bankName.setText(item.name)
 
-            var imageurl: ImageView = listItem.findViewById(R.id.bank_logo)!!
+            //var imageurl: ImageView = listItem.findViewById(R.id.bank_logo)!!
 
-            Picasso.get()
-                .load(item.logo)
-                .resize(50, 50)
-                .centerCrop()
-                .into(imageurl)
         }
 
         return listItem!!
