@@ -10,5 +10,6 @@ data class Data(
     val last_name: String,
     val phone_number: String,
     val updatedAt: String,
-    val wallet: Wallet
+    val wallet: Wallet,
+    val bvn: String
 )
