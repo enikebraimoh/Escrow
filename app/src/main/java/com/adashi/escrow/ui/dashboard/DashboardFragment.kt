@@ -279,7 +279,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         }
 
         binding.recyclerView.adapter = adapter
-        adapter.submitList(data)
+
+        if (data.size > 5) {
+            val newData = data.slice(0..4)
+            adapter.submitList(newData)
+        } else {
+            adapter.submitList(data)
+        }
     }
 
     private fun updateTransaction(transaction_id: String, body : PatchShipingStatus) {

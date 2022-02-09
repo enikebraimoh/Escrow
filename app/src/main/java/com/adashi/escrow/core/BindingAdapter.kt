@@ -56,7 +56,7 @@ fun convertTag(tv: TextView, data: Order) {
     if (data.settlement_status ==0) {
        tv.setBackgroundColor(Color.GREEN)
     } else if (data.settlement_status == null) {
-        tv.setBackgroundColor(Color.YELLOW)
+        tv.setBackgroundColor(Color.parseColor("#F7A74F"))
     }else if(data.settlement_status == 1){
         tv.setBackgroundColor(Color.RED)
     }
