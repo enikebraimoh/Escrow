@@ -20,20 +20,21 @@ import com.adashi.escrow.models.addbank.AddBankDetails
 import com.adashi.escrow.models.addbank.AddBankResponse
 import com.adashi.escrow.models.listofbanks.AllNigerianBanksResponse
 import com.adashi.escrow.models.listofbanks.Bank
+import com.adashi.escrow.network.NetworkDataSourceImpl
 import com.adashi.escrow.repository.SettingsRepository
 import com.google.android.material.snackbar.Snackbar
-import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
 import ng.adashi.utils.RoundedBottomSheet
 
 
-class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : RoundedBottomSheet() {
+class AddBankDialogFragment(val click: (id: Int, message: String) -> Unit) : RoundedBottomSheet() {
     lateinit var binding: AddBankBottomSheetDialogueBinding
     lateinit var bankname: String
     lateinit var bankcode: String
 
     var data = false
+    var bdata = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +75,13 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
 
         })
 
+        viewModel.fetchName.observe(this, {
+            if (!it) {
+                bdata = false
+            }
+
+        })
+
         viewModel.banks.observe(this, { response ->
             when (response) {
                 is DataState.Success<AllNigerianBanksResponse> -> {
@@ -109,29 +117,35 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
         viewModel.name.observe(this, { response ->
             when (response) {
                 is DataState.Success<NewAccountNameResponse> -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    binding.accountName.visibility = View.VISIBLE
-                    binding.accountName.text = response.data.data.account.account_name
-
+                    if (bdata){
+                        binding.progressBar.visibility = View.INVISIBLE
+                        binding.accountName.visibility = View.VISIBLE
+                        binding.accountName.text = response.data.data.account.account_name
+                        viewModel.fetchedName()
+                    }
                 }
                 is DataState.Error -> {
-
-                    showSnackBar("Slow or no Internet Connection")
+                    if (bdata){
+                        showSnackBar("Slow or no Internet Connection")
+                        viewModel.fetchedName()
+                    }
                 }
                 is DataState.GenericError -> {
+                    if (bdata){
+                        viewModel.fetchedName()
+                        if (response.code!! == 403) {
+                            App.token = null
 
-                    if (response.code!! == 403) {
-                        App.token = null
-
-                        showSnackBar("token expired, please login again")
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            response.error?.message.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        showSnackBar(response.code.toString())
+                            showSnackBar("token expired, please login again")
+                            findNavController().popBackStack()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                response.error?.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showSnackBar(response.code.toString())
+                        }
                     }
                 }
                 DataState.Loading -> {
@@ -146,7 +160,7 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
                     if (data) {
                         //showSnackBar("Bank account Added")
                         binding.addbank.visibility = View.VISIBLE
-                        click(1,"Bank account Added")
+                        click(1, "Bank account Added")
                         viewModel.navigateToLoginDone()
                         data = false
                         dismiss()
@@ -154,7 +168,7 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
                 }
                 is DataState.Error -> {
                     showSnackBar("Slow or no Internet Connection")
-                    click(1,"Slow or no Internet Connection")
+                    click(1, "Slow or no Internet Connection")
                     dismiss()
                 }
                 is DataState.GenericError -> {
@@ -164,12 +178,12 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
                             binding.addbank.visibility = View.VISIBLE
                             showSnackBar("token expired, please login again")
                             findNavController().popBackStack()
-                            click(1,"token expired, please login again")
+                            click(1, "token expired, please login again")
                             dismiss()
                         } else {
                             binding.addbank.visibility = View.VISIBLE
                             showSnackBar(response.error?.message.toString())
-                            click(1,response.error?.message.toString())
+                            click(1, response.error?.message.toString())
                             dismiss()
                         }
                     }
@@ -187,9 +201,10 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
 
         val input_finish_checker = Runnable {
             if (System.currentTimeMillis() > last_text_edit + delay - 500) {
-
                 val bank = BankDetails(binding.bankNumber.text.toString(), bankcode)
                 viewModel.getAccountName(bank)
+                viewModel.fetchingName()
+                bdata = true
             }
         }
 
@@ -210,7 +225,7 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
 
             override fun afterTextChanged(s: Editable) {
                 //avoid triggering event when text is empty
-                if (s.length > 0) {
+                if (s.length == 10) {
                     last_text_edit = System.currentTimeMillis()
                     handler.postDelayed(input_finish_checker, delay)
                 } else {
@@ -248,15 +263,39 @@ class AddBankDialogFragment(val click: (id: Int, message : String) -> Unit) : Ro
                 bank_code = bankcode
             )
             //Toast.makeText(requireContext(), bank.toString(), Toast.LENGTH_SHORT).show()
-            viewModel.addBank(bank)
-            data = true
-            viewModel.navigateButtonClicked()
+            if (validateField()){
+                viewModel.addBank(bank)
+                data = true
+                viewModel.navigateButtonClicked()
+               // binding.accountName.text = ""
+            }
         }
 
     }
 
+    private fun validateField(): Boolean {
+        return if (binding.bankNumber.text.toString() == "" || binding.bankNumber.text.toString() == null) {
+            binding.bankNumberField.isErrorEnabled = true
+            binding.bankNumberField.error = "this field cannot be left blank"
+            false
+        } else if (binding.bankNumber.text.toString().length < 10) {
+            binding.bankNumberField.isErrorEnabled = true
+            binding.bankNumberField.error = "accounnt number must be 10"
+            false
+        } else {
+            binding.bankNumberField.isErrorEnabled = false
+            true
+        }
+    }
+
     private fun showSnackBar(message: String) {
         Snackbar.make(requireActivity(), binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        binding.accountName.text = ""
+
     }
 
 }

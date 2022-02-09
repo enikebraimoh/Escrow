@@ -46,8 +46,6 @@ class ShowTransactionDetailsDialogFragment(
         newformat.setCurrency(Currency.getInstance("NGN"))
         val bal = data.total
 
-        Toast.makeText(requireContext(),data.settlement_status.toString(), Toast.LENGTH_SHORT).show()
-
         binding.transPrice.text = newformat.format(bal)
 
         binding.transaStatus.text = if (data.payment_status == 0) "Paid" else "Not Paid"

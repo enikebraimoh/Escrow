@@ -36,6 +36,9 @@ class AddBankViewModel(val app: Application, val settingsRepository: SettingsRep
     private val _navigateToLogin = MutableLiveData<Boolean>()
     val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
 
+    private val _fetchName = MutableLiveData<Boolean>()
+    val fetchName: LiveData<Boolean> get() = _fetchName
+
     fun getNigerianBanks() {
         viewModelScope.launch {
             settingsRepository.getNigerianBanks().onEach { state ->
@@ -60,12 +63,21 @@ class AddBankViewModel(val app: Application, val settingsRepository: SettingsRep
         }
     }
 
+
     fun navigateButtonClicked() {
         _navigateToLogin.value = true
     }
 
     fun navigateToLoginDone() {
         _navigateToLogin.value = false
+    }
+
+    fun fetchingName() {
+        _fetchName.value = true
+    }
+
+    fun fetchedName() {
+        _fetchName.value = false
     }
 
 

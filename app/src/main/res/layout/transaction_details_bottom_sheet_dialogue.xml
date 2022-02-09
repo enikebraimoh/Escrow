@@ -57,7 +57,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:fontFamily="@font/googlesans_medium"
                     android:textSize="25dp"
-                    tools:text="buy car" />
+                    tools:text="Car" />
             </LinearLayout>
 
             <LinearLayout
