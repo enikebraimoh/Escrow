@@ -58,7 +58,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info" />
 
-
         <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/spin_kit"
             android:visibility="invisible"
@@ -83,7 +82,6 @@
             android:textAllCaps="false"
             android:text="Confirm OTP"
             android:layout_height="wrap_content"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
