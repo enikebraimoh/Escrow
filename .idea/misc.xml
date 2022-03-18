@@ -53,6 +53,7 @@
         <entry key="app/src/main/res/layout/withdraw_dialogue_sheet.xml" value="0.2953125" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1359375" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.2953125" />
       </map>
     </option>
   </component>

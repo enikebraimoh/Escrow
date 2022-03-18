@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -80,6 +81,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
+                    Toast.makeText(requireContext(), response.error.localizedMessage.toString(), Toast.LENGTH_SHORT).show()
+                    Log.d("testt",response.error.message.toString())
                     showSnackBar("Slow or no Internet Connection")
                 }
                 is DataState.GenericError -> {
