@@ -15,7 +15,6 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-
 class AuthRepository
 @Inject
     constructor(private val networkDataSource: NetworkDataSource) {
