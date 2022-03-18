@@ -49,5 +49,4 @@ interface NetworkDataSource {
     suspend fun getBanks() : GetAllBanksResponse
     suspend fun verifyEmail(details : EmailVerifyDetails): VerifyEmailResponse
     suspend fun withdraw(bank : WithdrawDetails) : WithdrawResponse
-
 }
