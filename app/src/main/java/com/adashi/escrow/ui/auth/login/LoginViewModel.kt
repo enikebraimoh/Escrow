@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -29,11 +30,11 @@ class LoginViewModel(val app: Application, val authRepository: AuthRepository) :
     private val _login = MutableLiveData<DataState<LoginToken>>()
     val login: LiveData<DataState<LoginToken>> get() = _login
 
-    private val _passwordError = MutableLiveData<String>()
-    val passwordError: LiveData<String> get() = _passwordError
+    private val _passwordError = MutableLiveData<String?>()
+    val passwordError: MutableLiveData<String?> get() = _passwordError
 
-    private val _emailError = MutableLiveData<String>()
-    val emailError: LiveData<String> get() = _emailError
+    private val _emailError = MutableLiveData<String?>()
+    val emailError: LiveData<String?> get() = _emailError
 
     fun login() {
         if (verifyEmail()) {
@@ -55,7 +56,7 @@ class LoginViewModel(val app: Application, val authRepository: AuthRepository) :
                         navigate()
                     }
                 }
-            }.launchIn(viewModelScope)
+            }
         }
     }
 
