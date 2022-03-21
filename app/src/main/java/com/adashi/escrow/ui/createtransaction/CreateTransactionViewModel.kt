@@ -7,21 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adashi.escrow.R
-import com.adashi.escrow.models.createtransaction.Buyer
-import com.adashi.escrow.models.createtransaction.NewTransactionBodyResponse
-import com.adashi.escrow.models.createtransaction.NewTransactionRequestBody
-import com.adashi.escrow.models.createtransaction.Seller
 import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderDetails
 import com.adashi.escrow.models.createtransaction.order.neworder.NewOrderResponse
-import com.adashi.escrow.models.sampleTrans
-import com.adashi.escrow.models.signup.SignUpDetails
-import com.adashi.escrow.models.signup.SignUpResponse
-import com.adashi.escrow.models.user.UserResponse
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ng.adashi.network.SessionManager
-import ng.adashi.repository.AuthRepository
 import ng.adashi.repository.HomeRepository
 import ng.adashi.utils.DataState
 
