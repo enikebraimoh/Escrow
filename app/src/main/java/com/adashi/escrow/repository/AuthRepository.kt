@@ -1,4 +1,4 @@
-package ng.adashi.repository
+package com.adashi.escrow.repository
 
 import com.adashi.escrow.models.signup.SignUpDetails
 import com.adashi.escrow.models.signup.SignUpResponse

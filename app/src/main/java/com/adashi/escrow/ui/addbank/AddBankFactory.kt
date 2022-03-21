@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.adashi.escrow.repository.SettingsRepository
-import ng.adashi.repository.AuthRepository
-import ng.adashi.repository.HomeRepository
 
 class AddBankFactory (
     val app : Application,
