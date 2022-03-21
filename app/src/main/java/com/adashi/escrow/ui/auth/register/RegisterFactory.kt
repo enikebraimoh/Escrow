@@ -3,7 +3,7 @@ package com.adashi.escrow.ui.auth.register
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ng.adashi.repository.AuthRepository
+import com.adashi.escrow.repository.AuthRepository
 
 class RegisterFactory (
     val app : Application,

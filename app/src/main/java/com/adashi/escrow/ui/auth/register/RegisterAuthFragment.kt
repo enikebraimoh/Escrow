@@ -9,7 +9,7 @@ import com.adashi.escrow.models.signup.SignUpResponse
 import com.google.android.material.snackbar.Snackbar
 import ng.adashi.core.BaseFragment
 import com.adashi.escrow.network.NetworkDataSourceImpl
-import ng.adashi.repository.AuthRepository
+import com.adashi.escrow.repository.AuthRepository
 import ng.adashi.utils.DataState
 
 

@@ -3,7 +3,7 @@ package com.adashi.escrow.ui.auth.login
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ng.adashi.repository.AuthRepository
+import com.adashi.escrow.repository.AuthRepository
 
 class LoginFactory (
     val app : Application,
