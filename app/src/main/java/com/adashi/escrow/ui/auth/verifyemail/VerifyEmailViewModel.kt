@@ -11,11 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ng.adashi.domain_models.login.LoginDetails
-import ng.adashi.domain_models.login.LoginResponse
-import ng.adashi.domain_models.login.LoginToken
 import ng.adashi.network.SessionManager
-import ng.adashi.repository.AuthRepository
+import com.adashi.escrow.repository.AuthRepository
 import ng.adashi.utils.App
 import ng.adashi.utils.DataState
 import javax.inject.Inject

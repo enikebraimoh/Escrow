@@ -3,7 +3,6 @@ package com.adashi.escrow.ui.transactions
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ng.adashi.repository.AuthRepository
 import ng.adashi.repository.HomeRepository
 
 class TransactionsFactory (

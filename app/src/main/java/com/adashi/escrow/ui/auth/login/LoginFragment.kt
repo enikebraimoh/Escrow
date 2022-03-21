@@ -15,7 +15,7 @@ import ng.adashi.core.BaseFragment
 import ng.adashi.domain_models.login.LoginToken
 import com.adashi.escrow.network.NetworkDataSourceImpl
 import ng.adashi.network.SessionManager
-import ng.adashi.repository.AuthRepository
+import com.adashi.escrow.repository.AuthRepository
 import ng.adashi.utils.DataState
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
